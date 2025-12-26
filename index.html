@@ -60,7 +60,7 @@
 		<div class="current-time-bar">
 			<div class="current-date">{{ formattedDate }}</div>
 			<div class="current-time-wrapper">
-				<div class="current-time">{{ formattedTime }}</div>
+				<div class="current-time" @click="resetToCurrentTime" title="Click to reset to current time">{{ formattedTime }}</div>
 				<button class="btn btn-small" @click="use24Hour = !use24Hour">
 					{{ use24Hour ? '24h' : '12h' }}
 				</button>

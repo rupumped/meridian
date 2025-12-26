@@ -162,6 +162,12 @@
 			font-size: 20px;
 			font-weight: 600;
 			color: var(--accent);
+			cursor: pointer;
+			transition: transform 0.15s;
+		}
+
+		.current-time:hover {
+			transform: scale(1.05);
 		}
 
 		.btn-small {

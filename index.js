@@ -255,16 +255,21 @@ createApp({
 			}
 		}
 
+		// Reset to current time
+		function resetToCurrentTime() {
+			offsetHours.value = 0;
+		}
+
 		// Drag handling for time scrolling
 		function startDrag(e) {
 			isDragging.value = true;
 			const clientX = e.type === 'touchstart' ? e.touches[0].clientX : e.clientX;
 			dragStartX.value = clientX;
 			dragStartOffset.value = offsetHours.value;
-			
+
 			// Hide instructions after first drag
 			showInstructions.value = false;
-			
+
 			document.addEventListener('mousemove', onDrag);
 			document.addEventListener('mouseup', endDrag);
 			document.addEventListener('touchmove', onDrag, { passive: false });
@@ -756,6 +761,7 @@ createApp({
 			addTimezone,
 			removeTimezone,
 			selectFirstResult,
+			resetToCurrentTime,
 			startDrag,
 			onDragStart,
 			onDragOver,
