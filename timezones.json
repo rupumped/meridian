@@ -1,2117 +1,1694 @@
 [
   {
     "name": "Europe/Andorra",
-    "label": "Andorra",
-    "country": "Europe"
+    "label": "Andorra"
   },
   {
     "name": "Asia/Dubai",
-    "label": "United Arab Emirates",
-    "country": "Asia"
+    "label": "United Arab Emirates"
   },
   {
     "name": "Asia/Dubai",
-    "label": "Oman",
-    "country": "Asia"
+    "label": "Oman"
   },
   {
     "name": "Asia/Dubai",
-    "label": "Réunion",
-    "country": "Asia"
+    "label": "Réunion"
   },
   {
     "name": "Asia/Dubai",
-    "label": "Seychelles",
-    "country": "Asia"
+    "label": "Seychelles"
   },
   {
     "name": "Asia/Dubai",
-    "label": "French S. Terr.",
-    "country": "Asia"
+    "label": "French S. Terr."
   },
   {
     "name": "Asia/Kabul",
-    "label": "Afghanistan",
-    "country": "Asia"
+    "label": "Afghanistan"
   },
   {
     "name": "Europe/Tirane",
-    "label": "Albania",
-    "country": "Europe"
+    "label": "Albania"
   },
   {
     "name": "Asia/Yerevan",
-    "label": "Armenia",
-    "country": "Asia"
+    "label": "Armenia"
   },
   {
     "name": "Antarctica/Casey",
-    "label": "Antarctica",
-    "country": "Antarctica"
+    "label": "Antarctica"
   },
   {
     "name": "Antarctica/Davis",
-    "label": "Antarctica",
-    "country": "Antarctica"
+    "label": "Antarctica"
   },
   {
     "name": "Antarctica/Mawson",
-    "label": "Antarctica",
-    "country": "Antarctica"
+    "label": "Antarctica"
   },
   {
     "name": "Antarctica/Palmer",
-    "label": "Antarctica",
-    "country": "Antarctica"
+    "label": "Antarctica"
   },
   {
     "name": "Antarctica/Rothera",
-    "label": "Antarctica",
-    "country": "Antarctica"
+    "label": "Antarctica"
   },
   {
     "name": "Antarctica/Troll",
-    "label": "Antarctica",
-    "country": "Antarctica"
+    "label": "Antarctica"
   },
   {
     "name": "Antarctica/Vostok",
-    "label": "Antarctica",
-    "country": "Antarctica"
+    "label": "Antarctica"
   },
   {
     "name": "America/Argentina/Buenos_Aires",
-    "label": "Argentina",
-    "country": "America"
+    "label": "Argentina"
   },
   {
     "name": "America/Argentina/Cordoba",
-    "label": "Argentina",
-    "country": "America"
+    "label": "Argentina"
   },
   {
     "name": "America/Argentina/Salta",
-    "label": "Argentina",
-    "country": "America"
+    "label": "Argentina"
   },
   {
     "name": "America/Argentina/Jujuy",
-    "label": "Argentina",
-    "country": "America"
+    "label": "Argentina"
   },
   {
     "name": "America/Argentina/Tucuman",
-    "label": "Argentina",
-    "country": "America"
+    "label": "Argentina"
   },
   {
     "name": "America/Argentina/Catamarca",
-    "label": "Argentina",
-    "country": "America"
+    "label": "Argentina"
   },
   {
     "name": "America/Argentina/La_Rioja",
-    "label": "Argentina",
-    "country": "America"
+    "label": "Argentina"
   },
   {
     "name": "America/Argentina/San_Juan",
-    "label": "Argentina",
-    "country": "America"
+    "label": "Argentina"
   },
   {
     "name": "America/Argentina/Mendoza",
-    "label": "Argentina",
-    "country": "America"
+    "label": "Argentina"
   },
   {
     "name": "America/Argentina/San_Luis",
-    "label": "Argentina",
-    "country": "America"
+    "label": "Argentina"
   },
   {
     "name": "America/Argentina/Rio_Gallegos",
-    "label": "Argentina",
-    "country": "America"
+    "label": "Argentina"
   },
   {
     "name": "America/Argentina/Ushuaia",
-    "label": "Argentina",
-    "country": "America"
+    "label": "Argentina"
   },
   {
     "name": "Pacific/Pago_Pago",
-    "label": "Samoa (American)",
-    "country": "Pacific"
+    "label": "Samoa (American)"
   },
   {
     "name": "Pacific/Pago_Pago",
-    "label": "US minor outlying islands",
-    "country": "Pacific"
+    "label": "US minor outlying islands"
   },
   {
     "name": "Europe/Vienna",
-    "label": "Austria",
-    "country": "Europe"
+    "label": "Austria"
   },
   {
     "name": "Australia/Lord_Howe",
-    "label": "Australia",
-    "country": "Australia"
+    "label": "Australia"
   },
   {
     "name": "Antarctica/Macquarie",
-    "label": "Australia",
-    "country": "Antarctica"
+    "label": "Australia"
   },
   {
     "name": "Australia/Hobart",
-    "label": "Australia",
-    "country": "Australia"
+    "label": "Australia"
   },
   {
     "name": "Australia/Melbourne",
-    "label": "Australia",
-    "country": "Australia"
+    "label": "Australia"
   },
   {
     "name": "Australia/Sydney",
-    "label": "Australia",
-    "country": "Australia"
+    "label": "Australia"
   },
   {
     "name": "Australia/Broken_Hill",
-    "label": "Australia",
-    "country": "Australia"
+    "label": "Australia"
   },
   {
     "name": "Australia/Brisbane",
-    "label": "Australia",
-    "country": "Australia"
+    "label": "Australia"
   },
   {
     "name": "Australia/Lindeman",
-    "label": "Australia",
-    "country": "Australia"
+    "label": "Australia"
   },
   {
     "name": "Australia/Adelaide",
-    "label": "Australia",
-    "country": "Australia"
+    "label": "Australia"
   },
   {
     "name": "Australia/Darwin",
-    "label": "Australia",
-    "country": "Australia"
+    "label": "Australia"
   },
   {
     "name": "Australia/Perth",
-    "label": "Australia",
-    "country": "Australia"
+    "label": "Australia"
   },
   {
     "name": "Australia/Eucla",
-    "label": "Australia",
-    "country": "Australia"
+    "label": "Australia"
   },
   {
     "name": "Asia/Baku",
-    "label": "Azerbaijan",
-    "country": "Asia"
+    "label": "Azerbaijan"
   },
   {
     "name": "America/Barbados",
-    "label": "Barbados",
-    "country": "America"
+    "label": "Barbados"
   },
   {
     "name": "Asia/Dhaka",
-    "label": "Bangladesh",
-    "country": "Asia"
+    "label": "Bangladesh"
   },
   {
     "name": "Europe/Brussels",
-    "label": "Belgium",
-    "country": "Europe"
+    "label": "Belgium"
   },
   {
     "name": "Europe/Brussels",
-    "label": "Luxembourg",
-    "country": "Europe"
+    "label": "Luxembourg"
   },
   {
     "name": "Europe/Brussels",
-    "label": "Netherlands",
-    "country": "Europe"
+    "label": "Netherlands"
   },
   {
     "name": "Europe/Sofia",
-    "label": "Bulgaria",
-    "country": "Europe"
+    "label": "Bulgaria"
   },
   {
     "name": "Atlantic/Bermuda",
-    "label": "Bermuda",
-    "country": "Atlantic"
+    "label": "Bermuda"
   },
   {
     "name": "America/La_Paz",
-    "label": "Bolivia",
-    "country": "America"
+    "label": "Bolivia"
   },
   {
     "name": "America/Noronha",
-    "label": "Brazil",
-    "country": "America"
+    "label": "Brazil"
   },
   {
     "name": "America/Belem",
-    "label": "Brazil",
-    "country": "America"
+    "label": "Brazil"
   },
   {
     "name": "America/Fortaleza",
-    "label": "Brazil",
-    "country": "America"
+    "label": "Brazil"
   },
   {
     "name": "America/Recife",
-    "label": "Brazil",
-    "country": "America"
+    "label": "Brazil"
   },
   {
     "name": "America/Araguaina",
-    "label": "Brazil",
-    "country": "America"
+    "label": "Brazil"
   },
   {
     "name": "America/Maceio",
-    "label": "Brazil",
-    "country": "America"
+    "label": "Brazil"
   },
   {
     "name": "America/Bahia",
-    "label": "Brazil",
-    "country": "America"
+    "label": "Brazil"
   },
   {
     "name": "America/Sao_Paulo",
-    "label": "Brazil",
-    "country": "America"
+    "label": "Brazil"
   },
   {
     "name": "America/Campo_Grande",
-    "label": "Brazil",
-    "country": "America"
+    "label": "Brazil"
   },
   {
     "name": "America/Cuiaba",
-    "label": "Brazil",
-    "country": "America"
+    "label": "Brazil"
   },
   {
     "name": "America/Santarem",
-    "label": "Brazil",
-    "country": "America"
+    "label": "Brazil"
   },
   {
     "name": "America/Porto_Velho",
-    "label": "Brazil",
-    "country": "America"
+    "label": "Brazil"
   },
   {
     "name": "America/Boa_Vista",
-    "label": "Brazil",
-    "country": "America"
+    "label": "Brazil"
   },
   {
     "name": "America/Manaus",
-    "label": "Brazil",
-    "country": "America"
+    "label": "Brazil"
   },
   {
     "name": "America/Eirunepe",
-    "label": "Brazil",
-    "country": "America"
+    "label": "Brazil"
   },
   {
     "name": "America/Rio_Branco",
-    "label": "Brazil",
-    "country": "America"
+    "label": "Brazil"
   },
   {
     "name": "Asia/Thimphu",
-    "label": "Bhutan",
-    "country": "Asia"
+    "label": "Bhutan"
   },
   {
     "name": "Europe/Minsk",
-    "label": "Belarus",
-    "country": "Europe"
+    "label": "Belarus"
   },
   {
     "name": "America/Belize",
-    "label": "Belize",
-    "country": "America"
+    "label": "Belize"
   },
   {
     "name": "America/St_Johns",
-    "label": "Canada",
-    "country": "America"
+    "label": "Canada"
   },
   {
     "name": "America/Halifax",
-    "label": "Canada",
-    "country": "America"
+    "label": "Canada"
   },
   {
     "name": "America/Glace_Bay",
-    "label": "Canada",
-    "country": "America"
+    "label": "Canada"
   },
   {
     "name": "America/Moncton",
-    "label": "Canada",
-    "country": "America"
+    "label": "Canada"
   },
   {
     "name": "America/Goose_Bay",
-    "label": "Canada",
-    "country": "America"
+    "label": "Canada"
   },
   {
     "name": "America/Toronto",
-    "label": "Canada",
-    "country": "America"
+    "label": "Canada"
   },
   {
     "name": "America/Toronto",
-    "label": "Bahamas",
-    "country": "America"
+    "label": "Bahamas"
   },
   {
     "name": "America/Iqaluit",
-    "label": "Canada",
-    "country": "America"
+    "label": "Canada"
   },
   {
     "name": "America/Winnipeg",
-    "label": "Canada",
-    "country": "America"
+    "label": "Canada"
   },
   {
     "name": "America/Resolute",
-    "label": "Canada",
-    "country": "America"
+    "label": "Canada"
   },
   {
     "name": "America/Rankin_Inlet",
-    "label": "Canada",
-    "country": "America"
+    "label": "Canada"
   },
   {
     "name": "America/Regina",
-    "label": "Canada",
-    "country": "America"
+    "label": "Canada"
   },
   {
     "name": "America/Swift_Current",
-    "label": "Canada",
-    "country": "America"
+    "label": "Canada"
   },
   {
     "name": "America/Edmonton",
-    "label": "Canada",
-    "country": "America"
+    "label": "Canada"
   },
   {
     "name": "America/Cambridge_Bay",
-    "label": "Canada",
-    "country": "America"
+    "label": "Canada"
   },
   {
     "name": "America/Inuvik",
-    "label": "Canada",
-    "country": "America"
+    "label": "Canada"
   },
   {
     "name": "America/Dawson_Creek",
-    "label": "Canada",
-    "country": "America"
+    "label": "Canada"
   },
   {
     "name": "America/Fort_Nelson",
-    "label": "Canada",
-    "country": "America"
+    "label": "Canada"
   },
   {
     "name": "America/Whitehorse",
-    "label": "Canada",
-    "country": "America"
+    "label": "Canada"
   },
   {
     "name": "America/Dawson",
-    "label": "Canada",
-    "country": "America"
+    "label": "Canada"
   },
   {
     "name": "America/Vancouver",
-    "label": "Canada",
-    "country": "America"
+    "label": "Canada"
   },
   {
     "name": "Europe/Zurich",
-    "label": "Switzerland",
-    "country": "Europe"
+    "label": "Switzerland"
   },
   {
     "name": "Europe/Zurich",
-    "label": "Germany",
-    "country": "Europe"
+    "label": "Germany"
   },
   {
     "name": "Europe/Zurich",
-    "label": "Liechtenstein",
-    "country": "Europe"
+    "label": "Liechtenstein"
   },
   {
     "name": "Africa/Abidjan",
-    "label": "Côte d’Ivoire",
-    "country": "Africa"
+    "label": "Côte d’Ivoire"
   },
   {
     "name": "Africa/Abidjan",
-    "label": "Burkina Faso",
-    "country": "Africa"
+    "label": "Burkina Faso"
   },
   {
     "name": "Africa/Abidjan",
-    "label": "Ghana",
-    "country": "Africa"
+    "label": "Ghana"
   },
   {
     "name": "Africa/Abidjan",
-    "label": "Gambia",
-    "country": "Africa"
+    "label": "Gambia"
   },
   {
     "name": "Africa/Abidjan",
-    "label": "Guinea",
-    "country": "Africa"
+    "label": "Guinea"
   },
   {
     "name": "Africa/Abidjan",
-    "label": "Iceland",
-    "country": "Africa"
+    "label": "Iceland"
   },
   {
     "name": "Africa/Abidjan",
-    "label": "Mali",
-    "country": "Africa"
+    "label": "Mali"
   },
   {
     "name": "Africa/Abidjan",
-    "label": "Mauritania",
-    "country": "Africa"
+    "label": "Mauritania"
   },
   {
     "name": "Africa/Abidjan",
-    "label": "St Helena",
-    "country": "Africa"
+    "label": "St Helena"
   },
   {
     "name": "Africa/Abidjan",
-    "label": "Sierra Leone",
-    "country": "Africa"
+    "label": "Sierra Leone"
   },
   {
     "name": "Africa/Abidjan",
-    "label": "Senegal",
-    "country": "Africa"
+    "label": "Senegal"
   },
   {
     "name": "Africa/Abidjan",
-    "label": "Togo",
-    "country": "Africa"
+    "label": "Togo"
   },
   {
     "name": "Pacific/Rarotonga",
-    "label": "Cook Islands",
-    "country": "Pacific"
+    "label": "Cook Islands"
   },
   {
     "name": "America/Santiago",
-    "label": "Chile",
-    "country": "America"
+    "label": "Chile"
   },
   {
     "name": "America/Coyhaique",
-    "label": "Chile",
-    "country": "America"
+    "label": "Chile"
   },
   {
     "name": "America/Punta_Arenas",
-    "label": "Chile",
-    "country": "America"
+    "label": "Chile"
   },
   {
     "name": "Pacific/Easter",
-    "label": "Chile",
-    "country": "Pacific"
+    "label": "Chile"
   },
   {
     "name": "Asia/Shanghai",
-    "label": "China",
-    "country": "Asia"
+    "label": "China"
   },
   {
     "name": "Asia/Urumqi",
-    "label": "China",
-    "country": "Asia"
+    "label": "China"
   },
   {
     "name": "America/Bogota",
-    "label": "Colombia",
-    "country": "America"
+    "label": "Colombia"
   },
   {
     "name": "America/Costa_Rica",
-    "label": "Costa Rica",
-    "country": "America"
+    "label": "Costa Rica"
   },
   {
     "name": "America/Havana",
-    "label": "Cuba",
-    "country": "America"
+    "label": "Cuba"
   },
   {
     "name": "Atlantic/Cape_Verde",
-    "label": "Cape Verde",
-    "country": "Atlantic"
+    "label": "Cape Verde"
   },
   {
     "name": "Asia/Nicosia",
-    "label": "Cyprus",
-    "country": "Asia"
+    "label": "Cyprus"
   },
   {
     "name": "Asia/Famagusta",
-    "label": "Cyprus",
-    "country": "Asia"
+    "label": "Cyprus"
   },
   {
     "name": "Europe/Prague",
-    "label": "Czech Republic",
-    "country": "Europe"
+    "label": "Czech Republic"
   },
   {
     "name": "Europe/Prague",
-    "label": "Slovakia",
-    "country": "Europe"
+    "label": "Slovakia"
   },
   {
     "name": "Europe/Berlin",
-    "label": "Germany",
-    "country": "Europe"
+    "label": "Germany"
   },
   {
     "name": "Europe/Berlin",
-    "label": "Denmark",
-    "country": "Europe"
+    "label": "Denmark"
   },
   {
     "name": "Europe/Berlin",
-    "label": "Norway",
-    "country": "Europe"
+    "label": "Norway"
   },
   {
     "name": "Europe/Berlin",
-    "label": "Sweden",
-    "country": "Europe"
+    "label": "Sweden"
   },
   {
     "name": "Europe/Berlin",
-    "label": "Svalbard & Jan Mayen",
-    "country": "Europe"
+    "label": "Svalbard & Jan Mayen"
   },
   {
     "name": "America/Santo_Domingo",
-    "label": "Dominican Republic",
-    "country": "America"
+    "label": "Dominican Republic"
   },
   {
     "name": "Africa/Algiers",
-    "label": "Algeria",
-    "country": "Africa"
+    "label": "Algeria"
   },
   {
     "name": "America/Guayaquil",
-    "label": "Ecuador",
-    "country": "America"
+    "label": "Ecuador"
   },
   {
     "name": "Pacific/Galapagos",
-    "label": "Ecuador",
-    "country": "Pacific"
+    "label": "Ecuador"
   },
   {
     "name": "Europe/Tallinn",
-    "label": "Estonia",
-    "country": "Europe"
+    "label": "Estonia"
   },
   {
     "name": "Africa/Cairo",
-    "label": "Egypt",
-    "country": "Africa"
+    "label": "Egypt"
   },
   {
     "name": "Africa/El_Aaiun",
-    "label": "Western Sahara",
-    "country": "Africa"
+    "label": "Western Sahara"
   },
   {
     "name": "Europe/Madrid",
-    "label": "Spain",
-    "country": "Europe"
+    "label": "Spain"
   },
   {
     "name": "Africa/Ceuta",
-    "label": "Spain",
-    "country": "Africa"
+    "label": "Spain"
   },
   {
     "name": "Atlantic/Canary",
-    "label": "Spain",
-    "country": "Atlantic"
+    "label": "Spain"
   },
   {
     "name": "Europe/Helsinki",
-    "label": "Finland",
-    "country": "Europe"
+    "label": "Finland"
   },
   {
     "name": "Europe/Helsinki",
-    "label": "Åland Islands",
-    "country": "Europe"
+    "label": "Åland Islands"
   },
   {
     "name": "Pacific/Fiji",
-    "label": "Fiji",
-    "country": "Pacific"
+    "label": "Fiji"
   },
   {
     "name": "Atlantic/Stanley",
-    "label": "Falkland Islands",
-    "country": "Atlantic"
+    "label": "Falkland Islands"
   },
   {
     "name": "Pacific/Kosrae",
-    "label": "Micronesia",
-    "country": "Pacific"
+    "label": "Micronesia"
   },
   {
     "name": "Atlantic/Faroe",
-    "label": "Faroe Islands",
-    "country": "Atlantic"
+    "label": "Faroe Islands"
   },
   {
     "name": "Europe/Paris",
-    "label": "France",
-    "country": "Europe"
+    "label": "France"
   },
   {
     "name": "Europe/Paris",
-    "label": "Monaco",
-    "country": "Europe"
+    "label": "Monaco"
   },
   {
     "name": "Europe/London",
-    "label": "Britain (UK)",
-    "country": "Europe"
+    "label": "Britain (UK)"
   },
   {
     "name": "Europe/London",
-    "label": "Guernsey",
-    "country": "Europe"
+    "label": "Guernsey"
   },
   {
     "name": "Europe/London",
-    "label": "Isle of Man",
-    "country": "Europe"
+    "label": "Isle of Man"
   },
   {
     "name": "Europe/London",
-    "label": "Jersey",
-    "country": "Europe"
+    "label": "Jersey"
   },
   {
     "name": "Asia/Tbilisi",
-    "label": "Georgia",
-    "country": "Asia"
+    "label": "Georgia"
   },
   {
     "name": "America/Cayenne",
-    "label": "French Guiana",
-    "country": "America"
+    "label": "French Guiana"
   },
   {
     "name": "Europe/Gibraltar",
-    "label": "Gibraltar",
-    "country": "Europe"
+    "label": "Gibraltar"
   },
   {
     "name": "America/Nuuk",
-    "label": "Greenland",
-    "country": "America"
+    "label": "Greenland"
   },
   {
     "name": "America/Danmarkshavn",
-    "label": "Greenland",
-    "country": "America"
+    "label": "Greenland"
   },
   {
     "name": "America/Scoresbysund",
-    "label": "Greenland",
-    "country": "America"
+    "label": "Greenland"
   },
   {
     "name": "America/Thule",
-    "label": "Greenland",
-    "country": "America"
+    "label": "Greenland"
   },
   {
     "name": "Europe/Athens",
-    "label": "Greece",
-    "country": "Europe"
+    "label": "Greece"
   },
   {
     "name": "Atlantic/South_Georgia",
-    "label": "South Georgia & the South Sandwich Islands",
-    "country": "Atlantic"
+    "label": "South Georgia & the South Sandwich Islands"
   },
   {
     "name": "America/Guatemala",
-    "label": "Guatemala",
-    "country": "America"
+    "label": "Guatemala"
   },
   {
     "name": "Pacific/Guam",
-    "label": "Guam",
-    "country": "Pacific"
+    "label": "Guam"
   },
   {
     "name": "Pacific/Guam",
-    "label": "Northern Mariana Islands",
-    "country": "Pacific"
+    "label": "Northern Mariana Islands"
   },
   {
     "name": "Africa/Bissau",
-    "label": "Guinea-Bissau",
-    "country": "Africa"
+    "label": "Guinea-Bissau"
   },
   {
     "name": "America/Guyana",
-    "label": "Guyana",
-    "country": "America"
+    "label": "Guyana"
   },
   {
     "name": "Asia/Hong_Kong",
-    "label": "Hong Kong",
-    "country": "Asia"
+    "label": "Hong Kong"
   },
   {
     "name": "America/Tegucigalpa",
-    "label": "Honduras",
-    "country": "America"
+    "label": "Honduras"
   },
   {
     "name": "America/Port-au-Prince",
-    "label": "Haiti",
-    "country": "America"
+    "label": "Haiti"
   },
   {
     "name": "Europe/Budapest",
-    "label": "Hungary",
-    "country": "Europe"
+    "label": "Hungary"
   },
   {
     "name": "Asia/Jakarta",
-    "label": "Indonesia",
-    "country": "Asia"
+    "label": "Indonesia"
   },
   {
     "name": "Asia/Pontianak",
-    "label": "Indonesia",
-    "country": "Asia"
+    "label": "Indonesia"
   },
   {
     "name": "Asia/Makassar",
-    "label": "Indonesia",
-    "country": "Asia"
+    "label": "Indonesia"
   },
   {
     "name": "Asia/Jayapura",
-    "label": "Indonesia",
-    "country": "Asia"
+    "label": "Indonesia"
   },
   {
     "name": "Europe/Dublin",
-    "label": "Ireland",
-    "country": "Europe"
+    "label": "Ireland"
   },
   {
     "name": "Asia/Jerusalem",
-    "label": "Israel",
-    "country": "Asia"
+    "label": "Israel"
   },
   {
     "name": "Asia/Kolkata",
-    "label": "India",
-    "country": "Asia"
+    "label": "India"
   },
   {
     "name": "Indian/Chagos",
-    "label": "British Indian Ocean Territory",
-    "country": "Indian"
+    "label": "British Indian Ocean Territory"
   },
   {
     "name": "Asia/Baghdad",
-    "label": "Iraq",
-    "country": "Asia"
+    "label": "Iraq"
   },
   {
     "name": "Asia/Tehran",
-    "label": "Iran",
-    "country": "Asia"
+    "label": "Iran"
   },
   {
     "name": "Europe/Rome",
-    "label": "Italy",
-    "country": "Europe"
+    "label": "Italy"
   },
   {
     "name": "Europe/Rome",
-    "label": "San Marino",
-    "country": "Europe"
+    "label": "San Marino"
   },
   {
     "name": "Europe/Rome",
-    "label": "Vatican City",
-    "country": "Europe"
+    "label": "Vatican City"
   },
   {
     "name": "America/Jamaica",
-    "label": "Jamaica",
-    "country": "America"
+    "label": "Jamaica"
   },
   {
     "name": "Asia/Amman",
-    "label": "Jordan",
-    "country": "Asia"
+    "label": "Jordan"
   },
   {
     "name": "Asia/Tokyo",
-    "label": "Japan",
-    "country": "Asia"
+    "label": "Japan"
   },
   {
     "name": "Asia/Tokyo",
-    "label": "Australia",
-    "country": "Asia"
+    "label": "Australia"
   },
   {
     "name": "Africa/Nairobi",
-    "label": "Kenya",
-    "country": "Africa"
+    "label": "Kenya"
   },
   {
     "name": "Africa/Nairobi",
-    "label": "Djibouti",
-    "country": "Africa"
+    "label": "Djibouti"
   },
   {
     "name": "Africa/Nairobi",
-    "label": "Eritrea",
-    "country": "Africa"
+    "label": "Eritrea"
   },
   {
     "name": "Africa/Nairobi",
-    "label": "Ethiopia",
-    "country": "Africa"
+    "label": "Ethiopia"
   },
   {
     "name": "Africa/Nairobi",
-    "label": "Comoros",
-    "country": "Africa"
+    "label": "Comoros"
   },
   {
     "name": "Africa/Nairobi",
-    "label": "Madagascar",
-    "country": "Africa"
+    "label": "Madagascar"
   },
   {
     "name": "Africa/Nairobi",
-    "label": "Somalia",
-    "country": "Africa"
+    "label": "Somalia"
   },
   {
     "name": "Africa/Nairobi",
-    "label": "Tanzania",
-    "country": "Africa"
+    "label": "Tanzania"
   },
   {
     "name": "Africa/Nairobi",
-    "label": "Uganda",
-    "country": "Africa"
+    "label": "Uganda"
   },
   {
     "name": "Africa/Nairobi",
-    "label": "Mayotte",
-    "country": "Africa"
+    "label": "Mayotte"
   },
   {
     "name": "Asia/Bishkek",
-    "label": "Kyrgyzstan",
-    "country": "Asia"
+    "label": "Kyrgyzstan"
   },
   {
     "name": "Pacific/Tarawa",
-    "label": "Kiribati",
-    "country": "Pacific"
+    "label": "Kiribati"
   },
   {
     "name": "Pacific/Tarawa",
-    "label": "Marshall Islands",
-    "country": "Pacific"
+    "label": "Marshall Islands"
   },
   {
     "name": "Pacific/Tarawa",
-    "label": "Tuvalu",
-    "country": "Pacific"
+    "label": "Tuvalu"
   },
   {
     "name": "Pacific/Tarawa",
-    "label": "US minor outlying islands",
-    "country": "Pacific"
+    "label": "US minor outlying islands"
   },
   {
     "name": "Pacific/Tarawa",
-    "label": "Wallis & Futuna",
-    "country": "Pacific"
+    "label": "Wallis & Futuna"
   },
   {
     "name": "Pacific/Kanton",
-    "label": "Kiribati",
-    "country": "Pacific"
+    "label": "Kiribati"
   },
   {
     "name": "Pacific/Kiritimati",
-    "label": "Kiribati",
-    "country": "Pacific"
+    "label": "Kiribati"
   },
   {
     "name": "Asia/Pyongyang",
-    "label": "Korea (North)",
-    "country": "Asia"
+    "label": "Korea (North)"
   },
   {
     "name": "Asia/Seoul",
-    "label": "Korea (South)",
-    "country": "Asia"
+    "label": "Korea (South)"
   },
   {
     "name": "Asia/Almaty",
-    "label": "Kazakhstan",
-    "country": "Asia"
+    "label": "Kazakhstan"
   },
   {
     "name": "Asia/Qyzylorda",
-    "label": "Kazakhstan",
-    "country": "Asia"
+    "label": "Kazakhstan"
   },
   {
     "name": "Asia/Qostanay",
-    "label": "Kazakhstan",
-    "country": "Asia"
+    "label": "Kazakhstan"
   },
   {
     "name": "Asia/Aqtobe",
-    "label": "Kazakhstan",
-    "country": "Asia"
+    "label": "Kazakhstan"
   },
   {
     "name": "Asia/Aqtau",
-    "label": "Kazakhstan",
-    "country": "Asia"
+    "label": "Kazakhstan"
   },
   {
     "name": "Asia/Atyrau",
-    "label": "Kazakhstan",
-    "country": "Asia"
+    "label": "Kazakhstan"
   },
   {
     "name": "Asia/Oral",
-    "label": "Kazakhstan",
-    "country": "Asia"
+    "label": "Kazakhstan"
   },
   {
     "name": "Asia/Beirut",
-    "label": "Lebanon",
-    "country": "Asia"
+    "label": "Lebanon"
   },
   {
     "name": "Asia/Colombo",
-    "label": "Sri Lanka",
-    "country": "Asia"
+    "label": "Sri Lanka"
   },
   {
     "name": "Africa/Monrovia",
-    "label": "Liberia",
-    "country": "Africa"
+    "label": "Liberia"
   },
   {
     "name": "Europe/Vilnius",
-    "label": "Lithuania",
-    "country": "Europe"
+    "label": "Lithuania"
   },
   {
     "name": "Europe/Riga",
-    "label": "Latvia",
-    "country": "Europe"
+    "label": "Latvia"
   },
   {
     "name": "Africa/Tripoli",
-    "label": "Libya",
-    "country": "Africa"
+    "label": "Libya"
   },
   {
     "name": "Africa/Casablanca",
-    "label": "Morocco",
-    "country": "Africa"
+    "label": "Morocco"
   },
   {
     "name": "Europe/Chisinau",
-    "label": "Moldova",
-    "country": "Europe"
+    "label": "Moldova"
   },
   {
     "name": "Pacific/Kwajalein",
-    "label": "Marshall Islands",
-    "country": "Pacific"
+    "label": "Marshall Islands"
   },
   {
     "name": "Asia/Yangon",
-    "label": "Myanmar (Burma)",
-    "country": "Asia"
+    "label": "Myanmar (Burma)"
   },
   {
     "name": "Asia/Yangon",
-    "label": "Cocos (Keeling) Islands",
-    "country": "Asia"
+    "label": "Cocos (Keeling) Islands"
   },
   {
     "name": "Asia/Ulaanbaatar",
-    "label": "Mongolia",
-    "country": "Asia"
+    "label": "Mongolia"
   },
   {
     "name": "Asia/Hovd",
-    "label": "Mongolia",
-    "country": "Asia"
+    "label": "Mongolia"
   },
   {
     "name": "Asia/Macau",
-    "label": "Macau",
-    "country": "Asia"
+    "label": "Macau"
   },
   {
     "name": "America/Martinique",
-    "label": "Martinique",
-    "country": "America"
+    "label": "Martinique"
   },
   {
     "name": "Europe/Malta",
-    "label": "Malta",
-    "country": "Europe"
+    "label": "Malta"
   },
   {
     "name": "Indian/Mauritius",
-    "label": "Mauritius",
-    "country": "Indian"
+    "label": "Mauritius"
   },
   {
     "name": "Indian/Maldives",
-    "label": "Maldives",
-    "country": "Indian"
+    "label": "Maldives"
   },
   {
     "name": "Indian/Maldives",
-    "label": "French S. Terr.",
-    "country": "Indian"
+    "label": "French S. Terr."
   },
   {
     "name": "America/Mexico_City",
-    "label": "Mexico",
-    "country": "America"
+    "label": "Mexico"
   },
   {
     "name": "America/Cancun",
-    "label": "Mexico",
-    "country": "America"
+    "label": "Mexico"
   },
   {
     "name": "America/Merida",
-    "label": "Mexico",
-    "country": "America"
+    "label": "Mexico"
   },
   {
     "name": "America/Monterrey",
-    "label": "Mexico",
-    "country": "America"
+    "label": "Mexico"
   },
   {
     "name": "America/Matamoros",
-    "label": "Mexico",
-    "country": "America"
+    "label": "Mexico"
   },
   {
     "name": "America/Chihuahua",
-    "label": "Mexico",
-    "country": "America"
+    "label": "Mexico"
   },
   {
     "name": "America/Ciudad_Juarez",
-    "label": "Mexico",
-    "country": "America"
+    "label": "Mexico"
   },
   {
     "name": "America/Ojinaga",
-    "label": "Mexico",
-    "country": "America"
+    "label": "Mexico"
   },
   {
     "name": "America/Mazatlan",
-    "label": "Mexico",
-    "country": "America"
+    "label": "Mexico"
   },
   {
     "name": "America/Bahia_Banderas",
-    "label": "Mexico",
-    "country": "America"
+    "label": "Mexico"
   },
   {
     "name": "America/Hermosillo",
-    "label": "Mexico",
-    "country": "America"
+    "label": "Mexico"
   },
   {
     "name": "America/Tijuana",
-    "label": "Mexico",
-    "country": "America"
+    "label": "Mexico"
   },
   {
     "name": "Asia/Kuching",
-    "label": "Malaysia",
-    "country": "Asia"
+    "label": "Malaysia"
   },
   {
     "name": "Asia/Kuching",
-    "label": "Brunei",
-    "country": "Asia"
+    "label": "Brunei"
   },
   {
     "name": "Africa/Maputo",
-    "label": "Mozambique",
-    "country": "Africa"
+    "label": "Mozambique"
   },
   {
     "name": "Africa/Maputo",
-    "label": "Burundi",
-    "country": "Africa"
+    "label": "Burundi"
   },
   {
     "name": "Africa/Maputo",
-    "label": "Botswana",
-    "country": "Africa"
+    "label": "Botswana"
   },
   {
     "name": "Africa/Maputo",
-    "label": "Congo (Dem. Rep.)",
-    "country": "Africa"
+    "label": "Congo (Dem. Rep.)"
   },
   {
     "name": "Africa/Maputo",
-    "label": "Malawi",
-    "country": "Africa"
+    "label": "Malawi"
   },
   {
     "name": "Africa/Maputo",
-    "label": "Rwanda",
-    "country": "Africa"
+    "label": "Rwanda"
   },
   {
     "name": "Africa/Maputo",
-    "label": "Zambia",
-    "country": "Africa"
+    "label": "Zambia"
   },
   {
     "name": "Africa/Maputo",
-    "label": "Zimbabwe",
-    "country": "Africa"
+    "label": "Zimbabwe"
   },
   {
     "name": "Africa/Windhoek",
-    "label": "Namibia",
-    "country": "Africa"
+    "label": "Namibia"
   },
   {
     "name": "Pacific/Noumea",
-    "label": "New Caledonia",
-    "country": "Pacific"
+    "label": "New Caledonia"
   },
   {
     "name": "Pacific/Norfolk",
-    "label": "Norfolk Island",
-    "country": "Pacific"
+    "label": "Norfolk Island"
   },
   {
     "name": "Africa/Lagos",
-    "label": "Nigeria",
-    "country": "Africa"
+    "label": "Nigeria"
   },
   {
     "name": "Africa/Lagos",
-    "label": "Angola",
-    "country": "Africa"
+    "label": "Angola"
   },
   {
     "name": "Africa/Lagos",
-    "label": "Benin",
-    "country": "Africa"
+    "label": "Benin"
   },
   {
     "name": "Africa/Lagos",
-    "label": "Congo (Dem. Rep.)",
-    "country": "Africa"
+    "label": "Congo (Dem. Rep.)"
   },
   {
     "name": "Africa/Lagos",
-    "label": "Central African Rep.",
-    "country": "Africa"
+    "label": "Central African Rep."
   },
   {
     "name": "Africa/Lagos",
-    "label": "Congo (Rep.)",
-    "country": "Africa"
+    "label": "Congo (Rep.)"
   },
   {
     "name": "Africa/Lagos",
-    "label": "Cameroon",
-    "country": "Africa"
+    "label": "Cameroon"
   },
   {
     "name": "Africa/Lagos",
-    "label": "Gabon",
-    "country": "Africa"
+    "label": "Gabon"
   },
   {
     "name": "Africa/Lagos",
-    "label": "Equatorial Guinea",
-    "country": "Africa"
+    "label": "Equatorial Guinea"
   },
   {
     "name": "Africa/Lagos",
-    "label": "Niger",
-    "country": "Africa"
+    "label": "Niger"
   },
   {
     "name": "America/Managua",
-    "label": "Nicaragua",
-    "country": "America"
+    "label": "Nicaragua"
   },
   {
     "name": "Asia/Kathmandu",
-    "label": "Nepal",
-    "country": "Asia"
+    "label": "Nepal"
   },
   {
     "name": "Pacific/Nauru",
-    "label": "Nauru",
-    "country": "Pacific"
+    "label": "Nauru"
   },
   {
     "name": "Pacific/Niue",
-    "label": "Niue",
-    "country": "Pacific"
+    "label": "Niue"
   },
   {
     "name": "Pacific/Auckland",
-    "label": "New Zealand",
-    "country": "Pacific"
+    "label": "New Zealand"
   },
   {
     "name": "Pacific/Auckland",
-    "label": "Antarctica",
-    "country": "Pacific"
+    "label": "Antarctica"
   },
   {
     "name": "Pacific/Chatham",
-    "label": "New Zealand",
-    "country": "Pacific"
+    "label": "New Zealand"
   },
   {
     "name": "America/Panama",
-    "label": "Panama",
-    "country": "America"
+    "label": "Panama"
   },
   {
     "name": "America/Panama",
-    "label": "Canada",
-    "country": "America"
+    "label": "Canada"
   },
   {
     "name": "America/Panama",
-    "label": "Cayman Islands",
-    "country": "America"
+    "label": "Cayman Islands"
   },
   {
     "name": "America/Lima",
-    "label": "Peru",
-    "country": "America"
+    "label": "Peru"
   },
   {
     "name": "Pacific/Tahiti",
-    "label": "French Polynesia",
-    "country": "Pacific"
+    "label": "French Polynesia"
   },
   {
     "name": "Pacific/Marquesas",
-    "label": "French Polynesia",
-    "country": "Pacific"
+    "label": "French Polynesia"
   },
   {
     "name": "Pacific/Gambier",
-    "label": "French Polynesia",
-    "country": "Pacific"
+    "label": "French Polynesia"
   },
   {
     "name": "Pacific/Port_Moresby",
-    "label": "Papua New Guinea",
-    "country": "Pacific"
+    "label": "Papua New Guinea"
   },
   {
     "name": "Pacific/Port_Moresby",
-    "label": "Antarctica",
-    "country": "Pacific"
+    "label": "Antarctica"
   },
   {
     "name": "Pacific/Port_Moresby",
-    "label": "Micronesia",
-    "country": "Pacific"
+    "label": "Micronesia"
   },
   {
     "name": "Pacific/Bougainville",
-    "label": "Papua New Guinea",
-    "country": "Pacific"
+    "label": "Papua New Guinea"
   },
   {
     "name": "Asia/Manila",
-    "label": "Philippines",
-    "country": "Asia"
+    "label": "Philippines"
   },
   {
     "name": "Asia/Karachi",
-    "label": "Pakistan",
-    "country": "Asia"
+    "label": "Pakistan"
   },
   {
     "name": "Europe/Warsaw",
-    "label": "Poland",
-    "country": "Europe"
+    "label": "Poland"
   },
   {
     "name": "America/Miquelon",
-    "label": "St Pierre & Miquelon",
-    "country": "America"
+    "label": "St Pierre & Miquelon"
   },
   {
     "name": "Pacific/Pitcairn",
-    "label": "Pitcairn",
-    "country": "Pacific"
+    "label": "Pitcairn"
   },
   {
     "name": "America/Puerto_Rico",
-    "label": "Puerto Rico",
-    "country": "America"
+    "label": "Puerto Rico"
   },
   {
     "name": "America/Puerto_Rico",
-    "label": "Antigua & Barbuda",
-    "country": "America"
+    "label": "Antigua & Barbuda"
   },
   {
     "name": "America/Puerto_Rico",
-    "label": "Canada",
-    "country": "America"
+    "label": "Canada"
   },
   {
     "name": "America/Puerto_Rico",
-    "label": "Anguilla",
-    "country": "America"
+    "label": "Anguilla"
   },
   {
     "name": "America/Puerto_Rico",
-    "label": "Aruba",
-    "country": "America"
+    "label": "Aruba"
   },
   {
     "name": "America/Puerto_Rico",
-    "label": "St Barthelemy",
-    "country": "America"
+    "label": "St Barthelemy"
   },
   {
     "name": "America/Puerto_Rico",
-    "label": "Caribbean NL",
-    "country": "America"
+    "label": "Caribbean NL"
   },
   {
     "name": "America/Puerto_Rico",
-    "label": "Curaçao",
-    "country": "America"
+    "label": "Curaçao"
   },
   {
     "name": "America/Puerto_Rico",
-    "label": "Dominica",
-    "country": "America"
+    "label": "Dominica"
   },
   {
     "name": "America/Puerto_Rico",
-    "label": "Grenada",
-    "country": "America"
+    "label": "Grenada"
   },
   {
     "name": "America/Puerto_Rico",
-    "label": "Guadeloupe",
-    "country": "America"
+    "label": "Guadeloupe"
   },
   {
     "name": "America/Puerto_Rico",
-    "label": "St Kitts & Nevis",
-    "country": "America"
+    "label": "St Kitts & Nevis"
   },
   {
     "name": "America/Puerto_Rico",
-    "label": "St Lucia",
-    "country": "America"
+    "label": "St Lucia"
   },
   {
     "name": "America/Puerto_Rico",
-    "label": "St Martin (French)",
-    "country": "America"
+    "label": "St Martin (French)"
   },
   {
     "name": "America/Puerto_Rico",
-    "label": "Montserrat",
-    "country": "America"
+    "label": "Montserrat"
   },
   {
     "name": "America/Puerto_Rico",
-    "label": "St Maarten (Dutch)",
-    "country": "America"
+    "label": "St Maarten (Dutch)"
   },
   {
     "name": "America/Puerto_Rico",
-    "label": "Trinidad & Tobago",
-    "country": "America"
+    "label": "Trinidad & Tobago"
   },
   {
     "name": "America/Puerto_Rico",
-    "label": "St Vincent",
-    "country": "America"
+    "label": "St Vincent"
   },
   {
     "name": "America/Puerto_Rico",
-    "label": "Virgin Islands (UK)",
-    "country": "America"
+    "label": "Virgin Islands (UK)"
   },
   {
     "name": "America/Puerto_Rico",
-    "label": "Virgin Islands (US)",
-    "country": "America"
+    "label": "Virgin Islands (US)"
   },
   {
     "name": "Asia/Gaza",
-    "label": "Palestine",
-    "country": "Asia"
+    "label": "Palestine"
   },
   {
     "name": "Asia/Hebron",
-    "label": "Palestine",
-    "country": "Asia"
+    "label": "Palestine"
   },
   {
     "name": "Europe/Lisbon",
-    "label": "Portugal",
-    "country": "Europe"
+    "label": "Portugal"
   },
   {
     "name": "Atlantic/Madeira",
-    "label": "Portugal",
-    "country": "Atlantic"
+    "label": "Portugal"
   },
   {
     "name": "Atlantic/Azores",
-    "label": "Portugal",
-    "country": "Atlantic"
+    "label": "Portugal"
   },
   {
     "name": "Pacific/Palau",
-    "label": "Palau",
-    "country": "Pacific"
+    "label": "Palau"
   },
   {
     "name": "America/Asuncion",
-    "label": "Paraguay",
-    "country": "America"
+    "label": "Paraguay"
   },
   {
     "name": "Asia/Qatar",
-    "label": "Qatar",
-    "country": "Asia"
+    "label": "Qatar"
   },
   {
     "name": "Asia/Qatar",
-    "label": "Bahrain",
-    "country": "Asia"
+    "label": "Bahrain"
   },
   {
     "name": "Europe/Bucharest",
-    "label": "Romania",
-    "country": "Europe"
+    "label": "Romania"
   },
   {
     "name": "Europe/Belgrade",
-    "label": "Serbia",
-    "country": "Europe"
+    "label": "Serbia"
   },
   {
     "name": "Europe/Belgrade",
-    "label": "Bosnia & Herzegovina",
-    "country": "Europe"
+    "label": "Bosnia & Herzegovina"
   },
   {
     "name": "Europe/Belgrade",
-    "label": "Croatia",
-    "country": "Europe"
+    "label": "Croatia"
   },
   {
     "name": "Europe/Belgrade",
-    "label": "Montenegro",
-    "country": "Europe"
+    "label": "Montenegro"
   },
   {
     "name": "Europe/Belgrade",
-    "label": "North Macedonia",
-    "country": "Europe"
+    "label": "North Macedonia"
   },
   {
     "name": "Europe/Belgrade",
-    "label": "Slovenia",
-    "country": "Europe"
+    "label": "Slovenia"
   },
   {
     "name": "Europe/Kaliningrad",
-    "label": "Russia",
-    "country": "Europe"
+    "label": "Russia"
   },
   {
     "name": "Europe/Moscow",
-    "label": "Russia",
-    "country": "Europe"
+    "label": "Russia"
   },
   {
     "name": "Europe/Simferopol",
-    "label": "Russia",
-    "country": "Europe"
+    "label": "Russia"
   },
   {
     "name": "Europe/Simferopol",
-    "label": "Ukraine",
-    "country": "Europe"
+    "label": "Ukraine"
   },
   {
     "name": "Europe/Kirov",
-    "label": "Russia",
-    "country": "Europe"
+    "label": "Russia"
   },
   {
     "name": "Europe/Volgograd",
-    "label": "Russia",
-    "country": "Europe"
+    "label": "Russia"
   },
   {
     "name": "Europe/Astrakhan",
-    "label": "Russia",
-    "country": "Europe"
+    "label": "Russia"
   },
   {
     "name": "Europe/Saratov",
-    "label": "Russia",
-    "country": "Europe"
+    "label": "Russia"
   },
   {
     "name": "Europe/Ulyanovsk",
-    "label": "Russia",
-    "country": "Europe"
+    "label": "Russia"
   },
   {
     "name": "Europe/Samara",
-    "label": "Russia",
-    "country": "Europe"
+    "label": "Russia"
   },
   {
     "name": "Asia/Yekaterinburg",
-    "label": "Russia",
-    "country": "Asia"
+    "label": "Russia"
   },
   {
     "name": "Asia/Omsk",
-    "label": "Russia",
-    "country": "Asia"
+    "label": "Russia"
   },
   {
     "name": "Asia/Novosibirsk",
-    "label": "Russia",
-    "country": "Asia"
+    "label": "Russia"
   },
   {
     "name": "Asia/Barnaul",
-    "label": "Russia",
-    "country": "Asia"
+    "label": "Russia"
   },
   {
     "name": "Asia/Tomsk",
-    "label": "Russia",
-    "country": "Asia"
+    "label": "Russia"
   },
   {
     "name": "Asia/Novokuznetsk",
-    "label": "Russia",
-    "country": "Asia"
+    "label": "Russia"
   },
   {
     "name": "Asia/Krasnoyarsk",
-    "label": "Russia",
-    "country": "Asia"
+    "label": "Russia"
   },
   {
     "name": "Asia/Irkutsk",
-    "label": "Russia",
-    "country": "Asia"
+    "label": "Russia"
   },
   {
     "name": "Asia/Chita",
-    "label": "Russia",
-    "country": "Asia"
+    "label": "Russia"
   },
   {
     "name": "Asia/Yakutsk",
-    "label": "Russia",
-    "country": "Asia"
+    "label": "Russia"
   },
   {
     "name": "Asia/Khandyga",
-    "label": "Russia",
-    "country": "Asia"
+    "label": "Russia"
   },
   {
     "name": "Asia/Vladivostok",
-    "label": "Russia",
-    "country": "Asia"
+    "label": "Russia"
   },
   {
     "name": "Asia/Ust-Nera",
-    "label": "Russia",
-    "country": "Asia"
+    "label": "Russia"
   },
   {
     "name": "Asia/Magadan",
-    "label": "Russia",
-    "country": "Asia"
+    "label": "Russia"
   },
   {
     "name": "Asia/Sakhalin",
-    "label": "Russia",
-    "country": "Asia"
+    "label": "Russia"
   },
   {
     "name": "Asia/Srednekolymsk",
-    "label": "Russia",
-    "country": "Asia"
+    "label": "Russia"
   },
   {
     "name": "Asia/Kamchatka",
-    "label": "Russia",
-    "country": "Asia"
+    "label": "Russia"
   },
   {
     "name": "Asia/Anadyr",
-    "label": "Russia",
-    "country": "Asia"
+    "label": "Russia"
   },
   {
     "name": "Asia/Riyadh",
-    "label": "Saudi Arabia",
-    "country": "Asia"
+    "label": "Saudi Arabia"
   },
   {
     "name": "Asia/Riyadh",
-    "label": "Antarctica",
-    "country": "Asia"
+    "label": "Antarctica"
   },
   {
     "name": "Asia/Riyadh",
-    "label": "Kuwait",
-    "country": "Asia"
+    "label": "Kuwait"
   },
   {
     "name": "Asia/Riyadh",
-    "label": "Yemen",
-    "country": "Asia"
+    "label": "Yemen"
   },
   {
     "name": "Pacific/Guadalcanal",
-    "label": "Solomon Islands",
-    "country": "Pacific"
+    "label": "Solomon Islands"
   },
   {
     "name": "Pacific/Guadalcanal",
-    "label": "Micronesia",
-    "country": "Pacific"
+    "label": "Micronesia"
   },
   {
     "name": "Africa/Khartoum",
-    "label": "Sudan",
-    "country": "Africa"
+    "label": "Sudan"
   },
   {
     "name": "Asia/Singapore",
-    "label": "Singapore",
-    "country": "Asia"
+    "label": "Singapore"
   },
   {
     "name": "Asia/Singapore",
-    "label": "Antarctica",
-    "country": "Asia"
+    "label": "Antarctica"
   },
   {
     "name": "Asia/Singapore",
-    "label": "Malaysia",
-    "country": "Asia"
+    "label": "Malaysia"
   },
   {
     "name": "America/Paramaribo",
-    "label": "Suriname",
-    "country": "America"
+    "label": "Suriname"
   },
   {
     "name": "Africa/Juba",
-    "label": "South Sudan",
-    "country": "Africa"
+    "label": "South Sudan"
   },
   {
     "name": "Africa/Sao_Tome",
-    "label": "Sao Tome & Principe",
-    "country": "Africa"
+    "label": "Sao Tome & Principe"
   },
   {
     "name": "America/El_Salvador",
-    "label": "El Salvador",
-    "country": "America"
+    "label": "El Salvador"
   },
   {
     "name": "Asia/Damascus",
-    "label": "Syria",
-    "country": "Asia"
+    "label": "Syria"
   },
   {
     "name": "America/Grand_Turk",
-    "label": "Turks & Caicos Is",
-    "country": "America"
+    "label": "Turks & Caicos Is"
   },
   {
     "name": "Africa/Ndjamena",
-    "label": "Chad",
-    "country": "Africa"
+    "label": "Chad"
   },
   {
     "name": "Asia/Bangkok",
-    "label": "Thailand",
-    "country": "Asia"
+    "label": "Thailand"
   },
   {
     "name": "Asia/Bangkok",
-    "label": "Christmas Island",
-    "country": "Asia"
+    "label": "Christmas Island"
   },
   {
     "name": "Asia/Bangkok",
-    "label": "Cambodia",
-    "country": "Asia"
+    "label": "Cambodia"
   },
   {
     "name": "Asia/Bangkok",
-    "label": "Laos",
-    "country": "Asia"
+    "label": "Laos"
   },
   {
     "name": "Asia/Bangkok",
-    "label": "Vietnam",
-    "country": "Asia"
+    "label": "Vietnam"
   },
   {
     "name": "Asia/Dushanbe",
-    "label": "Tajikistan",
-    "country": "Asia"
+    "label": "Tajikistan"
   },
   {
     "name": "Pacific/Fakaofo",
-    "label": "Tokelau",
-    "country": "Pacific"
+    "label": "Tokelau"
   },
   {
     "name": "Asia/Dili",
-    "label": "East Timor",
-    "country": "Asia"
+    "label": "East Timor"
   },
   {
     "name": "Asia/Ashgabat",
-    "label": "Turkmenistan",
-    "country": "Asia"
+    "label": "Turkmenistan"
   },
   {
     "name": "Africa/Tunis",
-    "label": "Tunisia",
-    "country": "Africa"
+    "label": "Tunisia"
   },
   {
     "name": "Pacific/Tongatapu",
-    "label": "Tonga",
-    "country": "Pacific"
+    "label": "Tonga"
   },
   {
     "name": "Europe/Istanbul",
-    "label": "Turkey",
-    "country": "Europe"
+    "label": "Turkey"
   },
   {
     "name": "Asia/Taipei",
-    "label": "Taiwan",
-    "country": "Asia"
+    "label": "Taiwan"
   },
   {
     "name": "Europe/Kyiv",
-    "label": "Ukraine",
-    "country": "Europe"
+    "label": "Ukraine"
   },
   {
     "name": "America/New_York",
-    "label": "United States",
-    "country": "America"
+    "label": "United States"
   },
   {
     "name": "America/Detroit",
-    "label": "United States",
-    "country": "America"
+    "label": "United States"
   },
   {
     "name": "America/Kentucky/Louisville",
-    "label": "United States",
-    "country": "America"
+    "label": "United States"
   },
   {
     "name": "America/Kentucky/Monticello",
-    "label": "United States",
-    "country": "America"
+    "label": "United States"
   },
   {
     "name": "America/Indiana/Indianapolis",
-    "label": "United States",
-    "country": "America"
+    "label": "United States"
   },
   {
     "name": "America/Indiana/Vincennes",
-    "label": "United States",
-    "country": "America"
+    "label": "United States"
   },
   {
     "name": "America/Indiana/Winamac",
-    "label": "United States",
-    "country": "America"
+    "label": "United States"
   },
   {
     "name": "America/Indiana/Marengo",
-    "label": "United States",
-    "country": "America"
+    "label": "United States"
   },
   {
     "name": "America/Indiana/Petersburg",
-    "label": "United States",
-    "country": "America"
+    "label": "United States"
   },
   {
     "name": "America/Indiana/Vevay",
-    "label": "United States",
-    "country": "America"
+    "label": "United States"
   },
   {
     "name": "America/Chicago",
-    "label": "United States",
-    "country": "America"
+    "label": "United States"
   },
   {
     "name": "America/Indiana/Tell_City",
-    "label": "United States",
-    "country": "America"
+    "label": "United States"
   },
   {
     "name": "America/Indiana/Knox",
-    "label": "United States",
-    "country": "America"
+    "label": "United States"
   },
   {
     "name": "America/Menominee",
-    "label": "United States",
-    "country": "America"
+    "label": "United States"
   },
   {
     "name": "America/North_Dakota/Center",
-    "label": "United States",
-    "country": "America"
+    "label": "United States"
   },
   {
     "name": "America/North_Dakota/New_Salem",
-    "label": "United States",
-    "country": "America"
+    "label": "United States"
   },
   {
     "name": "America/North_Dakota/Beulah",
-    "label": "United States",
-    "country": "America"
+    "label": "United States"
   },
   {
     "name": "America/Denver",
-    "label": "United States",
-    "country": "America"
+    "label": "United States"
   },
   {
     "name": "America/Boise",
-    "label": "United States",
-    "country": "America"
+    "label": "United States"
   },
   {
     "name": "America/Phoenix",
-    "label": "United States",
-    "country": "America"
+    "label": "United States"
   },
   {
     "name": "America/Phoenix",
-    "label": "Canada",
-    "country": "America"
+    "label": "Canada"
   },
   {
     "name": "America/Los_Angeles",
-    "label": "United States",
-    "country": "America"
+    "label": "United States"
   },
   {
     "name": "America/Anchorage",
-    "label": "United States",
-    "country": "America"
+    "label": "United States"
   },
   {
     "name": "America/Juneau",
-    "label": "United States",
-    "country": "America"
+    "label": "United States"
   },
   {
     "name": "America/Sitka",
-    "label": "United States",
-    "country": "America"
+    "label": "United States"
   },
   {
     "name": "America/Metlakatla",
-    "label": "United States",
-    "country": "America"
+    "label": "United States"
   },
   {
     "name": "America/Yakutat",
-    "label": "United States",
-    "country": "America"
+    "label": "United States"
   },
   {
     "name": "America/Nome",
-    "label": "United States",
-    "country": "America"
+    "label": "United States"
   },
   {
     "name": "America/Adak",
-    "label": "United States",
-    "country": "America"
+    "label": "United States"
   },
   {
     "name": "Pacific/Honolulu",
-    "label": "United States",
-    "country": "Pacific"
+    "label": "United States"
   },
   {
     "name": "America/Montevideo",
-    "label": "Uruguay",
-    "country": "America"
+    "label": "Uruguay"
   },
   {
     "name": "Asia/Samarkand",
-    "label": "Uzbekistan",
-    "country": "Asia"
+    "label": "Uzbekistan"
   },
   {
     "name": "Asia/Tashkent",
-    "label": "Uzbekistan",
-    "country": "Asia"
+    "label": "Uzbekistan"
   },
   {
     "name": "America/Caracas",
-    "label": "Venezuela",
-    "country": "America"
+    "label": "Venezuela"
   },
   {
     "name": "Asia/Ho_Chi_Minh",
-    "label": "Vietnam",
-    "country": "Asia"
+    "label": "Vietnam"
   },
   {
     "name": "Pacific/Efate",
-    "label": "Vanuatu",
-    "country": "Pacific"
+    "label": "Vanuatu"
   },
   {
     "name": "Pacific/Apia",
-    "label": "Samoa (western)",
-    "country": "Pacific"
+    "label": "Samoa (western)"
   },
   {
     "name": "Africa/Johannesburg",
-    "label": "South Africa",
-    "country": "Africa"
+    "label": "South Africa"
   },
   {
     "name": "Africa/Johannesburg",
-    "label": "Lesotho",
-    "country": "Africa"
+    "label": "Lesotho"
   },
   {
     "name": "Africa/Johannesburg",
-    "label": "Eswatini (Swaziland)",
-    "country": "Africa"
+    "label": "Eswatini (Swaziland)"
   }
 ]

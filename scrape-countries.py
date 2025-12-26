@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 Script to download and parse timezone data from the IANA tzdb repository,
-outputting a JSON file with timezone name, label (country name), and region.
+outputting a JSON file with timezone name and label (country name).
 """
 
 import json
@@ -44,17 +44,13 @@ def parse_zone1970(content: str, country_map: dict[str, str]) -> list[dict]:
 			country_codes = parts[0].split(",")
 			tz_name = parts[2]
 			
-			# Extract region from timezone name (e.g., "Europe" from "Europe/Andorra")
-			region = tz_name.split("/")[0] if "/" in tz_name else tz_name
-			
 			# Get the country name from the first country code
 			for country_code in country_codes:
 				label = country_map.get(country_code, country_code)
 				
 				timezones.append({
 					"name": tz_name,
-					"label": label,
-					"country": region
+					"label": label
 				})
 	
 	return timezones
