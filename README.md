@@ -1,2 +1,2 @@
-# meridian
-time zone synchronizer
+# Meridian
+Time zone synchronizer.

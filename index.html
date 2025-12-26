@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+	<title>Meridian</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<!-- SEO Description -->
+	<meta name="author" content="Nicholas S. Selby">
+	<meta name="description" content="FOSS time zone synchronizer">
+	<link rel="canonical" href="https://rupumped.github.io/meridian">
+
+	<!-- Open Graph Tags -->
+	<meta property="og:title" content="Meridian">
+	<meta property="og:description" content="FOSS time zone synchronizer">
+	<meta property="og:image" content="https://rupumped.github.io/og-image.jpg">
+	<meta property="og:image:width" content="1498">
+	<meta property="og:image:height" content="778">
+	<meta property="og:image:alt" content="Nicholas Selby: Engineering that Centers Users and Their Communities">
+	<meta property="og:url" content="https://rupumped.github.io/meridian">
+	<meta property="og:type" content="website">
+
+	<!-- Favicon -->
+	<link rel="icon" href="./favicon.ico" type="image/x-icon">
+	
+	<!-- Fonts -->
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+	
+	<!-- Vue 3 -->
+	<script src="https://unpkg.com/vue@3/dist/vue.global.prod.js"></script>
+	
+	<!-- Luxon for timezone handling -->
+	<script src="https://cdn.jsdelivr.net/npm/luxon@3.4.4/build/global/luxon.min.js"></script>
+	
+	<!-- CSS -->
+	<link rel="stylesheet" type="text/css" href="main.css">
+</head>
+<body>
+	<div id="app">
+		<!-- Header -->
+		<header>
+			<div class="logo">
+				<div class="logo-icon"><img src="favicon.ico"></div>
+				<span class="logo-text">Meridian</span>
+			</div>
+			<div class="header-actions">
+				<button class="btn" @click="showSearch = true">
+					<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+						<line x1="12" y1="5" x2="12" y2="19"></line>
+						<line x1="5" y1="12" x2="19" y2="12"></line>
+					</svg>
+					Add
+				</button>
+			</div>
+		</header>
+
+		<!-- Current Time Bar -->
+		<div class="current-time-bar">
+			<div class="current-date">{{ formattedDate }}</div>
+			<div class="current-time-wrapper">
+				<div class="current-time">{{ formattedTime }}</div>
+				<button class="btn btn-small" @click="use24Hour = !use24Hour">
+					{{ use24Hour ? '24h' : '12h' }}
+				</button>
+			</div>
+		</div>
+
+		<!-- Time Grid -->
+		<div class="time-grid-container" v-if="timezones.length > 0">
+			<!-- Alignment Line -->
+			<div class="alignment-line"></div>
+
+			<!-- Timezone List -->
+			<div class="timezone-list">
+				<div 
+					v-for="(tz, index) in timezones" 
+					:key="tz.id"
+					class="timezone-row"
+					:class="{ 
+						'dragging-reorder': dragReorderIndex === index,
+						'drag-over': dragOverIndex === index && dragOverIndex !== dragReorderIndex
+					}"
+					@dragover.prevent="onDragOver($event, index)"
+					@drop="onDrop($event, index)"
+				>
+					<!-- Timezone Header -->
+					<div class="timezone-header">
+						<div 
+							class="drag-handle"
+							draggable="true"
+							@dragstart="onDragStart($event, index)"
+							@dragend="onDragEnd"
+						>
+							<svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+								<circle cx="9" cy="6" r="1.5"></circle>
+								<circle cx="15" cy="6" r="1.5"></circle>
+								<circle cx="9" cy="12" r="1.5"></circle>
+								<circle cx="15" cy="12" r="1.5"></circle>
+								<circle cx="9" cy="18" r="1.5"></circle>
+								<circle cx="15" cy="18" r="1.5"></circle>
+							</svg>
+						</div>
+						<div class="timezone-info">
+							<div class="timezone-name">
+								<span v-if="index === 0" class="home-icon">🏠</span>
+								<span
+									class="timezone-label"
+									:class="{ editable: editingIndex !== index }"
+									@click="startEditingLabel(index)"
+									v-if="editingIndex !== index"
+								>
+									{{ tz.customLabel || tz.label }}
+								</span>
+								<input
+									v-else
+									type="text"
+									class="label-edit-input"
+									@blur="finishEditingLabel(index, $event.target.value)"
+									@keydown.enter="finishEditingLabel(index, $event.target.value)"
+									@keydown.esc="cancelEditingLabel"
+									ref="labelInput"
+								>
+								<span v-if="index > 0" class="timezone-home-offset">{{ getOffsetFromHome(tz.name) }}</span>
+							</div>
+							<div class="timezone-meta">
+								<span class="timezone-abbr">{{ getTimezoneAbbr(tz.name) }}</span>
+								<span class="timezone-offset">{{ getTimezoneOffset(tz.name) }}</span>
+							</div>
+						</div>
+						<div class="timezone-current-time">{{ getCurrentTimeInZone(tz.name) }}</div>
+						<button class="delete-btn" @click="removeTimezone(index)" title="Remove">
+							<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+								<line x1="18" y1="6" x2="6" y2="18"></line>
+								<line x1="6" y1="6" x2="18" y2="18"></line>
+							</svg>
+						</button>
+					</div>
+
+					<!-- Hour Strip -->
+					<div class="hour-strip-wrapper">
+						<div 
+							class="hour-strip"
+							:class="{ dragging: isDragging }"
+							:style="{ transform: `translateX(${getStripOffset(index)}px)` }"
+							@mousedown="startDrag"
+							@touchstart="startDrag"
+						>
+							<div 
+								v-for="hour in getHoursForTimezone(tz.name, index)" 
+								:key="hour.key"
+								class="hour-cell"
+								:class="[
+									hour.period,
+									{ current: hour.isCurrent }
+								]"
+							>
+								<div class="hour-date" v-if="hour.showDate">{{ hour.dateLabel }}</div>
+								<div class="hour-time">{{ hour.display }}</div>
+								<div class="hour-period">{{ hour.periodLabel }}</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- Empty State -->
+		<div class="empty-state" v-else>
+			<div class="empty-icon">🌐</div>
+			<div class="empty-title">No timezones added</div>
+			<div class="empty-text">Add cities to compare times across the world</div>
+			<button class="btn" @click="showSearch = true">
+				<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+					<line x1="12" y1="5" x2="12" y2="19"></line>
+					<line x1="5" y1="12" x2="19" y2="12"></line>
+				</svg>
+				Add Timezone
+			</button>
+		</div>
+
+		<!-- Instructions Toast -->
+		<div class="instructions-toast" v-if="showInstructions && timezones.length > 0">
+			<span>👆</span>
+			<span>Drag horizontally to change time</span>
+		</div>
+
+		<!-- Search Modal -->
+		<div class="modal-overlay" v-if="showSearch" @click.self="showSearch = false">
+			<div class="modal">
+				<div class="modal-header">
+					<span class="modal-title">Add Timezone</span>
+					<button class="modal-close" @click="showSearch = false">
+						<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+							<line x1="18" y1="6" x2="6" y2="18"></line>
+							<line x1="6" y1="6" x2="18" y2="18"></line>
+						</svg>
+					</button>
+				</div>
+				<div class="search-input-wrapper">
+					<input 
+						type="text" 
+						class="search-input" 
+						placeholder="Search city or timezone..."
+						v-model="searchQuery"
+						ref="searchInput"
+						@keydown.enter="selectFirstResult"
+					>
+				</div>
+				<div class="search-results">
+					<div 
+						v-for="result in filteredTimezones" 
+						:key="result.name"
+						class="search-result"
+						@click="addTimezone(result)"
+					>
+						<div class="search-result-name">{{ result.label }}</div>
+						<div class="search-result-meta">
+							<span>{{ result.name }}</span>
+							<span>{{ getTimezoneOffset(result.name) }}</span>
+						</div>
+					</div>
+					<div class="no-results" v-if="filteredTimezones.length === 0">
+						No timezones found
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<script src="index.js"></script>
+</body>
+</html>
