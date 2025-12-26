@@ -19,6 +19,7 @@ createApp({
 
 		// Drag state for time scrolling
 		const isDragging = ref(false);
+		const hasDragged = ref(false);
 		const dragStartX = ref(0);
 		const dragStartOffset = ref(0);
 
@@ -263,6 +264,7 @@ createApp({
 		// Drag handling for time scrolling
 		function startDrag(e) {
 			isDragging.value = true;
+			hasDragged.value = false;
 			const clientX = e.type === 'touchstart' ? e.touches[0].clientX : e.clientX;
 			dragStartX.value = clientX;
 			dragStartOffset.value = offsetHours.value;
@@ -279,12 +281,13 @@ createApp({
 		function onDrag(e) {
 			if (!isDragging.value) return;
 			e.preventDefault();
-			
+
+			hasDragged.value = true;
 			const clientX = e.type === 'touchmove' ? e.touches[0].clientX : e.clientX;
 			const deltaX = clientX - dragStartX.value;
 			const cellWidth = 56;
 			const hoursDelta = -deltaX / cellWidth;
-			
+
 			offsetHours.value = dragStartOffset.value + hoursDelta;
 		}
 
@@ -416,8 +419,8 @@ createApp({
 
 		// Event creation functions
 		function openEventModal(tzName, hour) {
-			// Don't open modal if we're dragging
-			if (isDragging.value) return;
+			// Don't open modal if user dragged (not just clicked)
+			if (hasDragged.value) return;
 
 			// Get the full datetime for this hour
 			const nowInZone = now.value.setZone(tzName);
