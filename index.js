@@ -341,13 +341,86 @@ createApp({
 			editingIndex.value = null;
 		}
 
+		// URL state management
+		function updateURL() {
+			const params = new URLSearchParams();
+
+			// Add 12h/24h mode
+			params.set('format', use24Hour.value ? '24h' : '12h');
+
+			// Add timezones
+			timezones.value.forEach((tz, index) => {
+				params.set(`tz${index}`, tz.name);
+				if (tz.customLabel) {
+					params.set(`label${index}`, tz.customLabel);
+				}
+			});
+
+			// Update URL without reloading
+			const newURL = `${window.location.pathname}?${params.toString()}`;
+			window.history.replaceState({}, '', newURL);
+		}
+
+		function loadFromURL() {
+			const params = new URLSearchParams(window.location.search);
+
+			// Load format preference
+			const format = params.get('format');
+			if (format === '24h') {
+				use24Hour.value = true;
+			} else if (format === '12h') {
+				use24Hour.value = false;
+			}
+
+			// Load timezones
+			const loadedTimezones = [];
+			let index = 0;
+			while (params.has(`tz${index}`)) {
+				const tzName = params.get(`tz${index}`);
+				const customLabel = params.get(`label${index}`);
+
+				// Find the timezone in the list to get the default label
+				const tzInfo = TIMEZONE_LIST.find(tz => tz.name === tzName);
+				if (tzInfo) {
+					const tzData = {
+						id: Date.now() + index,
+						name: tzName,
+						label: tzInfo.label
+					};
+					if (customLabel) {
+						tzData.customLabel = customLabel;
+					}
+					loadedTimezones.push(tzData);
+				}
+				index++;
+			}
+
+			return loadedTimezones;
+		}
+
 		// Local storage
 		function saveToStorage() {
 			localStorage.setItem('timesync-zones', JSON.stringify(timezones.value));
+			localStorage.setItem('timesync-format', use24Hour.value ? '24h' : '12h');
+			updateURL();
 		}
 
 		function loadFromStorage() {
+			// First, try to load from URL (takes priority)
+			const urlTimezones = loadFromURL();
+			if (urlTimezones.length > 0) {
+				timezones.value = urlTimezones;
+				return;
+			}
+
+			// Otherwise, load from localStorage
 			const saved = localStorage.getItem('timesync-zones');
+			const savedFormat = localStorage.getItem('timesync-format');
+
+			if (savedFormat) {
+				use24Hour.value = savedFormat === '24h';
+			}
+
 			if (saved) {
 				try {
 					timezones.value = JSON.parse(saved);
@@ -364,6 +437,9 @@ createApp({
 					{ id: 5, name: 'America/Los_Angeles', label: 'Los Angeles' }
 				];
 			}
+
+			// Update URL to match loaded state
+			updateURL();
 		}
 
 		// Update current time
@@ -391,6 +467,11 @@ createApp({
 					searchInput.value?.focus();
 				});
 			}
+		});
+
+		// Update URL when 12h/24h format changes
+		watch(use24Hour, () => {
+			saveToStorage();
 		});
 
 		return {
