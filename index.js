@@ -25,6 +25,11 @@ createApp({
 		const dragReorderIndex = ref(null);
 		const dragOverIndex = ref(null);
 
+		// Touch reordering state
+		const touchReorderStartY = ref(null);
+		const touchReorderCurrentY = ref(null);
+		const touchReorderIndex = ref(null);
+
 		// Editing state
 		const editingIndex = ref(null);
 		const labelInput = ref(null);
@@ -323,6 +328,55 @@ createApp({
 		}
 
 		function onDragEnd() {
+			dragReorderIndex.value = null;
+			dragOverIndex.value = null;
+		}
+
+		// Touch-based reordering for mobile
+		function onReorderTouchStart(e, index) {
+			// Don't interfere with horizontal time dragging
+			const touch = e.touches[0];
+			touchReorderStartY.value = touch.clientY;
+			touchReorderIndex.value = index;
+			dragReorderIndex.value = index; // Visual feedback
+		}
+
+		function onReorderTouchMove(e, index) {
+			if (touchReorderIndex.value === null) return;
+
+			const touch = e.touches[0];
+			touchReorderCurrentY.value = touch.clientY;
+			const deltaY = touchReorderCurrentY.value - touchReorderStartY.value;
+
+			// Only consider vertical movement for reordering (not horizontal for time dragging)
+			if (Math.abs(deltaY) > 10) {
+				e.preventDefault(); // Prevent scrolling when reordering
+
+				// Calculate which row we're over based on Y position
+				const rowHeight = 100; // Approximate height of a timezone row
+				const rowsMovedDown = Math.round(deltaY / rowHeight);
+				const targetIndex = Math.max(0, Math.min(timezones.value.length - 1, touchReorderIndex.value + rowsMovedDown));
+
+				dragOverIndex.value = targetIndex;
+			}
+		}
+
+		function onReorderTouchEnd() {
+			if (touchReorderIndex.value === null) return;
+
+			const sourceIndex = touchReorderIndex.value;
+			const targetIndex = dragOverIndex.value;
+
+			if (sourceIndex !== null && targetIndex !== null && sourceIndex !== targetIndex) {
+				const item = timezones.value.splice(sourceIndex, 1)[0];
+				timezones.value.splice(targetIndex, 0, item);
+				saveToStorage();
+			}
+
+			// Reset state
+			touchReorderStartY.value = null;
+			touchReorderCurrentY.value = null;
+			touchReorderIndex.value = null;
 			dragReorderIndex.value = null;
 			dragOverIndex.value = null;
 		}
@@ -707,6 +761,9 @@ createApp({
 			onDragOver,
 			onDrop,
 			onDragEnd,
+			onReorderTouchStart,
+			onReorderTouchMove,
+			onReorderTouchEnd,
 			startEditingLabel,
 			finishEditingLabel,
 			cancelEditingLabel,

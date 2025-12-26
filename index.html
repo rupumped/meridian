@@ -87,11 +87,14 @@
 				>
 					<!-- Timezone Header -->
 					<div class="timezone-header">
-						<div 
+						<div
 							class="drag-handle"
 							draggable="true"
 							@dragstart="onDragStart($event, index)"
 							@dragend="onDragEnd"
+							@touchstart="onReorderTouchStart($event, index)"
+							@touchmove="onReorderTouchMove($event, index)"
+							@touchend="onReorderTouchEnd"
 						>
 							<svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
 								<circle cx="9" cy="6" r="1.5"></circle>
