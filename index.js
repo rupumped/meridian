@@ -404,9 +404,10 @@ createApp({
 		function finishEditingLabel(index, newLabel) {
 			const trimmedLabel = newLabel.trim();
 			if (trimmedLabel && trimmedLabel !== timezones.value[index].label) {
+				// Set custom label if different from original
 				timezones.value[index].customLabel = trimmedLabel;
-			} else if (!trimmedLabel) {
-				// If empty, keep the original label
+			} else {
+				// Remove custom label if empty or same as original
 				delete timezones.value[index].customLabel;
 			}
 			editingIndex.value = null;
