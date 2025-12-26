@@ -15,12 +15,12 @@ createApp({
 		const now = ref(DateTime.now());
 		const showInstructions = ref(true);
 		const use24Hour = ref(false);
-		
+
 		// Drag state for time scrolling
 		const isDragging = ref(false);
 		const dragStartX = ref(0);
 		const dragStartOffset = ref(0);
-		
+
 		// Drag state for reordering
 		const dragReorderIndex = ref(null);
 		const dragOverIndex = ref(null);
@@ -28,6 +28,19 @@ createApp({
 		// Editing state
 		const editingIndex = ref(null);
 		const labelInput = ref(null);
+
+		// Event modal state
+		const showEventModal = ref(false);
+		const eventTitleInput = ref(null);
+		const eventData = ref({
+			title: '',
+			date: '',
+			startTime: '',
+			duration: '60',
+			location: '',
+			description: '',
+			timezone: ''
+		});
 
 		// Calculate strip offset in pixels for a specific timezone
 		function getStripOffset(index) {
@@ -148,6 +161,7 @@ createApp({
 				hours.push({
 					key: `${tzName}-${hourTime.toISO()}`,
 					hour,
+					hourOffset: i,
 					display,
 					periodLabel,
 					period,
@@ -341,6 +355,192 @@ createApp({
 			editingIndex.value = null;
 		}
 
+		// Event creation functions
+		function openEventModal(tzName, hour) {
+			// Don't open modal if we're dragging
+			if (isDragging.value) return;
+
+			// Get the full datetime for this hour
+			const nowInZone = now.value.setZone(tzName);
+			const hourTime = nowInZone.startOf('hour').plus({ hours: hour.hourOffset });
+
+			// Populate event data
+			eventData.value = {
+				title: '',
+				date: hourTime.toISODate(),
+				startTime: hourTime.toFormat('HH:mm'),
+				duration: '60',
+				location: '',
+				description: '',
+				timezone: tzName
+			};
+
+			showEventModal.value = true;
+
+			// Focus title input
+			nextTick(() => {
+				eventTitleInput.value?.focus();
+			});
+		}
+
+		function generateICS() {
+			const { title, date, startTime, duration, location, description, timezone } = eventData.value;
+
+			if (!title || !date || !startTime) {
+				return null;
+			}
+
+			// Create start datetime in the specified timezone
+			const startDateTime = DateTime.fromISO(`${date}T${startTime}`, { zone: timezone });
+			const endDateTime = startDateTime.plus({ minutes: parseInt(duration) });
+
+			// Format for ICS (must be in UTC)
+			const formatICS = (dt) => dt.toUTC().toFormat("yyyyMMdd'T'HHmmss'Z'");
+
+			// Generate unique ID
+			const uid = `${Date.now()}@meridian-timezones`;
+
+			// Create ICS content
+			const icsLines = [
+				'BEGIN:VCALENDAR',
+				'VERSION:2.0',
+				'PRODID:-//Meridian//Timezone Calendar//EN',
+				'CALSCALE:GREGORIAN',
+				'METHOD:PUBLISH',
+				'BEGIN:VEVENT',
+				`UID:${uid}`,
+				`DTSTAMP:${formatICS(DateTime.now())}`,
+				`DTSTART:${formatICS(startDateTime)}`,
+				`DTEND:${formatICS(endDateTime)}`,
+				`SUMMARY:${title}`,
+			];
+
+			if (location) {
+				icsLines.push(`LOCATION:${location}`);
+			}
+
+			if (description) {
+				// Escape special characters and handle line breaks
+				const escapedDesc = description.replace(/\\/g, '\\\\').replace(/;/g, '\\;').replace(/,/g, '\\,').replace(/\n/g, '\\n');
+				icsLines.push(`DESCRIPTION:${escapedDesc}`);
+			}
+
+			icsLines.push('STATUS:CONFIRMED');
+			icsLines.push('SEQUENCE:0');
+			icsLines.push('END:VEVENT');
+			icsLines.push('END:VCALENDAR');
+
+			return icsLines.join('\r\n');
+		}
+
+		function downloadICS() {
+			const icsContent = generateICS();
+
+			if (!icsContent) {
+				alert('Please fill in at least the event title, date, and time.');
+				return;
+			}
+
+			// Create blob and download
+			const blob = new Blob([icsContent], { type: 'text/calendar;charset=utf-8' });
+			const url = URL.createObjectURL(blob);
+			const link = document.createElement('a');
+			link.href = url;
+			link.download = `${eventData.value.title.replace(/[^a-z0-9]/gi, '_').toLowerCase()}.ics`;
+			document.body.appendChild(link);
+			link.click();
+			document.body.removeChild(link);
+			URL.revokeObjectURL(url);
+
+			// Close modal
+			showEventModal.value = false;
+		}
+
+		function openGoogleCalendar() {
+			const { title, date, startTime, duration, location, description, timezone } = eventData.value;
+
+			if (!title || !date || !startTime) {
+				alert('Please fill in at least the event title, date, and time.');
+				return;
+			}
+
+			// Create start and end datetime in the specified timezone
+			const startDateTime = DateTime.fromISO(`${date}T${startTime}`, { zone: timezone });
+			const endDateTime = startDateTime.plus({ minutes: parseInt(duration) });
+
+			// Format for Google Calendar (yyyyMMddTHHmmss format in UTC)
+			const formatGCal = (dt) => dt.toUTC().toFormat("yyyyMMdd'T'HHmmss'Z'");
+
+			// Build Google Calendar URL
+			const params = new URLSearchParams({
+				action: 'TEMPLATE',
+				text: title,
+				dates: `${formatGCal(startDateTime)}/${formatGCal(endDateTime)}`,
+				details: description || '',
+				location: location || ''
+			});
+
+			const gcalURL = `https://calendar.google.com/calendar/render?${params.toString()}`;
+			window.open(gcalURL, '_blank');
+		}
+
+		function copyToClipboard() {
+			const { title, date, startTime, duration, location, description, timezone } = eventData.value;
+
+			if (!title || !date || !startTime) {
+				alert('Please fill in at least the event title, date, and time.');
+				return;
+			}
+
+			// Create start datetime in the specified timezone
+			const startDateTime = DateTime.fromISO(`${date}T${startTime}`, { zone: timezone });
+
+			// Build the text with times in all timezones
+			const lines = [];
+			lines.push(title);
+			lines.push('');
+
+			if (description) {
+				lines.push(description);
+				lines.push('');
+			}
+
+			if (location) {
+				lines.push(`Location: ${location}`);
+				lines.push('');
+			}
+
+			lines.push(`Duration: ${duration} minutes`);
+			lines.push('');
+			lines.push('Times:');
+
+			// Add time for each timezone in the list
+			timezones.value.forEach((tz, index) => {
+				const timeInZone = startDateTime.setZone(tz.name);
+				const tzLabel = tz.customLabel || tz.label;
+				const timeStr = use24Hour.value
+					? timeInZone.toFormat('HH:mm')
+					: timeInZone.toFormat('h:mm a');
+				const dateStr = timeInZone.toFormat('EEE, MMM d');
+
+				lines.push(`  ${tzLabel}: ${dateStr} at ${timeStr}`);
+			});
+
+			const text = lines.join('\n');
+
+			// Copy to clipboard
+			navigator.clipboard.writeText(text).then(() => {
+				// Show success feedback (you could add a toast notification here)
+				const originalText = eventData.value.title;
+				eventData.value.title = '✓ Copied to clipboard!';
+				setTimeout(() => {
+					eventData.value.title = originalText;
+				}, 1000);
+			}).catch(err => {
+				alert('Failed to copy to clipboard: ' + err);
+			});
+		}
+
 		// URL state management
 		function updateURL() {
 			const params = new URLSearchParams();
@@ -487,6 +687,9 @@ createApp({
 			dragOverIndex,
 			editingIndex,
 			labelInput,
+			showEventModal,
+			eventTitleInput,
+			eventData,
 			getStripOffset,
 			formattedDate,
 			formattedTime,
@@ -506,7 +709,11 @@ createApp({
 			onDragEnd,
 			startEditingLabel,
 			finishEditingLabel,
-			cancelEditingLabel
+			cancelEditingLabel,
+			openEventModal,
+			downloadICS,
+			openGoogleCalendar,
+			copyToClipboard
 		};
 	}
 }).mount('#app');
