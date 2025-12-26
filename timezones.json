@@ -1,9 +1,5 @@
 [
   {
-    "name": "Europe/Andorra",
-    "label": "Andorra"
-  },
-  {
     "name": "Asia/Dubai",
     "label": "United Arab Emirates"
   },
@@ -36,82 +32,6 @@
     "label": "Armenia"
   },
   {
-    "name": "Antarctica/Casey",
-    "label": "Antarctica"
-  },
-  {
-    "name": "Antarctica/Davis",
-    "label": "Antarctica"
-  },
-  {
-    "name": "Antarctica/Mawson",
-    "label": "Antarctica"
-  },
-  {
-    "name": "Antarctica/Palmer",
-    "label": "Antarctica"
-  },
-  {
-    "name": "Antarctica/Rothera",
-    "label": "Antarctica"
-  },
-  {
-    "name": "Antarctica/Troll",
-    "label": "Antarctica"
-  },
-  {
-    "name": "Antarctica/Vostok",
-    "label": "Antarctica"
-  },
-  {
-    "name": "America/Argentina/Buenos_Aires",
-    "label": "Argentina"
-  },
-  {
-    "name": "America/Argentina/Cordoba",
-    "label": "Argentina"
-  },
-  {
-    "name": "America/Argentina/Salta",
-    "label": "Argentina"
-  },
-  {
-    "name": "America/Argentina/Jujuy",
-    "label": "Argentina"
-  },
-  {
-    "name": "America/Argentina/Tucuman",
-    "label": "Argentina"
-  },
-  {
-    "name": "America/Argentina/Catamarca",
-    "label": "Argentina"
-  },
-  {
-    "name": "America/Argentina/La_Rioja",
-    "label": "Argentina"
-  },
-  {
-    "name": "America/Argentina/San_Juan",
-    "label": "Argentina"
-  },
-  {
-    "name": "America/Argentina/Mendoza",
-    "label": "Argentina"
-  },
-  {
-    "name": "America/Argentina/San_Luis",
-    "label": "Argentina"
-  },
-  {
-    "name": "America/Argentina/Rio_Gallegos",
-    "label": "Argentina"
-  },
-  {
-    "name": "America/Argentina/Ushuaia",
-    "label": "Argentina"
-  },
-  {
     "name": "Pacific/Pago_Pago",
     "label": "Samoa (American)"
   },
@@ -124,60 +44,12 @@
     "label": "Austria"
   },
   {
-    "name": "Australia/Lord_Howe",
-    "label": "Australia"
-  },
-  {
     "name": "Antarctica/Macquarie",
-    "label": "Australia"
-  },
-  {
-    "name": "Australia/Hobart",
-    "label": "Australia"
-  },
-  {
-    "name": "Australia/Melbourne",
-    "label": "Australia"
-  },
-  {
-    "name": "Australia/Sydney",
-    "label": "Australia"
-  },
-  {
-    "name": "Australia/Broken_Hill",
-    "label": "Australia"
-  },
-  {
-    "name": "Australia/Brisbane",
-    "label": "Australia"
-  },
-  {
-    "name": "Australia/Lindeman",
-    "label": "Australia"
-  },
-  {
-    "name": "Australia/Adelaide",
-    "label": "Australia"
-  },
-  {
-    "name": "Australia/Darwin",
-    "label": "Australia"
-  },
-  {
-    "name": "Australia/Perth",
-    "label": "Australia"
-  },
-  {
-    "name": "Australia/Eucla",
     "label": "Australia"
   },
   {
     "name": "Asia/Baku",
     "label": "Azerbaijan"
-  },
-  {
-    "name": "America/Barbados",
-    "label": "Barbados"
   },
   {
     "name": "Asia/Dhaka",
@@ -198,10 +70,6 @@
   {
     "name": "Europe/Sofia",
     "label": "Bulgaria"
-  },
-  {
-    "name": "Atlantic/Bermuda",
-    "label": "Bermuda"
   },
   {
     "name": "America/La_Paz",
@@ -278,10 +146,6 @@
   {
     "name": "Europe/Minsk",
     "label": "Belarus"
-  },
-  {
-    "name": "America/Belize",
-    "label": "Belize"
   },
   {
     "name": "America/St_Johns",
@@ -556,10 +420,6 @@
     "label": "Åland Islands"
   },
   {
-    "name": "Pacific/Fiji",
-    "label": "Fiji"
-  },
-  {
     "name": "Atlantic/Stanley",
     "label": "Falkland Islands"
   },
@@ -604,10 +464,6 @@
     "label": "French Guiana"
   },
   {
-    "name": "Europe/Gibraltar",
-    "label": "Gibraltar"
-  },
-  {
     "name": "America/Nuuk",
     "label": "Greenland"
   },
@@ -632,24 +488,12 @@
     "label": "South Georgia & the South Sandwich Islands"
   },
   {
-    "name": "America/Guatemala",
-    "label": "Guatemala"
-  },
-  {
-    "name": "Pacific/Guam",
-    "label": "Guam"
-  },
-  {
     "name": "Pacific/Guam",
     "label": "Northern Mariana Islands"
   },
   {
     "name": "Africa/Bissau",
     "label": "Guinea-Bissau"
-  },
-  {
-    "name": "America/Guyana",
-    "label": "Guyana"
   },
   {
     "name": "Asia/Hong_Kong",
@@ -718,10 +562,6 @@
   {
     "name": "Europe/Rome",
     "label": "Vatican City"
-  },
-  {
-    "name": "America/Jamaica",
-    "label": "Jamaica"
   },
   {
     "name": "Asia/Amman",
@@ -896,32 +736,8 @@
     "label": "Mongolia"
   },
   {
-    "name": "Asia/Macau",
-    "label": "Macau"
-  },
-  {
-    "name": "America/Martinique",
-    "label": "Martinique"
-  },
-  {
-    "name": "Europe/Malta",
-    "label": "Malta"
-  },
-  {
-    "name": "Indian/Mauritius",
-    "label": "Mauritius"
-  },
-  {
-    "name": "Indian/Maldives",
-    "label": "Maldives"
-  },
-  {
     "name": "Indian/Maldives",
     "label": "French S. Terr."
-  },
-  {
-    "name": "America/Mexico_City",
-    "label": "Mexico"
   },
   {
     "name": "America/Cancun",
@@ -1068,14 +884,6 @@
     "label": "Nepal"
   },
   {
-    "name": "Pacific/Nauru",
-    "label": "Nauru"
-  },
-  {
-    "name": "Pacific/Niue",
-    "label": "Niue"
-  },
-  {
     "name": "Pacific/Auckland",
     "label": "New Zealand"
   },
@@ -1086,10 +894,6 @@
   {
     "name": "Pacific/Chatham",
     "label": "New Zealand"
-  },
-  {
-    "name": "America/Panama",
-    "label": "Panama"
   },
   {
     "name": "America/Panama",
@@ -1146,10 +950,6 @@
   {
     "name": "America/Miquelon",
     "label": "St Pierre & Miquelon"
-  },
-  {
-    "name": "Pacific/Pitcairn",
-    "label": "Pitcairn"
   },
   {
     "name": "America/Puerto_Rico",
@@ -1252,16 +1052,8 @@
     "label": "Portugal"
   },
   {
-    "name": "Pacific/Palau",
-    "label": "Palau"
-  },
-  {
     "name": "America/Asuncion",
     "label": "Paraguay"
-  },
-  {
-    "name": "Asia/Qatar",
-    "label": "Qatar"
   },
   {
     "name": "Asia/Qatar",
@@ -1437,10 +1229,6 @@
   },
   {
     "name": "Asia/Singapore",
-    "label": "Singapore"
-  },
-  {
-    "name": "Asia/Singapore",
     "label": "Antarctica"
   },
   {
@@ -1514,10 +1302,6 @@
   {
     "name": "Africa/Tunis",
     "label": "Tunisia"
-  },
-  {
-    "name": "Pacific/Tongatapu",
-    "label": "Tonga"
   },
   {
     "name": "Europe/Istanbul",

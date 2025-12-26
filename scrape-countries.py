@@ -48,10 +48,11 @@ def parse_zone1970(content: str, country_map: dict[str, str]) -> list[dict]:
 			for country_code in country_codes:
 				label = country_map.get(country_code, country_code)
 				
-				timezones.append({
-					"name": tz_name,
-					"label": label
-				})
+				if label not in tz_name:
+					timezones.append({
+						"name": tz_name,
+						"label": label
+					})
 	
 	return timezones
 
