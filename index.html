@@ -314,9 +314,9 @@
 						@keydown.enter="selectFirstResult"
 					>
 				</div>
-				<div class="search-results">
-					<div 
-						v-for="result in filteredTimezones" 
+				<div class="search-results" :key="searchQuery">
+					<div
+						v-for="result in filteredTimezones"
 						:key="result.name"
 						class="search-result"
 						@click="addTimezone(result)"

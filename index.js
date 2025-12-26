@@ -2,12 +2,13 @@ const { createApp, ref, computed, watch, onMounted, onUnmounted, nextTick } = Vu
 const { DateTime } = luxon;
 
 // Comprehensive timezone list with friendly labels
-var TIMEZONE_LIST = Intl.supportedValuesOf('timeZone').map(tz => ({ name: tz, label: tz.substring(tz.indexOf('/') + 1).replaceAll('_', ' ') })).map(tz => /GMT[+-]\d+/.test(tz.label) ? {...tz, label: tz.label.replace(/[+-]/g, m => m === '+' ? '-' : '+')} : tz);
+const initialTimezoneList = Intl.supportedValuesOf('timeZone').map(tz => ({ name: tz, label: tz.substring(tz.indexOf('/') + 1).replaceAll('_', ' ') })).map(tz => /GMT[+-]\d+/.test(tz.label) ? {...tz, label: tz.label.replace(/[+-]/g, m => m === '+' ? '-' : '+')} : tz);
 
 createApp({
 	setup() {
 		// State
 		const timezones = ref([]);
+		const timezoneList = ref(initialTimezoneList);
 		const offsetHours = ref(0);
 		const showSearch = ref(false);
 		const searchQuery = ref('');
@@ -106,9 +107,9 @@ createApp({
 		// Filter timezones for search
 		const filteredTimezones = computed(() => {
 			const query = searchQuery.value.toLowerCase().trim();
-			if (!query) return TIMEZONE_LIST.slice(0, 20);
-			
-			return TIMEZONE_LIST.filter(tz => 
+			if (!query) return timezoneList.value.slice(0, 20);
+
+			return timezoneList.value.filter(tz =>
 				tz.label.toLowerCase().includes(query) ||
 				tz.name.toLowerCase().includes(query)
 			).slice(0, 20);
@@ -638,7 +639,7 @@ createApp({
 				const customLabel = params.get(`label${index}`);
 
 				// Find the timezone in the list to get the default label
-				const tzInfo = TIMEZONE_LIST.find(tz => tz.name === tzName);
+				const tzInfo = timezoneList.value.find(tz => tz.name === tzName);
 				if (tzInfo) {
 					const tzData = {
 						id: Date.now() + index,
@@ -713,7 +714,14 @@ createApp({
 				showInstructions.value = false;
 			}, 5000);
 
-			fetch('https://rupumped.github.io/meridian/timezones.json').then(res => res.json()).then(data => TIMEZONE_LIST.push(...data));
+			fetch('https://rupumped.github.io/meridian/timezones.json').then(res => res.json()).then(data =>
+				{
+					// Add fetched data
+					timezoneList.value.push(...data);
+					// Deduplicate in place to maintain reactivity
+					const deduped = [...new Map(timezoneList.value.map(item => [`${item.label}`, item])).values()];
+					timezoneList.value.splice(0, timezoneList.value.length, ...deduped);
+				});
 		});
 
 		onUnmounted(() => {
@@ -732,6 +740,13 @@ createApp({
 		// Update URL when 12h/24h format changes
 		watch(use24Hour, () => {
 			saveToStorage();
+		});
+
+		// Log filtered timezones when searching
+		watch(searchQuery, () => {
+			if (searchQuery.value) {
+				console.log('Filtered timezones:', filteredTimezones.value);
+			}
 		});
 
 		return {
