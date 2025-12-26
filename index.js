@@ -2,7 +2,9 @@ const { createApp, ref, computed, watch, onMounted, onUnmounted, nextTick } = Vu
 const { DateTime } = luxon;
 
 // Comprehensive timezone list with friendly labels
-const TIMEZONE_LIST = Intl.supportedValuesOf('timeZone').map(tz => ({ name: tz, label: tz.substring(tz.indexOf('/') + 1).replaceAll('_', ' '), country: tz.substring(0, tz.indexOf('/')) })).map(tz => /GMT[+-]\d+/.test(tz.label) ? {...tz, label: tz.label.replace(/[+-]/g, m => m === '+' ? '-' : '+')} : tz);
+// await fetch('timezones.json').then(res => res.json()).then(data => extraTZs.push(...data));
+var TIMEZONE_LIST = Intl.supportedValuesOf('timeZone').map(tz => ({ name: tz, label: tz.substring(tz.indexOf('/') + 1).replaceAll('_', ' '), country: tz.substring(0, tz.indexOf('/')) })).map(tz => /GMT[+-]\d+/.test(tz.label) ? {...tz, label: tz.label.replace(/[+-]/g, m => m === '+' ? '-' : '+')} : tz);
+fetch('https://rupumped.github.io/meridian/timezones.json').then(res => res.json()).then(data => TIMEZONE_LIST.push(...data));
 
 createApp({
 	setup() {
