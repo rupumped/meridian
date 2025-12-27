@@ -76,7 +76,7 @@
 			<div class="timezone-list">
 				<div 
 					v-for="(tz, index) in timezones" 
-					:key="tz.id"
+					:key="tz.name"
 					class="timezone-row"
 					:class="{ 
 						'dragging-reorder': dragReorderIndex === index,

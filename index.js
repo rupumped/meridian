@@ -65,7 +65,7 @@ createApp({
 			const currentHourIndex = 24; // This is where i=0 lands in the array
 			
 			// Base offset: position the current hour cell at screen center, then apply drag offset
-			let baseOffset = screenCenter - (currentHourIndex * cellWidth) - (cellWidth / 2) - (offsetHours.value * cellWidth);
+			let baseOffset = screenCenter - (currentHourIndex * cellWidth) - (offsetHours.value * cellWidth);
 			
 			// Adjust for fractional minutes within the hour (smooth sub-hour positioning)
 			baseOffset -= (homeNow.minute / 60) * cellWidth;
@@ -233,20 +233,20 @@ createApp({
 			}
 			
 			timezones.value.push({
-				id: Date.now(),
 				name: tz.name,
-				label: tz.label
+				label: tz.label,
+				customLabel: tz.label
 			});
 			
 			showSearch.value = false;
 			searchQuery.value = '';
-			saveToStorage();
+			updateURL();
 		}
 
 		// Remove timezone
 		function removeTimezone(index) {
 			timezones.value.splice(index, 1);
-			saveToStorage();
+			updateURL();
 		}
 
 		// Select first search result
@@ -328,7 +328,7 @@ createApp({
 			if (sourceIndex !== null && sourceIndex !== targetIndex) {
 				const item = timezones.value.splice(sourceIndex, 1)[0];
 				timezones.value.splice(targetIndex, 0, item);
-				saveToStorage();
+				updateURL();
 			}
 			
 			dragReorderIndex.value = null;
@@ -378,7 +378,7 @@ createApp({
 			if (sourceIndex !== null && targetIndex !== null && sourceIndex !== targetIndex) {
 				const item = timezones.value.splice(sourceIndex, 1)[0];
 				timezones.value.splice(targetIndex, 0, item);
-				saveToStorage();
+				updateURL();
 			}
 
 			// Reset state
@@ -411,7 +411,7 @@ createApp({
 				delete timezones.value[index].customLabel;
 			}
 			editingIndex.value = null;
-			saveToStorage();
+			updateURL();
 		}
 
 		function cancelEditingLabel() {
@@ -646,7 +646,6 @@ createApp({
 				const tzInfo = timezoneList.value.find(tz => tz.name === tzName);
 				if (tzInfo) {
 					const tzData = {
-						id: Date.now() + index,
 						name: tzName,
 						label: tzInfo.label
 					};
@@ -661,54 +660,29 @@ createApp({
 			return loadedTimezones;
 		}
 
-		// Local storage
-		function saveToStorage() {
-			localStorage.setItem('timesync-zones', JSON.stringify(timezones.value));
-			localStorage.setItem('timesync-format', use24Hour.value ? '24h' : '12h');
-			updateURL();
-		}
-
-		function loadFromStorage() {
-			// First, try to load from URL (takes priority)
+		// State management (URL only, no localStorage)
+		function loadState() {
 			const urlTimezones = loadFromURL();
 			if (urlTimezones.length > 0) {
 				timezones.value = urlTimezones;
-				return;
-			}
-
-			// Otherwise, load from localStorage
-			const saved = localStorage.getItem('timesync-zones');
-			const savedFormat = localStorage.getItem('timesync-format');
-
-			if (savedFormat) {
-				use24Hour.value = savedFormat === '24h';
-			}
-
-			if (saved) {
-				try {
-					timezones.value = JSON.parse(saved);
-				} catch (e) {
-					console.error('Failed to load saved timezones');
-				}
 			} else {
 				// Default timezones
 				timezones.value = [
-					{ id: 1, name: 'Africa/Nairobi', label: 'Nairobi' },
-					{ id: 2, name: 'Africa/Lagos', label: 'Lagos' },
-					{ id: 3, name: 'America/New_York', label: 'New York' },
-					{ id: 4, name: 'America/Phoenix', label: 'Phoenix' },
-					{ id: 5, name: 'America/Los_Angeles', label: 'Los Angeles' }
+					{ name: 'Africa/Nairobi', label: 'Nairobi' },
+					{ name: 'Africa/Lagos', label: 'Lagos' },
+					{ name: 'America/New_York', label: 'New York' },
+					{ name: 'America/Phoenix', label: 'Phoenix' },
+					{ name: 'America/Los_Angeles', label: 'Los Angeles' }
 				];
+				// Update URL with defaults
+				updateURL();
 			}
-
-			// Update URL to match loaded state
-			updateURL();
 		}
 
 		// Update current time
 		let timeInterval;
 		onMounted(() => {
-			loadFromStorage();
+			loadState();
 			timeInterval = setInterval(() => {
 				now.value = DateTime.now();
 			}, 1000);
@@ -743,7 +717,7 @@ createApp({
 
 		// Update URL when 12h/24h format changes
 		watch(use24Hour, () => {
-			saveToStorage();
+			updateURL();
 		});
 
 		// Log filtered timezones when searching
