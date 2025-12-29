@@ -1,0 +1,8 @@
+# Capacitor build output
+/www/
+
+# Android build files
+/android/
+
+# Node modules
+/node_modules/

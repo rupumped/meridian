@@ -1,0 +1,9 @@
+{
+	"appId": "io.github.rupumped.meridian",
+	"appName": "Meridian",
+	"webDir": "www",
+	"bundledWebRuntime": false,
+	"server": {
+		"androidScheme": "https"
+	}
+}

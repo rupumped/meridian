@@ -1,0 +1,35 @@
+Meridian is a free and open-source time zone synchronizer that helps you coordinate meetings and events across different time zones.
+
+<b>Features:</b>
+
+• Add multiple time zones to compare times side-by-side
+• Drag horizontally to explore different times of day
+• Visual day/night indicators for each timezone
+• Click any time slot to create calendar events
+• Export events as .ics files or directly to Google Calendar
+• Copy event details with times in all your tracked zones
+• Customize labels for each timezone
+• Reorder timezones by dragging
+• Switch between 12-hour and 24-hour time formats
+• Share your timezone configuration via URL
+• Works offline after first visit
+
+<b>Perfect for:</b>
+
+• Remote teams working across continents
+• Scheduling international meetings
+• Coordinating with family and friends abroad
+• Planning travel itineraries
+• Managing global project deadlines
+
+<b>Privacy-focused:</b>
+
+• No account required
+• No tracking or analytics
+• All data stored locally in your URL
+• No server-side storage
+• Works completely offline
+
+<b>Open Source:</b>
+
+Licensed under GNU GPLv3. Source code available on GitHub.

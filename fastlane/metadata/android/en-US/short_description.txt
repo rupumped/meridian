@@ -1,0 +1,1 @@
+FOSS time zone synchronizer for comparing times across the world
