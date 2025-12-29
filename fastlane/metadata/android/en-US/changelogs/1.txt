@@ -1,0 +1,12 @@
+Initial release of Meridian
+
+• Add and manage multiple time zones
+• Interactive time slider interface
+• Visual day/night/twilight indicators
+• Create calendar events across time zones
+• Export to .ics and Google Calendar
+• Custom timezone labels
+• 12/24 hour format toggle
+• Dark and light mode support
+• Completely offline-capable
+• URL-based state for sharing configurations
