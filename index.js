@@ -622,6 +622,37 @@ createApp({
 			// Update URL without reloading
 			const newURL = `${window.location.pathname}?${params.toString()}`;
 			window.history.replaceState({}, '', newURL);
+
+			// Also save to localStorage as backup
+			saveToLocalStorage();
+		}
+
+		function saveToLocalStorage() {
+			try {
+				const state = {
+					timezones: timezones.value,
+					use24Hour: use24Hour.value
+				};
+				localStorage.setItem('meridian-state', JSON.stringify(state));
+			} catch (e) {
+				console.warn('Failed to save to localStorage:', e);
+			}
+		}
+
+		function loadFromLocalStorage() {
+			try {
+				const saved = localStorage.getItem('meridian-state');
+				if (saved) {
+					const state = JSON.parse(saved);
+					return {
+						timezones: state.timezones || [],
+						use24Hour: state.use24Hour || false
+					};
+				}
+			} catch (e) {
+				console.warn('Failed to load from localStorage:', e);
+			}
+			return null;
 		}
 
 		function loadFromURL() {
@@ -660,23 +691,37 @@ createApp({
 			return loadedTimezones;
 		}
 
-		// State management (URL only, no localStorage)
+		// State management - Priority: URL > localStorage > defaults
 		function loadState() {
+			// Priority 1: Load from URL (for sharing/bookmarks)
 			const urlTimezones = loadFromURL();
 			if (urlTimezones.length > 0) {
 				timezones.value = urlTimezones;
-			} else {
-				// Default timezones
-				timezones.value = [
-					{ name: 'Africa/Nairobi', label: 'Nairobi' },
-					{ name: 'Africa/Lagos', label: 'Lagos' },
-					{ name: 'America/New_York', label: 'New York' },
-					{ name: 'America/Phoenix', label: 'Phoenix' },
-					{ name: 'America/Los_Angeles', label: 'Los Angeles' }
-				];
-				// Update URL with defaults
-				updateURL();
+				// Save to localStorage for offline backup
+				saveToLocalStorage();
+				return;
 			}
+
+			// Priority 2: Load from localStorage (offline fallback)
+			const localState = loadFromLocalStorage();
+			if (localState && localState.timezones.length > 0) {
+				timezones.value = localState.timezones;
+				use24Hour.value = localState.use24Hour;
+				// Update URL to match localStorage state
+				updateURL();
+				return;
+			}
+
+			// Priority 3: Default timezones
+			timezones.value = [
+				{ name: 'Africa/Nairobi', label: 'Nairobi' },
+				{ name: 'Africa/Lagos', label: 'Lagos' },
+				{ name: 'America/New_York', label: 'New York' },
+				{ name: 'America/Phoenix', label: 'Phoenix' },
+				{ name: 'America/Los_Angeles', label: 'Los Angeles' }
+			];
+			// Update URL with defaults
+			updateURL();
 		}
 
 		// Update current time

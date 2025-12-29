@@ -59,10 +59,25 @@ self.addEventListener('fetch', (event) => {
 		return;
 	}
 
+	const url = new URL(event.request.url);
+	const isNavigationRequest = event.request.mode === 'navigate';
+	
+	// For navigation requests (user opening the app), always go to network
+	// This ensures we get the current HTML with user's URL state
+	if (isNavigationRequest) {
+		event.respondWith(
+			fetch(event.request).catch(() => {
+				// If offline, serve cached HTML as fallback
+				return caches.match('/meridian/index.html');
+			})
+		);
+		return;
+	}
+
+	// For all other requests (CSS, JS, fonts, etc.), use cache-first strategy
 	event.respondWith(
 		caches.match(event.request)
 			.then((response) => {
-				// Return cached version or fetch from network
 				if (response) {
 					console.log('[Service Worker] Serving from cache:', event.request.url);
 					return response;
@@ -75,10 +90,8 @@ self.addEventListener('fetch', (event) => {
 						return response;
 					}
 
-					// Clone the response
+					// Clone and cache the response
 					const responseToCache = response.clone();
-
-					// Cache the fetched resource
 					caches.open(CACHE_NAME).then((cache) => {
 						cache.put(event.request, responseToCache);
 					});
@@ -87,9 +100,7 @@ self.addEventListener('fetch', (event) => {
 				});
 			})
 			.catch(() => {
-				// Fallback for offline - return a basic offline page if needed
 				console.log('[Service Worker] Fetch failed, offline');
-				// TODO: return a custom offline page here
 			})
 	);
 });
