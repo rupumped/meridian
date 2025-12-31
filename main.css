@@ -165,6 +165,7 @@ header {
 	color: var(--accent);
 	cursor: pointer;
 	transition: transform 0.15s;
+	text-align: right;
 }
 
 .current-time:hover {
