@@ -640,10 +640,6 @@ header {
 	background: var(--text-muted);
 }
 
-/* Event Modal */
-.event-modal {
-	max-width: 500px;
-}
 
 .event-form {
 	padding: 20px;
@@ -754,4 +750,45 @@ footer {
 	.form-row {
 		grid-template-columns: 1fr;
 	}
+}
+
+/* Help Modal */
+.help-content {
+	padding: 20px;
+	max-height: 70vh;
+	overflow-y: auto;
+}
+
+.help-section {
+	margin-bottom: 24px;
+}
+
+.help-section:last-child {
+	margin-bottom: 0;
+}
+
+.help-section h3 {
+	color: var(--primary);
+	font-size: 16px;
+	font-weight: 600;
+	margin: 0 0 12px 0;
+	border-bottom: 1px solid var(--border);
+	padding-bottom: 8px;
+}
+
+.help-section ul {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+}
+
+.help-section li {
+	padding: 8px 0;
+	line-height: 1.5;
+	color: var(--text-secondary);
+}
+
+.help-section li strong {
+	color: var(--text-primary);
+	font-weight: 600;
 }

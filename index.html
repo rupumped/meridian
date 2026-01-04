@@ -53,6 +53,9 @@
 				<span class="logo-text">Meridian</span>
 			</div>
 			<div class="header-actions">
+				<button class="btn" @click="showHelp = true" title="Help">
+					?
+				</button>
 				<button class="btn" @click="showSearch = true">
 					<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
 						<line x1="12" y1="5" x2="12" y2="19"></line>
@@ -199,7 +202,7 @@
 
 		<!-- Event Creation Modal -->
 		<div class="modal-overlay" v-if="showEventModal" @click.self="showEventModal = false">
-			<div class="modal event-modal">
+			<div class="modal">
 				<div class="modal-header">
 					<span class="modal-title">Create Calendar Event</span>
 					<button class="modal-close" @click="showEventModal = false">
@@ -295,6 +298,37 @@
 							Download .ics
 						</button>
 					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- Help Modal -->
+		<div class="modal-overlay" v-if="showHelp" @click.self="showHelp = false">
+			<div class="modal">
+				<div class="modal-header">
+					<span class="modal-title">How to Use Meridian</span>
+					<button class="modal-close" @click="showHelp = false">
+						<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+							<line x1="18" y1="6" x2="6" y2="18"></line>
+							<line x1="6" y1="6" x2="18" y2="18"></line>
+						</svg>
+					</button>
+				</div>
+				<div class="help-content">
+					<section class="help-section">
+						<ul>
+							<li><strong>Time Travel:</strong> Drag horizontally on the hour strips to explore different times of day</li>
+							<li><strong>Current Time:</strong> Click the current time in the header to reset to now</li>
+							<li><strong>Format Toggle:</strong> Switch between 12-hour and 24-hour format using the button in the header</li>
+							<li><strong>Add Timezone:</strong> Click "Add" button and search for any city or timezone</li>
+							<li><strong>Remove Timezone:</strong> Click the × button on any timezone row</li>
+							<li><strong>Reorder:</strong> Drag the ⋮⋮ handle to rearrange timezones</li>
+							<li><strong>Custom Labels:</strong> Click any timezone name to edit it (great for adding names like "Mom" or "Tokyo Office")</li>
+							<li><strong>Home Offset:</strong> The first timezone is your "home" - others show their offset from it</li>
+							<li><strong>Create an Event:</strong> Click a time cell to create a calendar event at that time</li>
+							<li><strong>URL Sharing:</strong> Your configuration is automatically saved in the URL - just share the link!</li>
+						</ul>
+					</section>
 				</div>
 			</div>
 		</div>

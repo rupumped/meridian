@@ -11,6 +11,7 @@ createApp({
 		const timezoneList = ref(initialTimezoneList);
 		const offsetHours = ref(0);
 		const showSearch = ref(false);
+		const showHelp = ref(false);
 		const searchQuery = ref('');
 		const searchInput = ref(null);
 		const now = ref(DateTime.now());
@@ -776,6 +777,7 @@ createApp({
 			timezones,
 			offsetHours,
 			showSearch,
+			showHelp,
 			searchQuery,
 			searchInput,
 			showInstructions,
