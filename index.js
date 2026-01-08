@@ -50,6 +50,60 @@ createApp({
 			timezone: ''
 		});
 
+		function copyAsText() {
+			if (timezones.length < 2) {
+				alert('Please add at least two timezones to compare.');
+				return
+			}
+
+			var text = ''
+			var homeTimes = ''
+			for (let t=0; t<24; t++) {
+				homeTimes+= `${t}`.padStart(2,'0') + (t<23 ? '  ' : '')
+			}
+			timezones.value.forEach((tz, index) => {
+				if (index == 0) {
+					text+= `${tz.customLabel || tz.label}\n${homeTimes}`
+				} else {
+					// Add bar line
+					text+= '\n' + '||  '.repeat(24)
+
+					// Create label line with bars
+					let labelLine = tz.customLabel || tz.label
+					labelLine+= `${' '.repeat(4-labelLine.length%4)}${'||  '.repeat(Math.ceil((homeTimes.length-labelLine.length)/4))}`
+					text+= '\n' + labelLine.substring(0, homeTimes.length) + '\n'
+
+					// Create hours line
+					const offsetStr = getOffsetFromHome(tz.name)
+					const match = offsetStr.match(/^([+-])?(\d+)/);
+					const sign = match[1] === '-' ? -1 : 1;
+					const hours = parseInt(match[2]);
+					let offset = sign * hours;
+					let hoursLine = ''
+					if (offsetStr.includes(':')) {
+						hoursLine+= '  '
+						offset+= 1
+					}
+					for (let t=0; t<24; t++) {
+						hoursLine+= `${(((t+offset) % 24) + 24) % 24}`.padStart(2,'0') + (t<23 ? '  ' : '')
+					}
+					text+= hoursLine.substring(0, homeTimes.length)
+				}
+			})
+
+			// Copy to clipboard
+			navigator.clipboard.writeText(text).then(() => {
+				// Show success feedback
+				const originalIcon = document.getElementById('copyAsTextButton').innerHTML;
+				document.getElementById('copyAsTextButton').innerHTML = '✓';
+				setTimeout(() => {
+					document.getElementById('copyAsTextButton').innerHTML = originalIcon;
+				}, 1000);
+			}).catch(err => {
+				alert('Failed to copy to clipboard: ' + err);
+			});
+		}
+
 		// Calculate strip offset in pixels for a specific timezone
 		function getStripOffset(index) {
 			const cellWidth = 56; // 52px + 4px margin
@@ -111,17 +165,17 @@ createApp({
 			const query = searchQuery.value.toLowerCase().trim();
 			if (!query) return timezoneList.value.slice(0, 20);
 
-			// Include only search results whose label or name contains the query. Priority results include the query in the name, then by name shortness.
+			// Include only search results whose label or name contains the query. Priority results include the query in the label, then by label shortness.
 			return timezoneList.value.filter(tz =>
 				tz.label.toLowerCase().includes(query) ||
 				tz.name.toLowerCase().includes(query)
 			).slice(0, 20).toSorted((a,b) => {
-				if (a.name.toLowerCase().includes(query) && !b.name.toLowerCase().includes(query)) {
-					return 1
-				} else if (!a.name.toLowerCase().includes(query) && b.name.toLowerCase().includes(query)) {
+				if (a.label.toLowerCase().includes(query) && !b.label.toLowerCase().includes(query)) {
 					return -1
+				} else if (!a.label.toLowerCase().includes(query) && b.label.toLowerCase().includes(query)) {
+					return 1
 				} else {
-					return a.name.length-b.name.length
+					return a.label.length-b.label.length
 				}
 			});
 		});
@@ -603,7 +657,7 @@ createApp({
 
 			// Copy to clipboard
 			navigator.clipboard.writeText(text).then(() => {
-				// Show success feedback (you could add a toast notification here)
+				// Show success feedback
 				const originalText = eventData.value.title;
 				eventData.value.title = '✓ Copied to clipboard!';
 				setTimeout(() => {
@@ -755,11 +809,41 @@ createApp({
 					const deduped = [...new Map(timezoneList.value.map(item => [`${item.label}`, item])).values()];
 					timezoneList.value.splice(0, timezoneList.value.length, ...deduped);
 				});
+
+			// Attach keyboard shortcuts
+			document.addEventListener('keydown', handleKeyboardShortcuts);
 		});
 
 		onUnmounted(() => {
 			clearInterval(timeInterval);
+			document.removeEventListener('keydown', handleKeyboardShortcuts);
 		});
+
+		// Keyboard shortcuts
+		function handleKeyboardShortcuts(e) {
+			// Don't trigger if user is typing in an input field
+			if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') {
+				return
+			}
+
+			// Open Add modal with 'A' or '+'
+			if (e.key === 'a' || e.key === 'A' || e.key === '+') {
+				e.preventDefault()
+				showSearch.value = true
+			}
+
+			// Open Help modal with 'H' or '?'
+			if (e.key === 'h' || e.key === 'H' || e.key === '?') {
+				e.preventDefault()
+				showHelp.value = true
+			}
+
+			// Reset to current time with 'N'
+			if (e.key === 'n' || e.key === 'N') {
+				e.preventDefault()
+				resetToCurrentTime()
+			}
+		}
 
 		// Focus search input when modal opens
 		watch(showSearch, (val) => {
@@ -787,6 +871,7 @@ createApp({
 			offsetHours,
 			showSearch,
 			showHelp,
+			copyAsText,
 			searchQuery,
 			searchInput,
 			showInstructions,
