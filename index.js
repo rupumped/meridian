@@ -111,10 +111,19 @@ createApp({
 			const query = searchQuery.value.toLowerCase().trim();
 			if (!query) return timezoneList.value.slice(0, 20);
 
+			// Include only search results whose label or name contains the query. Priority results include the query in the name, then by name shortness.
 			return timezoneList.value.filter(tz =>
 				tz.label.toLowerCase().includes(query) ||
 				tz.name.toLowerCase().includes(query)
-			).slice(0, 20);
+			).slice(0, 20).toSorted((a,b) => {
+				if (a.name.toLowerCase().includes(query) && !b.name.toLowerCase().includes(query)) {
+					return 1
+				} else if (!a.name.toLowerCase().includes(query) && b.name.toLowerCase().includes(query)) {
+					return -1
+				} else {
+					return a.name.length-b.name.length
+				}
+			});
 		});
 
 		// Get hours array for a timezone

@@ -461,6 +461,7 @@ header {
 	flex-direction: column;
 	border: 1px solid var(--border);
 	animation: slideUp 0.3s ease-out;
+	max-height: 100%;
 }
 
 @keyframes slideUp {
@@ -643,6 +644,7 @@ header {
 
 .event-form {
 	padding: 20px;
+	overflow-y: auto;
 }
 
 .form-group {
@@ -755,7 +757,6 @@ footer {
 /* Help Modal */
 .help-content {
 	padding: 20px;
-	max-height: 70vh;
 	overflow-y: auto;
 }
 
