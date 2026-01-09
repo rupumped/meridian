@@ -1,6 +1,8 @@
 const { createApp, ref, computed, watch, onMounted, onUnmounted, nextTick } = Vue;
 const { DateTime } = luxon;
 
+const DEBUG_TIME = false;//'2024-03-10T06:00:00';
+
 // Comprehensive timezone list with friendly labels
 const initialTimezoneList = Intl.supportedValuesOf('timeZone').map(tz => ({ name: tz, label: tz.substring(tz.indexOf('/') + 1).replaceAll('_', ' ') })).map(tz => /GMT[+-]\d+/.test(tz.label) ? {...tz, label: tz.label.replace(/[+-]/g, m => m === '+' ? '-' : '+')} : tz);
 
@@ -14,7 +16,7 @@ createApp({
 		const showHelp = ref(false);
 		const searchQuery = ref('');
 		const searchInput = ref(null);
-		const now = ref(DateTime.now());
+		const now = DEBUG_TIME ? ref(DateTime.fromISO(DEBUG_TIME)) : ref(DateTime.now());
 		const showInstructions = ref(true);
 		const use24Hour = ref(false);
 
@@ -135,13 +137,7 @@ createApp({
 				const minuteOffset = ((diffMinutes % 60) + 60) % 60;
 				
 				// Shift by fractional cell width for non-whole-hour offsets
-				if (minuteOffset === 30) {
-					baseOffset -= cellWidth / 2;
-				} else if (minuteOffset === 45) {
-					baseOffset -= cellWidth * 0.75;
-				} else if (minuteOffset === 15) {
-					baseOffset -= cellWidth * 0.25;
-				}
+				baseOffset -= (minuteOffset / 60) * cellWidth;
 			}
 			
 			return baseOffset;
@@ -184,21 +180,24 @@ createApp({
 		function getHoursForTimezone(tzName, index) {
 			const hours = [];
 			const nowInZone = now.value.setZone(tzName);
-			
+
 			// Calculate offset from home timezone (first in list)
 			let minuteOffset = 0;
+			const homeZone = timezones.value.length > 0 ? timezones.value[0].name : tzName;
+			const homeNow = now.value.setZone(homeZone);
+
 			if (index > 0 && timezones.value.length > 0) {
-				const homeZone = timezones.value[0].name;
-				const homeOffset = now.value.setZone(homeZone).offset; // in minutes
-				const thisOffset = now.value.setZone(tzName).offset; // in minutes
+				const homeOffset = homeNow.offset; // in minutes
+				const thisOffset = nowInZone.offset; // in minutes
 				const diffMinutes = thisOffset - homeOffset;
 				// Get just the fractional hour part (e.g., 30 for IST which is +5:30)
 				minuteOffset = ((diffMinutes % 60) + 60) % 60;
 			}
-			
+
 			// Generate 24 hours in both directions from current time (48 total)
+			// Base hour generation on HOME timezone to keep alignment consistent
 			for (let i = -24; i < 24; i++) {
-				const hourTime = nowInZone.startOf('hour').plus({ hours: i });
+				const hourTime = homeNow.startOf('hour').plus({ hours: i }).setZone(tzName);
 				const hour = hourTime.hour;
 				
 				// Determine period (day/night/twilight)
@@ -221,11 +220,11 @@ createApp({
 				
 				if (use24Hour.value) {
 					display = hourTime.toFormat('HH');
-					periodLabel = hasHalfHour ? ':30' : '';
+					periodLabel = '';
 				} else {
 					display = hourTime.toFormat('h');
 					const amPm = hourTime.toFormat('a').toLowerCase();
-					periodLabel = hasHalfHour ? `:30 ${amPm}` : amPm;
+					periodLabel = amPm;
 				}
 				
 				hours.push({
@@ -800,9 +799,11 @@ createApp({
 		let timeInterval;
 		onMounted(() => {
 			loadState();
-			timeInterval = setInterval(() => {
-				now.value = DateTime.now();
-			}, 1000);
+			if (!DEBUG_TIME) {
+				timeInterval = setInterval(() => {
+					now.value = DateTime.now();
+				}, 1000);
+			}
 			
 			// Hide instructions after 5 seconds
 			setTimeout(() => {
