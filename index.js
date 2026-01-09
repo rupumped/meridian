@@ -739,16 +739,17 @@ createApp({
 
 				// Find the timezone in the list to get the default label
 				const tzInfo = timezoneList.value.find(tz => tz.name === tzName);
-				if (tzInfo) {
-					const tzData = {
-						name: tzName,
-						label: tzInfo.label
-					};
-					if (customLabel) {
-						tzData.customLabel = customLabel;
-					}
-					loadedTimezones.push(tzData);
+
+				// Create timezone data even if not found in list yet
+				// (it might be in the external JSON that loads async)
+				const tzData = {
+					name: tzName,
+					label: tzInfo ? tzInfo.label : tzName.substring(tzName.indexOf('/') + 1).replaceAll('_', ' ')
+				};
+				if (customLabel) {
+					tzData.customLabel = customLabel;
 				}
+				loadedTimezones.push(tzData);
 				index++;
 			}
 
