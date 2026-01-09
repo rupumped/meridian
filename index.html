@@ -172,7 +172,8 @@
 								class="hour-cell"
 								:class="[
 									hour.period,
-									{ current: hour.isCurrent }
+									{ current: hour.isCurrent },
+									{ dst: hour.isDstTransition }
 								]"
 								@click="openEventModal(tz.name, hour)"
 							>

@@ -1,7 +1,7 @@
 const { createApp, ref, computed, watch, onMounted, onUnmounted, nextTick } = Vue;
 const { DateTime } = luxon;
 
-const DEBUG_TIME = false;//'2024-03-10T06:00:00';
+const DEBUG_TIME = false;//'2026-11-01T06:00:00';
 
 // Comprehensive timezone list with friendly labels
 const initialTimezoneList = Intl.supportedValuesOf('timeZone').map(tz => ({ name: tz, label: tz.substring(tz.indexOf('/') + 1).replaceAll('_', ' ') })).map(tz => /GMT[+-]\d+/.test(tz.label) ? {...tz, label: tz.label.replace(/[+-]/g, m => m === '+' ? '-' : '+')} : tz);
@@ -207,10 +207,15 @@ createApp({
 				else if (hour >= 18 && hour < 20) period = 'twilight';
 				
 				// Check if this is the current hour
-				const isCurrent = hourTime.hour === nowInZone.hour && 
+				const isCurrent = hourTime.hour === nowInZone.hour &&
 													hourTime.day === nowInZone.day &&
 													hourTime.month === nowInZone.month;
-				
+
+				// Check for DST transition
+				// Compare offset of this hour vs previous hour to detect transitions
+				const prevHour = homeNow.startOf('hour').plus({ hours: i - 1 }).setZone(tzName);
+				const isDstTransition = hourTime.offset !== prevHour.offset;
+
 				// Show date label at midnight or when day changes
 				const showDate = hour === 0;
 				
@@ -235,6 +240,7 @@ createApp({
 					periodLabel,
 					period,
 					isCurrent,
+					isDstTransition,
 					showDate,
 					dateLabel: hourTime.toFormat('MMM d'),
 					minuteOffset
