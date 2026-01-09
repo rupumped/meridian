@@ -53,6 +53,12 @@
 				<span class="logo-text">Meridian</span>
 			</div>
 			<div class="header-actions">
+				<button id="shareButton" class="btn" @click="copyLink">
+					<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+						<path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path>
+						<path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path>
+					</svg>
+				</button>
 				<button id="copyAsTextButton" class="btn" @click="copyAsText">
 					<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
 						<rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
@@ -201,10 +207,10 @@
 			</button>
 		</div>
 
-		<!-- Instructions Toast -->
-		<div class="instructions-toast" v-if="showInstructions && timezones.length > 0">
-			<span>👆</span>
-			<span>Drag horizontally to change time</span>
+		<!-- Toast Notification -->
+		<div class="toast" v-if="showToast || (showInstructions && timezones.length > 0)">
+			<span v-if="showInstructions && timezones.length > 0">👆 Drag horizontally to change time</span>
+			<span v-else>{{ toastMessage }}</span>
 		</div>
 
 		<!-- Event Creation Modal -->
@@ -324,16 +330,17 @@
 				<div class="help-content">
 					<section class="help-section">
 						<ul>
-							<li><strong>Time Travel:</strong> Drag horizontally on the hour strips to explore different times of day</li>
-							<li><strong>Current Time:</strong> Click the current time in the header to reset to now</li>
+							<li><strong>Time Travel:</strong> Drag horizontally on the hour strips or use the left/right arrow keys to explore different times of day</li>
+							<li><strong>Current Time:</strong> Click the current time in the header or type 'N' to reset to now</li>
 							<li><strong>Format Toggle:</strong> Switch between 12-hour and 24-hour format using the button in the header</li>
-							<li><strong>Add Timezone:</strong> Click "Add" button and search for any city or timezone</li>
+							<li><strong>Add Timezone:</strong> Click "Add" button or type 'A' or '+' and search for any city or timezone</li>
 							<li><strong>Remove Timezone:</strong> Click the × button on any timezone row</li>
 							<li><strong>Reorder:</strong> Drag the ⋮⋮ handle to rearrange timezones</li>
 							<li><strong>Custom Labels:</strong> Click any timezone name to edit it (great for adding names like "Mom" or "Tokyo Office")</li>
 							<li><strong>Home Offset:</strong> The first timezone is your "home" - others show their offset from it</li>
 							<li><strong>Create an Event:</strong> Click a time cell to create a calendar event at that time</li>
 							<li><strong>URL Sharing:</strong> Your configuration is automatically saved in the URL - just share the link!</li>
+							<li><strong>Copy as Text:</strong> Click the copy button or type 'C' to copy the current layout as text - make sure you paste it in a monospace font!</li>
 						</ul>
 					</section>
 				</div>

@@ -1,6 +1,7 @@
 const { createApp, ref, computed, watch, onMounted, onUnmounted, nextTick } = Vue;
 const { DateTime } = luxon;
 
+// Debug by setting a custom time, or set to false for regular operation
 const DEBUG_TIME = false;//'2026-11-01T06:00:00';
 
 // Comprehensive timezone list with friendly labels
@@ -18,6 +19,8 @@ createApp({
 		const searchInput = ref(null);
 		const now = DEBUG_TIME ? ref(DateTime.fromISO(DEBUG_TIME)) : ref(DateTime.now());
 		const showInstructions = ref(true);
+		const showToast = ref(false);
+		const toastMessage = ref('');
 		const use24Hour = ref(false);
 
 		// Drag state for time scrolling
@@ -51,6 +54,23 @@ createApp({
 			description: '',
 			timezone: ''
 		});
+
+		// Toast notification
+		function showToastNotification(message) {
+			toastMessage.value = message;
+			showToast.value = true;
+			setTimeout(() => {
+				showToast.value = false;
+			}, 2000);
+		}
+
+		function copyLink() {
+			navigator.clipboard.writeText(window.location.href).then(() => {
+				showToastNotification('Link copied!');
+			}).catch(err => {
+				alert('Failed to copy to clipboard: ' + err);
+			});
+		}
 
 		function copyAsText() {
 			if (timezones.length < 2) {
@@ -95,12 +115,7 @@ createApp({
 
 			// Copy to clipboard
 			navigator.clipboard.writeText(text).then(() => {
-				// Show success feedback
-				const originalIcon = document.getElementById('copyAsTextButton').innerHTML;
-				document.getElementById('copyAsTextButton').innerHTML = '✓';
-				setTimeout(() => {
-					document.getElementById('copyAsTextButton').innerHTML = originalIcon;
-				}, 1000);
+				showToastNotification('Copied!');
 			}).catch(err => {
 				alert('Failed to copy to clipboard: ' + err);
 			});
@@ -843,7 +858,7 @@ createApp({
 			}
 
 			// Open Add modal with 'A' or '+'
-			if (e.key === 'a' || e.key === 'A' || e.key === '+') {
+			if (e.key === 'a' || e.key === 'A' || e.key === '=' || e.key === '+') {
 				e.preventDefault()
 				showSearch.value = true
 			}
@@ -858,6 +873,22 @@ createApp({
 			if (e.key === 'n' || e.key === 'N') {
 				e.preventDefault()
 				resetToCurrentTime()
+			}
+
+			// Copy as text with 'C'
+			if (e.key === 'c' || e.key === 'C') {
+				e.preventDefault()
+				copyAsText()
+			}
+
+			// Scroll with arrow keys
+			if (e.key === 'ArrowRight') {
+				e.preventDefault()
+				offsetHours.value += 1
+			}
+			if (e.key === 'ArrowLeft') {
+				e.preventDefault()
+				offsetHours.value -= 1
 			}
 		}
 
@@ -888,6 +919,7 @@ createApp({
 			showSearch,
 			showHelp,
 			copyAsText,
+			copyLink,
 			searchQuery,
 			searchInput,
 			showInstructions,
@@ -927,7 +959,10 @@ createApp({
 			openEventModal,
 			downloadICS,
 			openGoogleCalendar,
-			copyToClipboard
+			copyToClipboard,
+			copyLink,
+			showToast,
+			toastMessage
 		};
 	}
 }).mount('#app');
