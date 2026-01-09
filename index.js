@@ -252,10 +252,11 @@ createApp({
 
 		// Get current time in a timezone
 		function getCurrentTimeInZone(tzName) {
+			const nowInZone = now.value.setZone(tzName);
 			if (use24Hour.value) {
-				return now.value.setZone(tzName).toFormat('HH:mm');
+				return nowInZone.plus(offsetHours.value*60*60*1000).toFormat('HH:mm');
 			} else {
-				return now.value.setZone(tzName).toFormat('h:mm a');
+				return nowInZone.plus(offsetHours.value*60*60*1000).toFormat('h:mm a');
 			}
 		}
 
