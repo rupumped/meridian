@@ -797,3 +797,88 @@ footer {
 	color: var(--text-primary);
 	font-weight: 600;
 }
+
+/* Team Profiles Modal */
+.profiles-content {
+	padding: 20px;
+}
+
+.profile-save-section,
+.profiles-list-section {
+	margin-bottom: 24px;
+}
+
+.profile-save-section h3,
+.profiles-list-section h3 {
+	color: var(--text-primary);
+	font-size: 14px;
+	font-weight: 600;
+	margin: 0 0 12px 0;
+	text-transform: uppercase;
+	letter-spacing: 0.5px;
+}
+
+.profile-save-form {
+	display: flex;
+	gap: 8px;
+}
+
+.profile-save-form .form-input {
+	flex: 1;
+}
+
+.profiles-list {
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
+}
+
+.profile-item {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	padding: 12px;
+	background: var(--surface);
+	border: 1px solid var(--border);
+	border-radius: 6px;
+	transition: all 0.2s;
+}
+
+.profile-item:hover {
+	border-color: var(--primary);
+}
+
+.profile-item.active {
+	background: rgba(99, 102, 241, 0.1);
+	border-color: var(--primary);
+}
+
+.profile-info {
+	flex: 1;
+}
+
+.profile-name {
+	color: var(--text-primary);
+	font-weight: 500;
+	margin-bottom: 4px;
+}
+
+.profile-meta {
+	color: var(--text-muted);
+	font-size: 12px;
+}
+
+.profile-actions {
+	display: flex;
+	gap: 8px;
+}
+
+.no-profiles {
+	text-align: center;
+	padding: 40px 20px;
+	color: var(--text-muted);
+}
+
+.no-profiles p {
+	margin: 0;
+}

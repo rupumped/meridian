@@ -14,7 +14,10 @@ createApp({
 		const offsetHours = ref(0);
 		const showSearch = ref(false);
 		const showHelp = ref(false);
+		const showProfiles = ref(false);
 		const searchQuery = ref('');
+		const profiles = ref([]);
+		const currentProfileName = ref('');
 		const searchInput = ref(null);
 		const now = DEBUG_TIME ? ref(DateTime.fromISO(DEBUG_TIME)) : ref(DateTime.now());
 		const showInstructions = ref(true);
@@ -290,6 +293,76 @@ createApp({
 			} else {
 				const hoursWithSign = diffMinutes >= 0 ? hours : -hours;
 				return `${sign}${hoursWithSign}:${minutes.toString().padStart(2, '0')}`;
+			}
+		}
+
+		// Profile management
+		const newProfileName = ref('');
+
+		function saveProfile() {
+			const name = newProfileName.value.trim();
+			if (!name) {
+				alert('Please enter a profile name');
+				return;
+			}
+
+			// Check if profile name already exists
+			const existingIndex = profiles.value.findIndex(p => p.name === name);
+
+			const profile = {
+				name,
+				timezones: JSON.parse(JSON.stringify(timezones.value)),
+				use24Hour: use24Hour.value
+			};
+
+			if (existingIndex >= 0) {
+				// Update existing profile
+				profiles.value[existingIndex] = profile;
+			} else {
+				// Add new profile
+				profiles.value.push(profile);
+			}
+
+			currentProfileName.value = name;
+			saveProfilesToStorage();
+			newProfileName.value = '';
+		}
+
+		function loadProfile(profile) {
+			timezones.value = JSON.parse(JSON.stringify(profile.timezones));
+			use24Hour.value = profile.use24Hour;
+			currentProfileName.value = profile.name;
+			updateURL();
+			showProfiles.value = false;
+		}
+
+		function deleteProfile(index) {
+			const profile = profiles.value[index];
+			if (confirm(`Delete profile "${profile.name}"?`)) {
+				if (currentProfileName.value === profile.name) {
+					currentProfileName.value = '';
+				}
+				profiles.value.splice(index, 1);
+				saveProfilesToStorage();
+			}
+		}
+
+		function saveProfilesToStorage() {
+			try {
+				localStorage.setItem('meridian-profiles', JSON.stringify(profiles.value));
+			} catch (e) {
+				console.warn('Failed to save profiles:', e);
+			}
+		}
+
+		function loadProfilesFromStorage() {
+			try {
+				const saved = localStorage.getItem('meridian-profiles');
+				if (saved) {
+					profiles.value = JSON.parse(saved);
+				}
+			} catch (e) {
+				console.warn('Failed to load profiles:', e);
 			}
 		}
 
@@ -806,6 +879,7 @@ createApp({
 		let timeInterval;
 		onMounted(() => {
 			loadState();
+			loadProfilesFromStorage();
 			if (!DEBUG_TIME) {
 				timeInterval = setInterval(() => {
 					now.value = DateTime.now();
@@ -887,11 +961,18 @@ createApp({
 			offsetHours,
 			showSearch,
 			showHelp,
+			showProfiles,
+			profiles,
+			currentProfileName,
+			newProfileName,
 			copyAsText,
 			searchQuery,
 			searchInput,
 			showInstructions,
 			use24Hour,
+			saveProfile,
+			loadProfile,
+			deleteProfile,
 			isDragging,
 			dragReorderIndex,
 			dragOverIndex,

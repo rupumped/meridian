@@ -59,6 +59,14 @@
 						<path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
 					</svg>
 				</button>
+				<button class="btn" @click="showProfiles = true" title="Team Profiles">
+					<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+						<path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+						<circle cx="9" cy="7" r="4"></circle>
+						<path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+						<path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+					</svg>
+				</button>
 				<button class="btn" @click="showHelp = true" title="Help">
 					?
 				</button>
@@ -377,6 +385,65 @@
 					</div>
 					<div class="no-results" v-if="filteredTimezones.length === 0">
 						No timezones found
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- Team Profiles Modal -->
+		<div class="modal-overlay" v-if="showProfiles" @click.self="showProfiles = false">
+			<div class="modal">
+				<div class="modal-header">
+					<span class="modal-title">Team Profiles</span>
+					<button class="modal-close" @click="showProfiles = false">
+						<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+							<line x1="18" y1="6" x2="6" y2="18"></line>
+							<line x1="6" y1="6" x2="18" y2="18"></line>
+						</svg>
+					</button>
+				</div>
+				<div class="profiles-content">
+					<div class="profile-save-section">
+						<h3>Save Current Setup</h3>
+						<div class="profile-save-form">
+							<input
+								type="text"
+								class="form-input"
+								placeholder="Team name (e.g., Engineering, Sales)"
+								v-model="newProfileName"
+								@keydown.enter="saveProfile"
+							>
+							<button class="btn btn-primary" @click="saveProfile">Save Profile</button>
+						</div>
+					</div>
+
+					<div class="profiles-list-section" v-if="profiles.length > 0">
+						<h3>Saved Profiles</h3>
+						<div class="profiles-list">
+							<div
+								v-for="(profile, index) in profiles"
+								:key="profile.name"
+								class="profile-item"
+								:class="{ active: currentProfileName === profile.name }"
+							>
+								<div class="profile-info">
+									<div class="profile-name">{{ profile.name }}</div>
+									<div class="profile-meta">{{ profile.timezones.length }} timezone{{ profile.timezones.length !== 1 ? 's' : '' }}</div>
+								</div>
+								<div class="profile-actions">
+									<button class="btn btn-small" @click="loadProfile(profile)" v-if="currentProfileName !== profile.name">
+										Load
+									</button>
+									<button class="btn btn-small btn-secondary" @click="deleteProfile(index)">
+										Delete
+									</button>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="no-profiles" v-if="profiles.length === 0">
+						<p>No saved profiles yet. Save your current timezone setup to create a profile!</p>
 					</div>
 				</div>
 			</div>
