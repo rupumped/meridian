@@ -737,19 +737,26 @@ createApp({
 				const tzName = params.get(`tz${index}`);
 				const customLabel = params.get(`label${index}`);
 
-				// Find the timezone in the list to get the default label
-				const tzInfo = timezoneList.value.find(tz => tz.name === tzName);
+				// Validate timezone name by checking if Luxon can parse it
+				if (DateTime.local().setZone(tzName).invalid) {
+					// Invalid timezone, skip it
+					console.warn(`Invalid timezone in URL: ${tzName}`);
+				} else {
+					// Find the timezone in the list to get the default label
+					const tzInfo = timezoneList.value.find(tz => tz.name === tzName);
 
-				// Create timezone data even if not found in list yet
-				// (it might be in the external JSON that loads async)
-				const tzData = {
-					name: tzName,
-					label: tzInfo ? tzInfo.label : tzName.substring(tzName.indexOf('/') + 1).replaceAll('_', ' ')
-				};
-				if (customLabel) {
-					tzData.customLabel = customLabel;
+					// Create timezone data even if not found in list yet
+					// (it might be in the external JSON that loads async)
+					const tzData = {
+						name: tzName,
+						label: tzInfo ? tzInfo.label : tzName.substring(tzName.indexOf('/') + 1).replaceAll('_', ' ')
+					};
+					if (customLabel) {
+						tzData.customLabel = customLabel;
+					}
+					loadedTimezones.push(tzData);
 				}
-				loadedTimezones.push(tzData);
+
 				index++;
 			}
 
