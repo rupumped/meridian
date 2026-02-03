@@ -3,7 +3,10 @@
 	"short_name": "Meridian",
 	"description": "FOSS time zone synchronizer",
 	"start_url": "/meridian/",
+	"scope": "/meridian/",
+	"id": "meridian",
 	"display": "standalone",
+	"orientation": "any",
 	"background_color": "#0a0a0f",
 	"theme_color": "#6366f1",
 	"icons": [
@@ -23,6 +26,46 @@
 			"sizes": "512x512",
 			"type": "image/png",
 			"purpose": "any maskable"
+		},
+		{
+			"src": "icon-monochrome.png",
+			"sizes": "200x200",
+			"type": "image/png",
+			"purpose": "monochrome"
+		}
+	],
+	"screenshots": [
+		{
+			"src": "fastlane/metadata/android/en-US/images/phoneScreenshots/1.png",
+			"sizes": "1080x2169",
+			"type": "image/png",
+			"label": "homescreen with core functionality",
+			"form_factor": "narrow",
+			"platform": "android"
+		},
+		{
+			"src": "fastlane/metadata/android/en-US/images/phoneScreenshots/2.png",
+			"sizes": "1080x2306",
+			"type": "image/png",
+			"label": "dark mode",
+			"form_factor": "narrow",
+			"platform": "android"
+		},
+		{
+			"src": "fastlane/metadata/android/en-US/images/phoneScreenshots/3.png",
+			"sizes": "1080x2400",
+			"type": "image/png",
+			"label": "search for and add timezones",
+			"form_factor": "narrow",
+			"platform": "android"
+		},
+		{
+			"src": "fastlane/metadata/android/en-US/images/phoneScreenshots/4.png",
+			"sizes": "1080x2169",
+			"type": "image/png",
+			"label": "create calendar events",
+			"form_factor": "narrow",
+			"platform": "android"
 		}
 	],
 	"categories": ["productivity", "utilities"]
