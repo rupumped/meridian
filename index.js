@@ -55,6 +55,15 @@ createApp({
 			timezone: ''
 		});
 
+		// Time jump modal state
+		const showTimeJumpModal = ref(false);
+		const timeJumpData = ref({
+			date: '',
+			time: '',
+			timezone: ''
+		});
+		const timeJumpDateInput = ref(null);
+
 		// Toast notification
 		function showToastNotification(message) {
 			toastMessage.value = message;
@@ -125,23 +134,22 @@ createApp({
 		function getStripOffset(index) {
 			const cellWidth = 56; // 52px + 4px margin
 			const screenCenter = window.innerWidth / 2;
-			
+
 			// Get home timezone (first in list) or fall back to local
 			const homeZone = timezones.value.length > 0 ? timezones.value[0].name : DateTime.local().zoneName;
 			const homeNow = now.value.setZone(homeZone);
-			const homeHourFraction = homeNow.hour + homeNow.minute / 60;
-			
-			// Hours are generated as -24 to +23 from current time in each zone
-			// Index 24 is the current hour (i=0 in the loop)
-			// We want to position so the home timezone's current hour is at center
-			const currentHourIndex = 24; // This is where i=0 lands in the array
-			
-			// Base offset: position the current hour cell at screen center, then apply drag offset
-			let baseOffset = screenCenter - (currentHourIndex * cellWidth) - (offsetHours.value * cellWidth);
-			
-			// Adjust for fractional minutes within the hour (smooth sub-hour positioning)
-			baseOffset -= (homeNow.minute / 60) * cellWidth;
-			
+
+			// Hours are generated centered around roundedOffset, so index 24 is at roundedOffset
+			// We only need to apply the fractional part of the offset for smooth scrolling
+			const roundedOffset = Math.round(offsetHours.value);
+			const fractionalOffset = offsetHours.value - roundedOffset;
+
+			// Index 24 is where the center of our generated hours is
+			const currentHourIndex = 24;
+
+			// Base offset: position index 24 at screen center, then apply fractional offset for smooth scrolling. Adjust for fractional minutes within the hour (smooth sub-hour positioning)
+			let baseOffset = screenCenter - (currentHourIndex * cellWidth) - (fractionalOffset * cellWidth) - (homeNow.minute / 60) * cellWidth;
+
 			// Calculate half-hour shift from home timezone for non-home rows
 			if (index > 0 && timezones.value.length > 0) {
 				const tzName = timezones.value[index].name;
@@ -150,11 +158,11 @@ createApp({
 				const diffMinutes = thisOffset - homeOffset;
 				// Get just the fractional hour part
 				const minuteOffset = ((diffMinutes % 60) + 60) % 60;
-				
+
 				// Shift by fractional cell width for non-whole-hour offsets
 				baseOffset -= (minuteOffset / 60) * cellWidth;
 			}
-			
+
 			return baseOffset;
 		}
 
@@ -209,10 +217,11 @@ createApp({
 				minuteOffset = ((diffMinutes % 60) + 60) % 60;
 			}
 
-			// Generate 24 hours in both directions from current time (48 total)
+			// Generate 24 hours in both directions from current offset position (48 total)
 			// Base hour generation on HOME timezone to keep alignment consistent
+			const roundedOffset = Math.round(offsetHours.value);
 			for (let i = -24; i < 24; i++) {
-				const hourTime = homeNow.startOf('hour').plus({ hours: i }).setZone(tzName);
+				const hourTime = homeNow.startOf('hour').plus({ hours: i + roundedOffset }).setZone(tzName);
 				const hour = hourTime.hour;
 				
 				// Determine period (day/night/twilight)
@@ -228,7 +237,7 @@ createApp({
 
 				// Check for DST transition
 				// Compare offset of this hour vs previous hour to detect transitions
-				const prevHour = homeNow.startOf('hour').plus({ hours: i - 1 }).setZone(tzName);
+				const prevHour = homeNow.startOf('hour').plus({ hours: i - 1 + roundedOffset }).setZone(tzName);
 				const isDstTransition = hourTime.offset !== prevHour.offset;
 
 				// Show date label at midnight or when day changes
@@ -250,7 +259,7 @@ createApp({
 				hours.push({
 					key: `${tzName}-${hourTime.toISO()}`,
 					hour,
-					hourOffset: i,
+					hourOffset: i + roundedOffset,
 					display,
 					periodLabel,
 					period,
@@ -273,6 +282,45 @@ createApp({
 			} else {
 				return nowInZone.plus(offsetHours.value*60*60*1000).toFormat('h:mm a');
 			}
+		}
+
+		// Get current date in a timezone (ISO format)
+		function getCurrentDateInZone(tzName) {
+			const nowInZone = now.value.setZone(tzName);
+			return nowInZone.plus(offsetHours.value*60*60*1000).toFormat('yyyy-MM-dd');
+		}
+
+		// Open time jump modal for a timezone
+		function openTimeJumpModal(tzName) {
+			const nowInZone = now.value.setZone(tzName).plus(offsetHours.value*60*60*1000);
+			timeJumpData.value = {
+				date: nowInZone.toFormat('yyyy-MM-dd'),
+				time: nowInZone.toFormat('HH:mm'),
+				timezone: tzName
+			};
+			showTimeJumpModal.value = true;
+			nextTick(() => {
+				timeJumpDateInput.value?.focus();
+			});
+		}
+
+		// Jump to a specific date/time
+		function jumpToDateTime() {
+			const { date, time, timezone } = timeJumpData.value;
+			if (!date || !time) return;
+
+			// Parse the target date/time in the selected timezone
+			const targetDateTime = DateTime.fromISO(`${date}T${time}`, { zone: timezone });
+
+			// Get the current time in the same timezone
+			const nowInZone = now.value.setZone(timezone);
+
+			// Calculate the difference in hours
+			const diffMs = targetDateTime.toMillis() - nowInZone.toMillis();
+			const diffHours = diffMs / (60 * 60 * 1000);
+
+			offsetHours.value = diffHours;
+			showTimeJumpModal.value = false;
 		}
 
 		// Get timezone abbreviation
@@ -382,16 +430,6 @@ createApp({
 			document.removeEventListener('mouseup', endDrag);
 			document.removeEventListener('touchmove', onDrag);
 			document.removeEventListener('touchend', endDrag);
-			
-			// Snap back if dragged too far (we have 24 hours in each direction)
-			const maxOffset = 23;
-			const minOffset = -23;
-			
-			if (offsetHours.value > maxOffset) {
-				offsetHours.value = maxOffset;
-			} else if (offsetHours.value < minOffset) {
-				offsetHours.value = minOffset;
-			}
 		}
 
 		// Drag handling for reordering
@@ -932,12 +970,16 @@ createApp({
 			showEventModal,
 			eventTitleInput,
 			eventData,
+			showTimeJumpModal,
+			timeJumpData,
+			timeJumpDateInput,
 			getStripOffset,
 			formattedDate,
 			formattedTime,
 			filteredTimezones,
 			getHoursForTimezone,
 			getCurrentTimeInZone,
+			getCurrentDateInZone,
 			getTimezoneAbbr,
 			getTimezoneOffset,
 			getOffsetFromHome,
@@ -957,6 +999,8 @@ createApp({
 			finishEditingLabel,
 			cancelEditingLabel,
 			openEventModal,
+			openTimeJumpModal,
+			jumpToDateTime,
 			downloadICS,
 			openGoogleCalendar,
 			copyToClipboard,

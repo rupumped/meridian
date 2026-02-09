@@ -335,9 +335,30 @@ header {
 
 .timezone-current-time {
 	font-family: 'JetBrains Mono', monospace;
-	font-size: 18px;
+	font-size: 14px;
 	font-weight: 600;
 	color: var(--text-primary);
+	cursor: pointer;
+	display: flex;
+	flex-direction: column;
+	align-items: flex-end;
+	padding: 4px 8px;
+	border-radius: 6px;
+	transition: background-color 0.2s;
+}
+
+.timezone-current-time:hover {
+	background: var(--hover-bg);
+}
+
+.timezone-current-date {
+	font-size: 12px;
+	color: var(--text-muted);
+	font-weight: 400;
+}
+
+.timezone-current-time-value {
+	font-size: 16px;
 }
 
 .delete-btn {
@@ -466,6 +487,10 @@ header {
 	border: 1px solid var(--border);
 	animation: slideUp 0.3s ease-out;
 	max-height: 100%;
+}
+
+.modal.modal-small {
+	max-width: 340px;
 }
 
 @keyframes slideUp {
@@ -695,6 +720,16 @@ header {
 	display: grid;
 	grid-template-columns: 1fr 1fr;
 	gap: 12px;
+}
+
+.form-timezone-display {
+	background: var(--bg-tertiary);
+	border: 1px solid var(--border);
+	color: var(--text-primary);
+	padding: 10px 12px;
+	border-radius: 8px;
+	font-family: 'JetBrains Mono', monospace;
+	font-size: 13px;
 }
 
 .form-actions {

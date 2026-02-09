@@ -154,7 +154,10 @@
 								<span class="timezone-offset">{{ getTimezoneOffset(tz.name) }}</span>
 							</div>
 						</div>
-						<div class="timezone-current-time">{{ getCurrentTimeInZone(tz.name) }}</div>
+						<div class="timezone-current-time" @click="openTimeJumpModal(tz.name)" title="Click to jump to a specific date/time">
+							<span class="timezone-current-time-value">{{ getCurrentTimeInZone(tz.name) }}</span>
+							<span class="timezone-current-date">{{ getCurrentDateInZone(tz.name) }}</span>
+						</div>
 						<button class="delete-btn" @click="removeTimezone(index)" title="Remove">
 							<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
 								<line x1="18" y1="6" x2="6" y2="18"></line>
@@ -315,6 +318,58 @@
 			</div>
 		</div>
 
+		<!-- Time Jump Modal -->
+		<div class="modal-overlay" v-if="showTimeJumpModal" @click.self="showTimeJumpModal = false">
+			<div class="modal modal-small">
+				<div class="modal-header">
+					<span class="modal-title">Jump to Date/Time</span>
+					<button class="modal-close" @click="showTimeJumpModal = false">
+						<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+							<line x1="18" y1="6" x2="6" y2="18"></line>
+							<line x1="6" y1="6" x2="18" y2="18"></line>
+						</svg>
+					</button>
+				</div>
+				<div class="event-form">
+					<div class="form-group">
+						<label>Timezone</label>
+						<div class="form-timezone-display">{{ timeJumpData.timezone }}</div>
+					</div>
+					<div class="form-row">
+						<div class="form-group">
+							<label>Date</label>
+							<input
+								type="date"
+								class="form-input"
+								v-model="timeJumpData.date"
+								ref="timeJumpDateInput"
+								@keydown.enter="jumpToDateTime"
+							>
+						</div>
+						<div class="form-group">
+							<label>Time</label>
+							<input
+								type="time"
+								class="form-input"
+								v-model="timeJumpData.time"
+								@keydown.enter="jumpToDateTime"
+							>
+						</div>
+					</div>
+					<div class="form-actions">
+						<button class="btn btn-secondary" @click="showTimeJumpModal = false">Cancel</button>
+						<button class="btn btn-primary" @click="jumpToDateTime">
+							<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+								<circle cx="12" cy="12" r="10"></circle>
+								<polyline points="12 6 12 12 16 14"></polyline>
+							</svg>
+							Jump
+						</button>
+					</div>
+				</div>
+			</div>
+		</div>
+
 		<!-- Help Modal -->
 		<div class="modal-overlay" v-if="showHelp" @click.self="showHelp = false">
 			<div class="modal">
@@ -330,15 +385,15 @@
 				<div class="help-content">
 					<section class="help-section">
 						<ul>
-							<li><strong>Time Travel:</strong> Drag horizontally on the hour strips or use the left/right arrow keys to explore different times of day</li>
-							<li><strong>Current Time:</strong> Click the current time in the header or type 'N' to reset to now</li>
-							<li><strong>Format Toggle:</strong> Switch between 12-hour and 24-hour format using the button in the header</li>
-							<li><strong>Add Timezone:</strong> Click "Add" button or type 'A' or '+' and search for any city or timezone</li>
-							<li><strong>Remove Timezone:</strong> Click the × button on any timezone row</li>
-							<li><strong>Reorder:</strong> Drag the ⋮⋮ handle to rearrange timezones</li>
-							<li><strong>Custom Labels:</strong> Click any timezone name to edit it (great for adding names like "Mom" or "Tokyo Office")</li>
-							<li><strong>Home Offset:</strong> The first timezone is your "home" - others show their offset from it</li>
-							<li><strong>Create an Event:</strong> Click a time cell to create a calendar event at that time</li>
+							<li><strong>Time Travel:</strong> Drag horizontally on the hour strips or use the left/right arrow keys to explore different times of day. Click the date/time on any timezone row to jump to a specific date and time.</li>
+							<li><strong>Current Time:</strong> Click the current time in the header or type 'N' to reset to now.</li>
+							<li><strong>Format Toggle:</strong> Switch between 12-hour and 24-hour format using the button in the header.</li>
+							<li><strong>Add Timezone:</strong> Click "Add" button or type 'A' or '+' and search for any city or timezone.</li>
+							<li><strong>Remove Timezone:</strong> Click the × button on any timezone row.</li>
+							<li><strong>Reorder:</strong> Drag the ⋮⋮ handle to rearrange timezones.</li>
+							<li><strong>Custom Labels:</strong> Click any timezone name to edit it (great for adding names like "Mom" or "Tokyo Office").</li>
+							<li><strong>Home Offset:</strong> The first timezone is your "home" - others show their offset from it.</li>
+							<li><strong>Create an Event:</strong> Click a time cell to create a calendar event at that time.</li>
 							<li><strong>URL Sharing:</strong> Your configuration is automatically saved in the URL - just share the link!</li>
 							<li><strong>Copy as Text:</strong> Click the copy button or type 'C' to copy the current layout as text - make sure you paste it in a monospace font!</li>
 						</ul>
