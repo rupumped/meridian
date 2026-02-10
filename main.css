@@ -465,6 +465,13 @@ header {
 	background: linear-gradient(180deg, #c32148 0%, #e30022 100%);
 }
 
+.hour-cell.pm11 {
+	border-radius: 0 50% 50% 0;
+}
+.hour-cell.am12 {
+	border-radius: 50% 0 0 50%;
+}
+
 .hour-time {
 	font-family: 'JetBrains Mono', monospace;
 	font-size: 14px;

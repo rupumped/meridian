@@ -184,7 +184,9 @@
 								:class="[
 									hour.period,
 									{ current: hour.isCurrent },
-									{ dst: hour.isDstTransition }
+									{ dst: hour.isDstTransition },
+									{ pm11: hour.hour == 23},
+									{ am12: hour.hour == 0}
 								]"
 								@click="openEventModal(tz.name, hour)"
 							>
