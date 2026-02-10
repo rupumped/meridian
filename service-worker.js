@@ -13,7 +13,8 @@ if (workbox) {
 		{ url: '/meridian/main.css', revision: '0' },
 		{ url: '/meridian/index.js', revision: '0' },
 		{ url: '/meridian/favicon.ico', revision: '0' },
-		{ url: '/meridian/manifest.json', revision: '0' }
+		{ url: '/meridian/manifest.json', revision: '0' },
+		{ url: '/meridian/timezones.json', revision: '0' }
 	]);
 
 	// Cache Google Font stylesheets with SWR

@@ -78,386 +78,388 @@
 			</div>
 		</header>
 
-		<!-- Current Time Bar -->
-		<div class="current-time-bar">
-			<div class="current-date">{{ formattedDate }}</div>
-			<div class="current-time-wrapper">
-				<div class="current-time" @click="resetToCurrentTime" role="button" tabindex="0" title="Click to reset to current time">{{ formattedTime }}</div>
-				<button class="btn btn-small" @click="use24Hour = !use24Hour">
-					{{ use24Hour ? '24h' : '12h' }}
-				</button>
+		<main>
+			<!-- Current Time Bar -->
+			<div class="current-time-bar">
+				<div class="current-date">{{ formattedDate }}</div>
+				<div class="current-time-wrapper">
+					<div class="current-time" @click="resetToCurrentTime" role="button" tabindex="0" title="Click to reset to current time">{{ formattedTime }}</div>
+					<button class="btn btn-small" @click="use24Hour = !use24Hour">
+						{{ use24Hour ? '24h' : '12h' }}
+					</button>
+				</div>
 			</div>
-		</div>
 
-		<!-- Time Grid -->
-		<div class="time-grid-container" v-if="timezones.length > 0">
-			<!-- Alignment Line -->
-			<div class="alignment-line"></div>
-			<!-- Now Line (shows actual current time when scrolled away) -->
-			<div class="now-line" :style="{ left: `calc(50% - ${offsetHours * 56}px)` }"></div>
+			<!-- Time Grid -->
+			<div class="time-grid-container" v-if="timezones.length > 0">
+				<!-- Alignment Line -->
+				<div class="alignment-line"></div>
+				<!-- Now Line (shows actual current time when scrolled away) -->
+				<div class="now-line" :style="{ left: `calc(50% - ${offsetHours * 56}px)` }"></div>
 
-			<!-- Timezone List -->
-			<div class="timezone-list">
-				<div 
-					v-for="(tz, index) in timezones" 
-					:key="tz.name"
-					class="timezone-row"
-					:class="{ 
-						'dragging-reorder': dragReorderIndex === index,
-						'drag-over': dragOverIndex === index && dragOverIndex !== dragReorderIndex
-					}"
-					@dragover.prevent="onDragOver($event, index)"
-					@drop="onDrop($event, index)"
-				>
-					<!-- Timezone Header -->
-					<div class="timezone-header">
-						<div
-							class="drag-handle"
-							role="button"
-							tabindex="0"
-							draggable="true"
-							@dragstart="onDragStart($event, index)"
-							@dragend="onDragEnd"
-							@touchstart="onReorderTouchStart($event, index)"
-							@touchmove="onReorderTouchMove($event, index)"
-							@touchend="onReorderTouchEnd"
-						>
-							<svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-label="reorder">
-								<circle cx="9" cy="6" r="1.5"></circle>
-								<circle cx="15" cy="6" r="1.5"></circle>
-								<circle cx="9" cy="12" r="1.5"></circle>
-								<circle cx="15" cy="12" r="1.5"></circle>
-								<circle cx="9" cy="18" r="1.5"></circle>
-								<circle cx="15" cy="18" r="1.5"></circle>
-							</svg>
+				<!-- Timezone List -->
+				<div class="timezone-list">
+					<div 
+						v-for="(tz, index) in timezones" 
+						:key="tz.name"
+						class="timezone-row"
+						:class="{ 
+							'dragging-reorder': dragReorderIndex === index,
+							'drag-over': dragOverIndex === index && dragOverIndex !== dragReorderIndex
+						}"
+						@dragover.prevent="onDragOver($event, index)"
+						@drop="onDrop($event, index)"
+					>
+						<!-- Timezone Header -->
+						<div class="timezone-header">
+							<div
+								class="drag-handle"
+								role="button"
+								tabindex="0"
+								draggable="true"
+								@dragstart="onDragStart($event, index)"
+								@dragend="onDragEnd"
+								@touchstart="onReorderTouchStart($event, index)"
+								@touchmove="onReorderTouchMove($event, index)"
+								@touchend="onReorderTouchEnd"
+							>
+								<svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-label="reorder">
+									<circle cx="9" cy="6" r="1.5"></circle>
+									<circle cx="15" cy="6" r="1.5"></circle>
+									<circle cx="9" cy="12" r="1.5"></circle>
+									<circle cx="15" cy="12" r="1.5"></circle>
+									<circle cx="9" cy="18" r="1.5"></circle>
+									<circle cx="15" cy="18" r="1.5"></circle>
+								</svg>
+							</div>
+							<div class="timezone-info">
+								<div class="timezone-name">
+									<span v-if="index === 0" class="home-icon">🏠</span>
+									<span
+										class="timezone-label"
+										:class="{ editable: editingIndex !== index }"
+										role="button"
+										tabindex="0"
+										@click="startEditingLabel(index)"
+										v-if="editingIndex !== index"
+									>
+										{{ tz.customLabel || tz.label }}
+									</span>
+									<input
+										v-else
+										type="text"
+										class="label-edit-input"
+										@blur="finishEditingLabel(index, $event.target.value)"
+										@keydown.enter="finishEditingLabel(index, $event.target.value)"
+										@keydown.esc="cancelEditingLabel"
+										ref="labelInput"
+									>
+									<span v-if="index > 0" class="timezone-home-offset">{{ getOffsetFromHome(tz.name) }}</span>
+								</div>
+								<div class="timezone-meta">
+									<span class="timezone-abbr">{{ getTimezoneAbbr(tz.name) }}</span>
+									<span class="timezone-offset">{{ getTimezoneOffset(tz.name) }}</span>
+								</div>
+							</div>
+							<div class="timezone-current-time" role="button" tabindex="0" @click="openTimeJumpModal(tz.name)" title="Click to jump to a specific date/time">
+								<span class="timezone-current-time-value">{{ getCurrentTimeInZone(tz.name) }}</span>
+								<span class="timezone-current-date">{{ getCurrentDateInZone(tz.name) }}</span>
+							</div>
+							<button class="delete-btn" @click="removeTimezone(index)" title="Remove">
+								<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-label="remove">
+									<line x1="18" y1="6" x2="6" y2="18"></line>
+									<line x1="6" y1="6" x2="18" y2="18"></line>
+								</svg>
+							</button>
 						</div>
-						<div class="timezone-info">
-							<div class="timezone-name">
-								<span v-if="index === 0" class="home-icon">🏠</span>
-								<span
-									class="timezone-label"
-									:class="{ editable: editingIndex !== index }"
+
+						<!-- Hour Strip -->
+						<div class="hour-strip-wrapper">
+							<div
+								class="hour-strip"
+								:class="{ dragging: isDragging }"
+								:style="{ transform: `translateX(${getStripOffset(index)}px)` }"
+								role="button"
+								tabindex="0"
+								@mousedown="startDrag"
+								@touchstart="startDrag"
+							>
+								<div
+									v-for="hour in getHoursForTimezone(tz.name, index)"
+									:key="hour.key"
+									class="hour-cell"
+									:class="[
+										hour.period,
+										{ current: hour.isCurrent },
+										{ dst: hour.isDstTransition },
+										{ pm11: hour.hour == 23},
+										{ am12: hour.hour == 0}
+									]"
 									role="button"
 									tabindex="0"
-									@click="startEditingLabel(index)"
-									v-if="editingIndex !== index"
+									@click="openEventModal(tz.name, hour)"
 								>
-									{{ tz.customLabel || tz.label }}
-								</span>
-								<input
-									v-else
-									type="text"
-									class="label-edit-input"
-									@blur="finishEditingLabel(index, $event.target.value)"
-									@keydown.enter="finishEditingLabel(index, $event.target.value)"
-									@keydown.esc="cancelEditingLabel"
-									ref="labelInput"
-								>
-								<span v-if="index > 0" class="timezone-home-offset">{{ getOffsetFromHome(tz.name) }}</span>
-							</div>
-							<div class="timezone-meta">
-								<span class="timezone-abbr">{{ getTimezoneAbbr(tz.name) }}</span>
-								<span class="timezone-offset">{{ getTimezoneOffset(tz.name) }}</span>
+									<div class="hour-date" v-if="hour.showDate">{{ hour.dateLabel }}</div>
+									<div class="hour-time">{{ hour.display }}</div>
+									<div class="hour-period">{{ hour.periodLabel }}</div>
+								</div>
 							</div>
 						</div>
-						<div class="timezone-current-time" role="button" tabindex="0" @click="openTimeJumpModal(tz.name)" title="Click to jump to a specific date/time">
-							<span class="timezone-current-time-value">{{ getCurrentTimeInZone(tz.name) }}</span>
-							<span class="timezone-current-date">{{ getCurrentDateInZone(tz.name) }}</span>
-						</div>
-						<button class="delete-btn" @click="removeTimezone(index)" title="Remove">
-							<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-label="remove">
+					</div>
+				</div>
+			</div>
+
+			<!-- Empty State -->
+			<div class="empty-state" v-else>
+				<div class="empty-icon">🌐</div>
+				<div class="empty-title">No timezones added</div>
+				<div class="empty-text">Add cities to compare times across the world</div>
+				<button class="btn" @click="showSearch = true">
+					<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+						<line x1="12" y1="5" x2="12" y2="19"></line>
+						<line x1="5" y1="12" x2="19" y2="12"></line>
+					</svg>
+					Add Timezone
+				</button>
+			</div>
+
+			<!-- Toast Notification -->
+			<div class="toast" v-if="showToast || (showInstructions && timezones.length > 0)">
+				<span v-if="showInstructions && timezones.length > 0">👆 Drag horizontally to change time</span>
+				<span v-else>{{ toastMessage }}</span>
+			</div>
+
+			<!-- Event Creation Modal -->
+			<div class="modal-overlay" v-if="showEventModal" @click.self="showEventModal = false">
+				<div class="modal">
+					<div class="modal-header">
+						<span class="modal-title">Create Calendar Event</span>
+						<button class="modal-close" @click="showEventModal = false">
+							<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
 								<line x1="18" y1="6" x2="6" y2="18"></line>
 								<line x1="6" y1="6" x2="18" y2="18"></line>
 							</svg>
 						</button>
 					</div>
-
-					<!-- Hour Strip -->
-					<div class="hour-strip-wrapper">
-						<div
-							class="hour-strip"
-							:class="{ dragging: isDragging }"
-							:style="{ transform: `translateX(${getStripOffset(index)}px)` }"
-							role="button"
-							tabindex="0"
-							@mousedown="startDrag"
-							@touchstart="startDrag"
-						>
-							<div
-								v-for="hour in getHoursForTimezone(tz.name, index)"
-								:key="hour.key"
-								class="hour-cell"
-								:class="[
-									hour.period,
-									{ current: hour.isCurrent },
-									{ dst: hour.isDstTransition },
-									{ pm11: hour.hour == 23},
-									{ am12: hour.hour == 0}
-								]"
-								role="button"
-								tabindex="0"
-								@click="openEventModal(tz.name, hour)"
+					<div class="event-form">
+						<div class="form-group">
+							<label>Event Title</label>
+							<input
+								type="text"
+								class="form-input"
+								placeholder="Meeting, Call, etc."
+								v-model="eventData.title"
+								ref="eventTitleInput"
 							>
-								<div class="hour-date" v-if="hour.showDate">{{ hour.dateLabel }}</div>
-								<div class="hour-time">{{ hour.display }}</div>
-								<div class="hour-period">{{ hour.periodLabel }}</div>
+						</div>
+						<div class="form-row">
+							<div class="form-group">
+								<label>Date</label>
+								<input
+									type="date"
+									class="form-input"
+									v-model="eventData.date"
+								>
+							</div>
+							<div class="form-group">
+								<label>Start Time</label>
+								<input
+									type="time"
+									class="form-input"
+									v-model="eventData.startTime"
+								>
 							</div>
 						</div>
+						<div class="form-group">
+							<label>Duration</label>
+							<select class="form-input" v-model="eventData.duration">
+								<option value="15">15 minutes</option>
+								<option value="30">30 minutes</option>
+								<option value="60">1 hour</option>
+								<option value="90">1.5 hours</option>
+								<option value="120">2 hours</option>
+								<option value="180">3 hours</option>
+								<option value="240">4 hours</option>
+							</select>
+						</div>
+						<div class="form-group">
+							<label>Location (optional)</label>
+							<input
+								type="text"
+								class="form-input"
+								placeholder="Zoom, Office, etc."
+								v-model="eventData.location"
+							>
+						</div>
+						<div class="form-group">
+							<label>Description (optional)</label>
+							<textarea
+								class="form-input form-textarea"
+								placeholder="Add event details..."
+								v-model="eventData.description"
+								rows="3"
+							></textarea>
+						</div>
+						<div class="form-actions">
+							<button class="btn btn-secondary" @click="showEventModal = false">Cancel</button>
+							<button class="btn btn-secondary" @click="copyToClipboard">
+								<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+									<rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+									<path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+								</svg>
+								Copy Details
+							</button>
+							<button class="btn btn-secondary" @click="openGoogleCalendar">
+								<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+									<rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+									<line x1="16" y1="2" x2="16" y2="6"></line>
+									<line x1="8" y1="2" x2="8" y2="6"></line>
+									<line x1="3" y1="10" x2="21" y2="10"></line>
+								</svg>
+								Google Calendar
+							</button>
+							<button class="btn btn-primary" @click="downloadICS">
+								<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+									<path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+									<polyline points="7 10 12 15 17 10"></polyline>
+									<line x1="12" y1="15" x2="12" y2="3"></line>
+								</svg>
+								Download .ics
+							</button>
+						</div>
 					</div>
 				</div>
 			</div>
-		</div>
 
-		<!-- Empty State -->
-		<div class="empty-state" v-else>
-			<div class="empty-icon">🌐</div>
-			<div class="empty-title">No timezones added</div>
-			<div class="empty-text">Add cities to compare times across the world</div>
-			<button class="btn" @click="showSearch = true">
-				<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-					<line x1="12" y1="5" x2="12" y2="19"></line>
-					<line x1="5" y1="12" x2="19" y2="12"></line>
-				</svg>
-				Add Timezone
-			</button>
-		</div>
-
-		<!-- Toast Notification -->
-		<div class="toast" v-if="showToast || (showInstructions && timezones.length > 0)">
-			<span v-if="showInstructions && timezones.length > 0">👆 Drag horizontally to change time</span>
-			<span v-else>{{ toastMessage }}</span>
-		</div>
-
-		<!-- Event Creation Modal -->
-		<div class="modal-overlay" v-if="showEventModal" @click.self="showEventModal = false">
-			<div class="modal">
-				<div class="modal-header">
-					<span class="modal-title">Create Calendar Event</span>
-					<button class="modal-close" @click="showEventModal = false">
-						<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-							<line x1="18" y1="6" x2="6" y2="18"></line>
-							<line x1="6" y1="6" x2="18" y2="18"></line>
-						</svg>
-					</button>
+			<!-- Time Jump Modal -->
+			<div class="modal-overlay" v-if="showTimeJumpModal" @click.self="showTimeJumpModal = false">
+				<div class="modal modal-small">
+					<div class="modal-header">
+						<span class="modal-title">Jump to Date/Time</span>
+						<button class="modal-close" @click="showTimeJumpModal = false">
+							<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+								<line x1="18" y1="6" x2="6" y2="18"></line>
+								<line x1="6" y1="6" x2="18" y2="18"></line>
+							</svg>
+						</button>
+					</div>
+					<div class="event-form">
+						<div class="form-group">
+							<label>Timezone</label>
+							<div class="form-timezone-display">{{ timeJumpData.timezone }}</div>
+						</div>
+						<div class="form-row">
+							<div class="form-group">
+								<label>Date</label>
+								<input
+									type="date"
+									class="form-input"
+									v-model="timeJumpData.date"
+									ref="timeJumpDateInput"
+									@keydown.enter="jumpToDateTime"
+								>
+							</div>
+							<div class="form-group">
+								<label>Time</label>
+								<input
+									type="time"
+									class="form-input"
+									v-model="timeJumpData.time"
+									@keydown.enter="jumpToDateTime"
+								>
+							</div>
+						</div>
+						<div class="form-actions">
+							<button class="btn btn-secondary" @click="showTimeJumpModal = false">Cancel</button>
+							<button class="btn btn-primary" @click="jumpToDateTime">
+								<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+									<circle cx="12" cy="12" r="10"></circle>
+									<polyline points="12 6 12 12 16 14"></polyline>
+								</svg>
+								Jump
+							</button>
+						</div>
+					</div>
 				</div>
-				<div class="event-form">
-					<div class="form-group">
-						<label>Event Title</label>
-						<input
-							type="text"
-							class="form-input"
-							placeholder="Meeting, Call, etc."
-							v-model="eventData.title"
-							ref="eventTitleInput"
+			</div>
+
+			<!-- Help Modal -->
+			<div class="modal-overlay" v-if="showHelp" @click.self="showHelp = false">
+				<div class="modal">
+					<div class="modal-header">
+						<span class="modal-title">How to Use Meridian</span>
+						<button class="modal-close" @click="showHelp = false">
+							<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+								<line x1="18" y1="6" x2="6" y2="18"></line>
+								<line x1="6" y1="6" x2="18" y2="18"></line>
+							</svg>
+						</button>
+					</div>
+					<div class="help-content">
+						<section class="help-section">
+							<ul>
+								<li><strong>Time Travel:</strong> Drag horizontally on the hour strips or use the left/right arrow keys to explore different times of day. Click the date/time on any timezone row to jump to a specific date and time.</li>
+								<li><strong>Current Time:</strong> Click the current time in the header or type 'N' to reset to now.</li>
+								<li><strong>Format Toggle:</strong> Switch between 12-hour and 24-hour format using the button in the header.</li>
+								<li><strong>Add Timezone:</strong> Click "Add" button or type 'A' or '+' and search for any city or timezone.</li>
+								<li><strong>Remove Timezone:</strong> Click the × button on any timezone row.</li>
+								<li><strong>Reorder:</strong> Drag the ⋮⋮ handle to rearrange timezones.</li>
+								<li><strong>Custom Labels:</strong> Click any timezone name to edit it (great for adding names like "Mom" or "Tokyo Office").</li>
+								<li><strong>Home Offset:</strong> The first timezone is your "home" - others show their offset from it.</li>
+								<li><strong>Create an Event:</strong> Click a time cell to create a calendar event at that time.</li>
+								<li><strong>URL Sharing:</strong> Your configuration is automatically saved in the URL - just share the link!</li>
+								<li><strong>Copy as Text:</strong> Click the copy button or type 'C' to copy the current layout as text - make sure you paste it in a monospace font!</li>
+							</ul>
+						</section>
+					</div>
+				</div>
+			</div>
+
+			<!-- Search Modal -->
+			<div class="modal-overlay" v-if="showSearch" @click.self="showSearch = false">
+				<div class="modal">
+					<div class="modal-header">
+						<span class="modal-title">Add Timezone</span>
+						<button class="modal-close" @click="showSearch = false">
+							<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+								<line x1="18" y1="6" x2="6" y2="18"></line>
+								<line x1="6" y1="6" x2="18" y2="18"></line>
+							</svg>
+						</button>
+					</div>
+					<div class="search-input-wrapper">
+						<input 
+							type="text" 
+							class="search-input" 
+							placeholder="Search city or timezone..."
+							v-model="searchQuery"
+							ref="searchInput"
+							@keydown.enter="selectFirstResult"
 						>
 					</div>
-					<div class="form-row">
-						<div class="form-group">
-							<label>Date</label>
-							<input
-								type="date"
-								class="form-input"
-								v-model="eventData.date"
-							>
-						</div>
-						<div class="form-group">
-							<label>Start Time</label>
-							<input
-								type="time"
-								class="form-input"
-								v-model="eventData.startTime"
-							>
-						</div>
-					</div>
-					<div class="form-group">
-						<label>Duration</label>
-						<select class="form-input" v-model="eventData.duration">
-							<option value="15">15 minutes</option>
-							<option value="30">30 minutes</option>
-							<option value="60">1 hour</option>
-							<option value="90">1.5 hours</option>
-							<option value="120">2 hours</option>
-							<option value="180">3 hours</option>
-							<option value="240">4 hours</option>
-						</select>
-					</div>
-					<div class="form-group">
-						<label>Location (optional)</label>
-						<input
-							type="text"
-							class="form-input"
-							placeholder="Zoom, Office, etc."
-							v-model="eventData.location"
+					<div class="search-results" :key="searchQuery">
+						<div
+							v-for="result in filteredTimezones"
+							:key="result.name"
+							class="search-result"
+							role="button"
+							tabindex="0"
+							@click="addTimezone(result)"
 						>
-					</div>
-					<div class="form-group">
-						<label>Description (optional)</label>
-						<textarea
-							class="form-input form-textarea"
-							placeholder="Add event details..."
-							v-model="eventData.description"
-							rows="3"
-						></textarea>
-					</div>
-					<div class="form-actions">
-						<button class="btn btn-secondary" @click="showEventModal = false">Cancel</button>
-						<button class="btn btn-secondary" @click="copyToClipboard">
-							<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-								<rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
-								<path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
-							</svg>
-							Copy Details
-						</button>
-						<button class="btn btn-secondary" @click="openGoogleCalendar">
-							<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-								<rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
-								<line x1="16" y1="2" x2="16" y2="6"></line>
-								<line x1="8" y1="2" x2="8" y2="6"></line>
-								<line x1="3" y1="10" x2="21" y2="10"></line>
-							</svg>
-							Google Calendar
-						</button>
-						<button class="btn btn-primary" @click="downloadICS">
-							<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-								<path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
-								<polyline points="7 10 12 15 17 10"></polyline>
-								<line x1="12" y1="15" x2="12" y2="3"></line>
-							</svg>
-							Download .ics
-						</button>
-					</div>
-				</div>
-			</div>
-		</div>
-
-		<!-- Time Jump Modal -->
-		<div class="modal-overlay" v-if="showTimeJumpModal" @click.self="showTimeJumpModal = false">
-			<div class="modal modal-small">
-				<div class="modal-header">
-					<span class="modal-title">Jump to Date/Time</span>
-					<button class="modal-close" @click="showTimeJumpModal = false">
-						<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-							<line x1="18" y1="6" x2="6" y2="18"></line>
-							<line x1="6" y1="6" x2="18" y2="18"></line>
-						</svg>
-					</button>
-				</div>
-				<div class="event-form">
-					<div class="form-group">
-						<label>Timezone</label>
-						<div class="form-timezone-display">{{ timeJumpData.timezone }}</div>
-					</div>
-					<div class="form-row">
-						<div class="form-group">
-							<label>Date</label>
-							<input
-								type="date"
-								class="form-input"
-								v-model="timeJumpData.date"
-								ref="timeJumpDateInput"
-								@keydown.enter="jumpToDateTime"
-							>
+							<div class="search-result-name">{{ result.label }}</div>
+							<div class="search-result-meta">
+								<span>{{ result.name }}</span>
+								<span>{{ getTimezoneOffset(result.name) }}</span>
+							</div>
 						</div>
-						<div class="form-group">
-							<label>Time</label>
-							<input
-								type="time"
-								class="form-input"
-								v-model="timeJumpData.time"
-								@keydown.enter="jumpToDateTime"
-							>
+						<div class="no-results" v-if="filteredTimezones.length === 0">
+							No timezones found
 						</div>
 					</div>
-					<div class="form-actions">
-						<button class="btn btn-secondary" @click="showTimeJumpModal = false">Cancel</button>
-						<button class="btn btn-primary" @click="jumpToDateTime">
-							<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-								<circle cx="12" cy="12" r="10"></circle>
-								<polyline points="12 6 12 12 16 14"></polyline>
-							</svg>
-							Jump
-						</button>
-					</div>
 				</div>
 			</div>
 		</div>
-
-		<!-- Help Modal -->
-		<div class="modal-overlay" v-if="showHelp" @click.self="showHelp = false">
-			<div class="modal">
-				<div class="modal-header">
-					<span class="modal-title">How to Use Meridian</span>
-					<button class="modal-close" @click="showHelp = false">
-						<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-							<line x1="18" y1="6" x2="6" y2="18"></line>
-							<line x1="6" y1="6" x2="18" y2="18"></line>
-						</svg>
-					</button>
-				</div>
-				<div class="help-content">
-					<section class="help-section">
-						<ul>
-							<li><strong>Time Travel:</strong> Drag horizontally on the hour strips or use the left/right arrow keys to explore different times of day. Click the date/time on any timezone row to jump to a specific date and time.</li>
-							<li><strong>Current Time:</strong> Click the current time in the header or type 'N' to reset to now.</li>
-							<li><strong>Format Toggle:</strong> Switch between 12-hour and 24-hour format using the button in the header.</li>
-							<li><strong>Add Timezone:</strong> Click "Add" button or type 'A' or '+' and search for any city or timezone.</li>
-							<li><strong>Remove Timezone:</strong> Click the × button on any timezone row.</li>
-							<li><strong>Reorder:</strong> Drag the ⋮⋮ handle to rearrange timezones.</li>
-							<li><strong>Custom Labels:</strong> Click any timezone name to edit it (great for adding names like "Mom" or "Tokyo Office").</li>
-							<li><strong>Home Offset:</strong> The first timezone is your "home" - others show their offset from it.</li>
-							<li><strong>Create an Event:</strong> Click a time cell to create a calendar event at that time.</li>
-							<li><strong>URL Sharing:</strong> Your configuration is automatically saved in the URL - just share the link!</li>
-							<li><strong>Copy as Text:</strong> Click the copy button or type 'C' to copy the current layout as text - make sure you paste it in a monospace font!</li>
-						</ul>
-					</section>
-				</div>
-			</div>
-		</div>
-
-		<!-- Search Modal -->
-		<div class="modal-overlay" v-if="showSearch" @click.self="showSearch = false">
-			<div class="modal">
-				<div class="modal-header">
-					<span class="modal-title">Add Timezone</span>
-					<button class="modal-close" @click="showSearch = false">
-						<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-							<line x1="18" y1="6" x2="6" y2="18"></line>
-							<line x1="6" y1="6" x2="18" y2="18"></line>
-						</svg>
-					</button>
-				</div>
-				<div class="search-input-wrapper">
-					<input 
-						type="text" 
-						class="search-input" 
-						placeholder="Search city or timezone..."
-						v-model="searchQuery"
-						ref="searchInput"
-						@keydown.enter="selectFirstResult"
-					>
-				</div>
-				<div class="search-results" :key="searchQuery">
-					<div
-						v-for="result in filteredTimezones"
-						:key="result.name"
-						class="search-result"
-						role="button"
-						tabindex="0"
-						@click="addTimezone(result)"
-					>
-						<div class="search-result-name">{{ result.label }}</div>
-						<div class="search-result-meta">
-							<span>{{ result.name }}</span>
-							<span>{{ getTimezoneOffset(result.name) }}</span>
-						</div>
-					</div>
-					<div class="no-results" v-if="filteredTimezones.length === 0">
-						No timezones found
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
+	</main>
 
 	<footer>
 		© 2025 <a href="https://rupumped.github.io" rel="author">Nicholas S. Selby</a>. Licensed under <a rel="license" target="_blank" href="https://github.com/rupumped/meridian/blob/main/LICENSE">GNU GPLv3</a>. <a rel="external" target="_blank" href="https://github.com/rupumped/meridian">Source code</a> available on GitHub.
