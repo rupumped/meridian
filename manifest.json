@@ -11,20 +11,26 @@
 	"icons": [
 		{
 			"src": "favicon.ico",
-			"sizes": "48x48",
+			"sizes": "256x256",
 			"type": "image/x-icon"
 		},
 		{
 			"src": "icon-192.png",
 			"sizes": "192x192",
 			"type": "image/png",
-			"purpose": "any maskable"
+			"purpose": "any"
 		},
 		{
 			"src": "icon-512.png",
 			"sizes": "512x512",
 			"type": "image/png",
-			"purpose": "any maskable"
+			"purpose": "any"
+		},
+		{
+			"src": "icon-maskable.png",
+			"sizes": "200x200",
+			"type": "image/png",
+			"purpose": "maskable"
 		},
 		{
 			"src": "icon-monochrome.png",
@@ -65,6 +71,14 @@
 			"label": "create calendar events",
 			"form_factor": "narrow",
 			"platform": "android"
+		},
+		{
+			"src": "fastlane/metadata/android/en-US/images/phoneScreenshots/5.png",
+			"sizes": "3436x1637",
+			"type": "image/png",
+			"label": "desktop",
+			"form_factor": "wide",
+			"platform": "windows"
 		}
 	],
 	"categories": ["productivity", "utilities"]

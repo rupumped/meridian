@@ -1,0 +1,84 @@
+<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+	<defs>
+		<!-- Day gradient -->
+		<linearGradient id="dayGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+			<stop offset="0%" stop-color="#fde047"/>
+			<stop offset="100%" stop-color="#fbbf24"/>
+		</linearGradient>
+		
+		<!-- Twilight gradient -->
+		<linearGradient id="twilightGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+			<stop offset="0%" stop-color="#a78bfa"/>
+			<stop offset="100%" stop-color="#7c3aed"/>
+		</linearGradient>
+		
+		<!-- Night gradient -->
+		<linearGradient id="nightGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+			<stop offset="0%" stop-color="#1e1e2e"/>
+			<stop offset="100%" stop-color="#2a2a3e"/>
+		</linearGradient>
+		
+		<!-- Clip path for circular globe shape -->
+		<clipPath id="globeClip">
+			<circle cx="50" cy="50" r="42"/>
+		</clipPath>
+	</defs>
+	
+	<!-- Maskable background -->
+	<rect x="0" y="0" width="100" height="100" fill="#1e1e2e"/>
+
+	<!-- Background circle outline -->
+	<circle cx="50" cy="50" r="44" fill="none" stroke="#6366f1" stroke-width="2" opacity="0.3"/>
+	
+	<!-- Globe bands clipped to circle - CURVED outward with more bulge -->
+	<g clip-path="url(#globeClip)">
+		<!-- Night band (left) -->
+		<path d="M -10,8 
+		         L 28,8 
+		         Q -2,50 28,92 
+		         L -10,92 Z" 
+		      fill="url(#nightGrad)"/>
+		
+		<!-- Twilight band (left) -->
+		<path d="M 28,8 
+		         Q -2,50 28,92 
+		         L 40,92 
+		         Q 10,50 40,8 Z" 
+		      fill="url(#twilightGrad)"/>
+		
+		<!-- Day band (center) - narrower -->
+		<path d="M 40,8 
+		         Q 10,50 40,92 
+		         L 60,92 
+		         Q 90,50 60,8 Z" 
+		      fill="url(#dayGrad)"/>
+		
+		<!-- Twilight band (right) -->
+		<path d="M 60,8 
+		         Q 90,50 60,92 
+		         L 72,92 
+		         Q 102,50 72,8 Z" 
+		      fill="url(#twilightGrad)"/>
+		
+		<!-- Night band (right) -->
+		<path d="M 72,8 
+		         Q 102,50 72,92 
+		         L 110,92 
+		         L 110,8 Z" 
+		      fill="url(#nightGrad)"/>
+	</g>
+	
+	<!-- Globe outline -->
+	<circle cx="50" cy="50" r="42" fill="none" stroke="#6366f1" stroke-width="2.5"/>
+	
+	<!-- Clock hands pointing to 10 and 2 -->
+	<!-- Hour hand pointing to 10 (shorter) -->
+	<line x1="50" y1="50" x2="35" y2="38" stroke="#1e1b4b" stroke-width="4" stroke-linecap="round"/>
+	
+	<!-- Minute hand pointing to 2 (longer) -->
+	<line x1="50" y1="50" x2="72" y2="30" stroke="#1e1b4b" stroke-width="3" stroke-linecap="round"/>
+	
+	<!-- Center dot -->
+	<circle cx="50" cy="50" r="4" fill="#1e1b4b"/>
+	<circle cx="50" cy="50" r="2" fill="#6366f1"/>
+</svg>

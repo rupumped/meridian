@@ -1,106 +1,62 @@
-const CACHE_NAME = 'meridian-v1';
-const ASSETS_TO_CACHE = [
-	'/meridian/',
-	'/meridian/index.html',
-	'/meridian/main.css',
-	'/meridian/index.js',
-	'/meridian/favicon.ico',
-	'/meridian/manifest.json',
-	// External CDN resources
-	'https://unpkg.com/vue@3/dist/vue.global.prod.js',
-	'https://cdn.jsdelivr.net/npm/luxon@3.4.4/build/global/luxon.min.js',
-	// Google Fonts
-	'https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Outfit:wght@300;400;500;600;700&display=swap'
-];
+importScripts('https://storage.googleapis.com/workbox-cdn/releases/6.5.4/workbox-sw.js');
 
-// Extract allowed origins from ASSETS_TO_CACHE
-const ALLOWED_ORIGINS = new Set(
-	ASSETS_TO_CACHE
-		.filter(url => url.startsWith('http'))
-		.map(url => new URL(url).origin)
-);
-ALLOWED_ORIGINS.add(self.location.origin);
+// Force waiting service worker to become active
+workbox.core.skipWaiting();
+workbox.core.clientsClaim();
 
-// Install event - cache essential assets
-self.addEventListener('install', (event) => {
-	console.log('[Service Worker] Installing...');
-	event.waitUntil(
-		caches.open(CACHE_NAME)
-			.then((cache) => {
-				console.log('[Service Worker] Caching app shell');
-				return cache.addAll(ASSETS_TO_CACHE);
-			})
-			.then(() => self.skipWaiting())
+if (workbox) {
+	console.log('Workbox loaded successfully');
+
+	// Essential core assets for precaching
+	workbox.precaching.precacheAndRoute([
+		{ url: '/meridian/index.html', revision: '0' },
+		{ url: '/meridian/main.css', revision: '0' },
+		{ url: '/meridian/index.js', revision: '0' },
+		{ url: '/meridian/favicon.ico', revision: '0' },
+		{ url: '/meridian/manifest.json', revision: '0' }
+	]);
+
+	// Cache Google Font stylesheets with SWR
+	workbox.routing.registerRoute(
+		({ request }) => request.origin === 'https://fonts.googleapis.com',
+		new workbox.strategies.StaleWhileRevalidate({
+			cacheName: 'google-fonts-stylesheets'
+		})
 	);
-});
 
-// Activate event - clean up old caches
-self.addEventListener('activate', (event) => {
-	console.log('[Service Worker] Activating...');
+	// Cache static assets: fonts and CDNs
+	workbox.routing.registerRoute(
+		({url}) => url.origin === 'https://fonts.gstatic.com' || url.origin === 'https://unpkg.com/vue@3/dist/vue.global.prod.js' || url.origin === 'https://cdn.jsdelivr.net/npm/luxon@3.4.4/build/global/luxon.min.js',  
+		new workbox.strategies.CacheFirst({
+			cacheName: 'static-cache',  
+			plugins: [
+				new workbox.expiration.ExpirationPlugin({
+					maxAgeSeconds: 365 * 24 * 60 * 60,  // Cache static resources for 1 year
+				}),
+			],
+		})
+	);
+} else {
+	console.log('Workbox failed to load');
+}
+
+// Clean up old/unused caches during activation
+self.addEventListener('activate', event => {
+	const currentCaches = [
+		workbox.core.cacheNames.precache,
+		'static-cache',
+		'google-fonts-stylesheets'
+	];
+
 	event.waitUntil(
-		caches.keys().then((cacheNames) => {
+		caches.keys().then(cacheNames => {
 			return Promise.all(
-				cacheNames
-					.filter((name) => name !== CACHE_NAME)
-					.map((name) => {
-						console.log('[Service Worker] Deleting old cache:', name);
-						return caches.delete(name);
-					})
-			);
-		}).then(() => self.clients.claim())
-	);
-});
-
-// Fetch event - serve from cache, fallback to network
-self.addEventListener('fetch', (event) => {
-	// Check if request origin is allowed
-	const requestOrigin = new URL(event.request.url).origin;
-	if (!ALLOWED_ORIGINS.has(requestOrigin)) {
-		return;
-	}
-
-	const url = new URL(event.request.url);
-	const isNavigationRequest = event.request.mode === 'navigate';
-	
-	// For navigation requests (user opening the app), always go to network
-	// This ensures we get the current HTML with user's URL state
-	if (isNavigationRequest) {
-		event.respondWith(
-			fetch(event.request).catch(() => {
-				// If offline, serve cached HTML as fallback
-				return caches.match('/meridian/index.html');
-			})
-		);
-		return;
-	}
-
-	// For all other requests (CSS, JS, fonts, etc.), use cache-first strategy
-	event.respondWith(
-		caches.match(event.request)
-			.then((response) => {
-				if (response) {
-					console.log('[Service Worker] Serving from cache:', event.request.url);
-					return response;
-				}
-
-				console.log('[Service Worker] Fetching:', event.request.url);
-				return fetch(event.request).then((response) => {
-					// Don't cache non-successful responses
-					if (!response || response.status !== 200 || response.type === 'error') {
-						return response;
+				cacheNames.map(cacheName => {
+					if (!currentCaches.includes(cacheName)) {
+						return caches.delete(cacheName);
 					}
-
-					// Clone and cache the response
-					const responseToCache = response.clone();
-					caches.open(CACHE_NAME).then((cache) => {
-						cache.put(event.request, responseToCache);
-					});
-
-					return response;
-				});
-			})
-			.catch(() => {
-				console.log('[Service Worker] Fetch failed, offline');
-			})
+				})
+			);
+		})
 	);
 });

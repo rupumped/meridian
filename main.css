@@ -60,6 +60,10 @@ body {
 	overflow-x: hidden;
 }
 
+a:visited, a:link {
+	color: var(--accent);
+}
+
 #app {
 	min-height: 100vh;
 	min-height: 100dvh;
