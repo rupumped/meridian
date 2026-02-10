@@ -5,12 +5,12 @@
 	--bg-tertiary: #1a1a24;
 	--text-primary: #f0f0f5;
 	--text-secondary: #8888a0;
-	--text-muted: #555566;
+	--text-muted: #888899;
 	--accent: #6366f1;
 	--accent-glow: rgba(99, 102, 241, 0.3);
 	--night-dark: #1e1e2e;
 	--night-light: #2a2a3e;
-	--night-text: #a0a0b8;
+	--night-text: #a8a8ba;
 	--day-light: #fef9c3;
 	--day-dark: #fde047;
 	--twilight: #a78bfa;
@@ -28,12 +28,12 @@
 		--bg-tertiary: #e8ecf2;
 		--text-primary: #1a202c;
 		--text-secondary: #5a6577;
-		--text-muted: #9ca3af;
+		--text-muted: #6c717a;
 		--accent: #4f46e5;
 		--accent-glow: rgba(79, 70, 229, 0.2);
 		--night-dark: #3d4663;
 		--night-light: #5a6483;
-		--night-text: #d1d5db;
+		--night-text: #f2f4f5;
 		--day-light: #fef9c3;
 		--day-dark: #fcd34d;
 		--twilight: #c4b5fd;
@@ -61,7 +61,13 @@ body {
 }
 
 a:visited, a:link {
-	color: var(--accent);
+	color: var(--twilight);
+}
+
+@media (prefers-color-scheme: light) {
+	a:visited, a:link {
+		color: var(--accent);
+	}
 }
 
 #app {
@@ -234,10 +240,16 @@ header {
 	left: -0.5em;
 	font-size: 11px;
 	font-weight: 600;
-	color: var(--accent);
+	color: var(--twilight);
 	text-transform: uppercase;
 	letter-spacing: 0.5px;
 	transform: rotate(90deg);
+}
+
+@media (prefers-color-scheme: light) {
+	.now-line::after {
+		color: var(--accent);
+	}
 }
 
 .timezone-info, .timezone-current-time, .drag-handle, .delete-btn {
@@ -451,12 +463,12 @@ header {
 
 .hour-cell.twilight {
 	background: linear-gradient(180deg, #4c1d95 0%, #6d28d9 100%);
-	color: #e9d5ff;
+	color: #efe1fd;
 }
 
 .hour-cell.day {
 	background: linear-gradient(180deg, var(--day-light) 0%, var(--day-dark) 100%);
-	color: #78350f;
+	color: #73320c;
 }
 
 .hour-cell.current {

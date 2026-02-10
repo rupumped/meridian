@@ -53,14 +53,14 @@
 				<span class="logo-text">Meridian</span>
 			</div>
 			<div class="header-actions">
-				<button id="shareButton" class="btn" @click="copyLink">
-					<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+				<button id="shareButton" class="btn" @click="copyLink" title="Share">
+					<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-label="share">
 						<path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path>
 						<path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path>
 					</svg>
 				</button>
-				<button id="copyAsTextButton" class="btn" @click="copyAsText">
-					<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+				<button id="copyAsTextButton" class="btn" @click="copyAsText" title="Copy">
+					<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-label="copy">
 						<rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
 						<path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
 					</svg>
@@ -69,7 +69,7 @@
 					?
 				</button>
 				<button class="btn" @click="showSearch = true">
-					<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+					<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-label="add">
 						<line x1="12" y1="5" x2="12" y2="19"></line>
 						<line x1="5" y1="12" x2="19" y2="12"></line>
 					</svg>
@@ -82,7 +82,7 @@
 		<div class="current-time-bar">
 			<div class="current-date">{{ formattedDate }}</div>
 			<div class="current-time-wrapper">
-				<div class="current-time" @click="resetToCurrentTime" title="Click to reset to current time">{{ formattedTime }}</div>
+				<div class="current-time" @click="resetToCurrentTime" role="button" tabindex="0" title="Click to reset to current time">{{ formattedTime }}</div>
 				<button class="btn btn-small" @click="use24Hour = !use24Hour">
 					{{ use24Hour ? '24h' : '12h' }}
 				</button>
@@ -113,6 +113,8 @@
 					<div class="timezone-header">
 						<div
 							class="drag-handle"
+							role="button"
+							tabindex="0"
 							draggable="true"
 							@dragstart="onDragStart($event, index)"
 							@dragend="onDragEnd"
@@ -120,7 +122,7 @@
 							@touchmove="onReorderTouchMove($event, index)"
 							@touchend="onReorderTouchEnd"
 						>
-							<svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+							<svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-label="reorder">
 								<circle cx="9" cy="6" r="1.5"></circle>
 								<circle cx="15" cy="6" r="1.5"></circle>
 								<circle cx="9" cy="12" r="1.5"></circle>
@@ -135,6 +137,8 @@
 								<span
 									class="timezone-label"
 									:class="{ editable: editingIndex !== index }"
+									role="button"
+									tabindex="0"
 									@click="startEditingLabel(index)"
 									v-if="editingIndex !== index"
 								>
@@ -156,12 +160,12 @@
 								<span class="timezone-offset">{{ getTimezoneOffset(tz.name) }}</span>
 							</div>
 						</div>
-						<div class="timezone-current-time" @click="openTimeJumpModal(tz.name)" title="Click to jump to a specific date/time">
+						<div class="timezone-current-time" role="button" tabindex="0" @click="openTimeJumpModal(tz.name)" title="Click to jump to a specific date/time">
 							<span class="timezone-current-time-value">{{ getCurrentTimeInZone(tz.name) }}</span>
 							<span class="timezone-current-date">{{ getCurrentDateInZone(tz.name) }}</span>
 						</div>
 						<button class="delete-btn" @click="removeTimezone(index)" title="Remove">
-							<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+							<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-label="remove">
 								<line x1="18" y1="6" x2="6" y2="18"></line>
 								<line x1="6" y1="6" x2="18" y2="18"></line>
 							</svg>
@@ -174,6 +178,8 @@
 							class="hour-strip"
 							:class="{ dragging: isDragging }"
 							:style="{ transform: `translateX(${getStripOffset(index)}px)` }"
+							role="button"
+							tabindex="0"
 							@mousedown="startDrag"
 							@touchstart="startDrag"
 						>
@@ -188,6 +194,8 @@
 									{ pm11: hour.hour == 23},
 									{ am12: hour.hour == 0}
 								]"
+								role="button"
+								tabindex="0"
 								@click="openEventModal(tz.name, hour)"
 							>
 								<div class="hour-date" v-if="hour.showDate">{{ hour.dateLabel }}</div>
@@ -433,6 +441,8 @@
 						v-for="result in filteredTimezones"
 						:key="result.name"
 						class="search-result"
+						role="button"
+						tabindex="0"
 						@click="addTimezone(result)"
 					>
 						<div class="search-result-name">{{ result.label }}</div>
