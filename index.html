@@ -93,6 +93,8 @@
 		<div class="time-grid-container" v-if="timezones.length > 0">
 			<!-- Alignment Line -->
 			<div class="alignment-line"></div>
+			<!-- Now Line (shows actual current time when scrolled away) -->
+			<div class="now-line" :style="{ left: `calc(50% - ${offsetHours * 56}px)` }"></div>
 
 			<!-- Timezone List -->
 			<div class="timezone-list">
