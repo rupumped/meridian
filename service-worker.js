@@ -18,7 +18,7 @@ if (workbox) {
 
 	// Cache Google Font stylesheets with SWR
 	workbox.routing.registerRoute(
-		({ request }) => request.origin === 'https://fonts.googleapis.com',
+		({url}) => url.origin === 'https://fonts.googleapis.com',
 		new workbox.strategies.StaleWhileRevalidate({
 			cacheName: 'google-fonts-stylesheets'
 		})
@@ -26,15 +26,22 @@ if (workbox) {
 
 	// Cache static assets: fonts and CDNs
 	workbox.routing.registerRoute(
-		({url}) => url.origin === 'https://fonts.gstatic.com' || url.origin === 'https://unpkg.com/vue@3/dist/vue.global.prod.js' || url.origin === 'https://cdn.jsdelivr.net/npm/luxon@3.4.4/build/global/luxon.min.js',  
+		({url}) => url.origin === 'https://fonts.gstatic.com' || url.href === 'https://unpkg.com/vue@3/dist/vue.global.prod.js' || url.href === 'https://cdn.jsdelivr.net/npm/luxon@3.4.4/build/global/luxon.min.js',
 		new workbox.strategies.CacheFirst({
-			cacheName: 'static-cache',  
+			cacheName: 'static-cache',
 			plugins: [
 				new workbox.expiration.ExpirationPlugin({
 					maxAgeSeconds: 365 * 24 * 60 * 60,  // Cache static resources for 1 year
 				}),
 			],
 		})
+	);
+
+	// Serve cached index.html for all navigation requests (offline fallback)
+	workbox.routing.registerRoute(
+		new workbox.routing.NavigationRoute(
+			workbox.precaching.createHandlerBoundToURL('/meridian/index.html')
+		)
 	);
 } else {
 	console.log('Workbox failed to load');
