@@ -2,7 +2,6 @@
 <html lang="en-US">
 <head>
 	<title>Meridian</title>
-	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 
 	<!-- SEO Description -->
@@ -195,8 +194,6 @@
 										{ pm11: hour.hour == 23},
 										{ am12: hour.hour == 0}
 									]"
-									role="button"
-									tabindex="0"
 									@click="openEventModal(tz.name, hour)"
 								>
 									<div class="hour-date" v-if="hour.showDate">{{ hour.dateLabel }}</div>
