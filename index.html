@@ -178,8 +178,9 @@
 								class="hour-strip"
 								:class="{ dragging: isDragging }"
 								:style="{ transform: `translateX(${getStripOffset(index)}px)` }"
-								role="button"
+								role="toolbar"
 								tabindex="0"
+								:aria-label="'Hour timeline for ' + (tz.label || tz.name)"
 								@mousedown="startDrag"
 								@touchstart="startDrag"
 							>
@@ -194,6 +195,8 @@
 										{ pm11: hour.hour == 23},
 										{ am12: hour.hour == 0}
 									]"
+									role="button"
+									tabindex="0"
 									@click="openEventModal(tz.name, hour)"
 								>
 									<div class="hour-date" v-if="hour.showDate">{{ hour.dateLabel }}</div>
